@@ -1,0 +1,39 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "温度<1.0对语言模型的输出分布有什么影响？",
+      "options": ["使分布更均匀（更随机）", "锐化分布，使最高概率的token更有可能", "移除除最高概率token外的所有token", "对输出没有影响"],
+      "correct": 1,
+      "explanation": "温度<1.0将logits除以小于1的数，放大logits之间的差异。softmax后，最高概率的token获得更大的份额。温度接近0时得到贪婪（argmax）解码。"
+    },
+    {
+      "stage": "pre",
+      "question": "top-k和top-p（核）采样的关键区别是什么？",
+      "options": ["Top-k比top-p更快", "Top-k保留固定数量的token；top-p根据累积概率保留可变数量的token", "Top-p只在温度=1.0时有效", "Top-k对logits工作而top-p对概率工作"],
+      "correct": 1,
+      "explanation": "Top-k总是保留恰好k个token，无论概率分布如何。Top-p自适应地保留累积概率超过p的最小token集合。当模型确信时，top-p保留少量token；当不确定时，保留大量token。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么不能反向传播通过标准采样操作z ~ N(mu, sigma^2)？",
+      "options": ["正态分布没有梯度", "采样操作是非确定性的，对mu和sigma没有明确定义的导数", "PyTorch不支持正态分布", "梯度总是恰好为零"],
+      "correct": 1,
+      "explanation": "采样引入随机不连续性——你无法计算d(sample)/d(mu)。重参数化技巧通过写z = mu + sigma * epsilon（其中epsilon ~ N(0,1)）解决此问题，使z成为mu和sigma的确定性、可微函数。"
+    },
+    {
+      "stage": "post",
+      "question": "在Metropolis-Hastings MCMC中，如果提议标准差设置得太大，会发生什么？",
+      "options": ["链收敛更快，因为它迈出更大步", "大多数提议落在低概率区域并被拒绝，所以链几乎不动", "平稳分布变为均匀分布", "预烧期变为零"],
+      "correct": 1,
+      "explanation": "提议标准差大时，提议点远离当前位置，可能落在低概率区域。这些被拒绝，导致链卡在当前点。对于高维高斯提议，最优接受率约为23%。"
+    },
+    {
+      "stage": "post",
+      "question": "在拒绝采样中，随着目标分布维度的增加，接受率会发生什么变化？",
+      "options": ["它保持不变，与维度无关", "它增加，因为有更多维度可以接受", "它指数下降，因为大部分提议体积被拒绝", "在所有情况下都接近50%"],
+      "correct": 2,
+      "explanation": "在高维中，提议分布与目标分布重叠的体积指数级缩小。边界M增长，接受率(1/M)指数下降。这是拒绝采样的维度诅咒。"
+    }
+  ]
+}

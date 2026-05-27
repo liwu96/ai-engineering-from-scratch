@@ -1,0 +1,39 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "当系统Ax = b没有精确解时，几何上意味着什么？",
+      "options": ["矩阵A所有元素都为零", "向量b不在A的列空间中", "系统未知数比方程多", "矩阵A是对称的"],
+      "correct": 1,
+      "explanation": "在列视图中，Ax = b问：A的列的什么线性组合产生b？如果b不在列空间（A列的跨度）中，则不存在精确解。这发生在系统超定（方程比未知数多）时。"
+    },
+    {
+      "stage": "pre",
+      "question": "为什么在高斯消元中使用部分选主元？",
+      "options": ["它将时间复杂度从O(n^3)降到O(n^2)", "它选择最大的可用主元以最小化除以小数时的误差放大", "它确保结果总是整数", "它消除回代的需求"],
+      "correct": 1,
+      "explanation": "不选主元时，除以小的主元会放大舍入误差。部分选主元通过交换行将最大绝对值放在主元位置，保持乘数小，计算数值稳定。"
+    },
+    {
+      "stage": "post",
+      "question": "在岭回归中解决(X^T X + lambda I) w = X^T y时，为什么Cholesky分解比LU更受青睐？",
+      "options": ["Cholesky对任何矩阵都有效，而LU需要方阵", "矩阵X^T X + lambda I是对称正定的，所以Cholesky比LU快两倍，存储减半", "Cholesky比LU给出更准确的答案", "LU分解无法处理正则化项"],
+      "correct": 1,
+      "explanation": "当lambda > 0时，X^T X + lambda I总是对称正定的。Cholesky在O(n^3/3)操作中分解A = LL^T——大约是LU的O(2n^3/3)的一半——且只需要下三角。它利用了LU不利用的对称性。"
+    },
+    {
+      "stage": "post",
+      "question": "矩阵条件数kappa = 10^8。你使用float64（约15位精度）。你可以信任解的多少位数字？",
+      "options": ["约15位", "约7位(15 - log10(10^8) = 15 - 8)", "约8位", "零位——解无意义"],
+      "correct": 1,
+      "explanation": "你大约失去log10(kappa)位精度。kappa = 10^8时，你从float64的约15位失去约8位，剩下约7位可信数字。如果kappa接近10^16，在float64中解变得无意义。"
+    },
+    {
+      "stage": "post",
+      "question": "当你需要为许多不同的b向量求解Ax = b时，LU分解相比高斯消元的主要优势是什么？",
+      "options": ["LU分解数值更稳定", "O(n^3)分解做一次；每个后续的新b求解只花费O(n^2)", "LU分解对矩形矩阵有效", "LU总是产生唯一解"],
+      "correct": 1,
+      "explanation": "LU在O(n^3)中一次分解A = LU。然后对每个新b，你求解Ly = b（前向代入）和Ux = y（回代），每个O(n^2)。高斯消元会为每个新b重做完整的O(n^3)。"
+    }
+  ]
+}

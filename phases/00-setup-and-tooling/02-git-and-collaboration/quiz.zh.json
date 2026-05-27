@@ -1,0 +1,39 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "版本控制主要帮助你做什么？",
+      "options": ["加速代码执行", "追踪文件随时间的变化并与他人协作", "压缩文件以节省磁盘空间", "自动修复代码中的错误"],
+      "correct": 1,
+      "explanation": "像git这样的版本控制系统追踪对文件所做的每一次更改，允许你恢复到以前的状态，并与其他人在同一代码库上协作。"
+    },
+    {
+      "stage": "pre",
+      "question": "在软件开发中，什么是'仓库'？",
+      "options": ["像Google Drive这样的云存储服务", "由版本控制管理的文件集合及其完整的更改历史", "用于存储用户数据的数据库", "用于安装库的包管理器"],
+      "correct": 1,
+      "explanation": "仓库（repo）是由git追踪的目录，包含所有项目文件以及对这些文件所做的完整更改历史。"
+    },
+    {
+      "stage": "post",
+      "question": "在git中保存和备份工作的正确顺序是什么？",
+      "options": ["git push, git add, git commit", "git commit, git add, git push", "git add, git commit, git push", "git clone, git add, git push"],
+      "correct": 2,
+      "explanation": "首先使用'git add'暂存更改，然后使用'git commit'保存快照，最后使用'git push'上传到远程仓库。这是日常工作流程。"
+    },
+    {
+      "stage": "post",
+      "question": "'git checkout -b experiment/new-optimizer' 做什么？",
+      "options": ["从GitHub下载名为experiment/new-optimizer的分支", "创建名为experiment/new-optimizer的新分支并切换到它", "删除experiment/new-optimizer分支", "将所有文件恢复到与experiment/new-optimizer分支匹配"],
+      "correct": 1,
+      "explanation": "'-b'标志创建具有给定名称的新分支，并立即切换到它，允许你在不影响主分支的情况下进行实验。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么应该将'.pt'、'.pth'和'.safetensors'添加到.gitignore中？",
+      "options": ["它们是不应该提交的Python测试文件", "它们是太大而不适合git的模型检查点文件，可以重新生成", "它们包含敏感的API密钥", "Git无法追踪任何类型的二进制文件"],
+      "correct": 1,
+      "explanation": "模型检查点文件（.pt、.pth、.safetensors）通常有数GB大小。Git不是为大型二进制文件设计的，因此这些文件应该被排除并重新生成或单独存储。"
+    }
+  ]
+}

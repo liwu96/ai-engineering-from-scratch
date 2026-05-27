@@ -1,0 +1,39 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "虚拟环境解决了什么问题？",
+      "options": ["它们通过优化解释器使Python代码运行更快", "它们隔离项目依赖，使不同项目可以使用不同的包版本", "它们提供用于管理Python脚本的图形界面", "它们自动将包更新到最新版本"],
+      "correct": 1,
+      "explanation": "虚拟环境为每个项目提供自己独立的包集。没有它们，为一个项目安装PyTorch 2.4会覆盖另一个项目所需的PyTorch 2.1。"
+    },
+    {
+      "stage": "pre",
+      "question": "在Python依赖管理的上下文中，什么是锁定文件？",
+      "options": ["一个阻止其他用户编辑你代码的文件", "一个将每个包固定到确切版本以实现可重现安装的文件", "一个锁定Python解释器版本的文件", "一个加密你项目依赖的文件"],
+      "correct": 1,
+      "explanation": "锁定文件记录每个包的确切版本（包括传递依赖），因此任何人从它安装都会获得相同的包，确保可重现性。"
+    },
+    {
+      "stage": "post",
+      "question": "如何验证你的pip和python命令使用的是虚拟环境而不是系统Python？",
+      "options": ["运行'pip --version'并检查版本号", "运行'which python'并确认它显示.venv/bin/python而不是/usr/bin/python", "检查终端背景颜色是否已更改", "运行'python --check-env'进行验证"],
+      "correct": 1,
+      "explanation": "'which python'（或Windows上的'where python'）显示解释器的完整路径。如果它指向.venv/bin/python，你就在虚拟环境中。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么在同一个环境中混合使用pip和conda会有问题？",
+      "options": ["Pip包与conda的Python解释器不兼容", "Pip安装会破坏conda的依赖跟踪，导致难以调试的冲突", "Conda无法安装pip已经安装的包", "它会使每个包使用的磁盘空间翻倍"],
+      "correct": 1,
+      "explanation": "Conda维护自己的依赖求解器。Pip安装绕过它，因此conda不再知道环境的真实状态。这导致难以解决的依赖冲突。"
+    },
+    {
+      "stage": "post",
+      "question": "尽管有NVIDIA GPU，你的PyTorch代码报告'CUDA不可用'。最可能的原因是什么？",
+      "options": ["你的GPU不支持CUDA", "PyTorch安装的CUDA版本与你的GPU驱动不兼容", "你忘记导入torch.cuda模块", "虚拟环境无法访问GPU硬件"],
+      "correct": 1,
+      "explanation": "PyTorch提供为特定CUDA版本编译的CUDA绑定。如果PyTorch CUDA版本超过驱动器的CUDA版本，CUDA将不可用。使用nvidia-smi和torch.version.cuda检查。"
+    }
+  ]
+}
