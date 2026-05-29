@@ -15,7 +15,7 @@
 
 模型上下文协议坍塌那矩阵。一JSON-RPC基规范。一服务器暴露工具、资源和提示词。任合规主机—Claude Desktop、ChatGPT、Cursor、Claude Code、Zed和长尾代理框架—可发现和调用它们无自定义胶。
 
-于2026初，MCP是跨三Anthropic、OpenAI、Google)和每主代理Harness默工具和上下文协议。
+于2026初，MCP是跨三(Anthropic、OpenAI、Google)和每主流代理框架的默认工具和上下文协议。
 
 ## 概念讲解
 

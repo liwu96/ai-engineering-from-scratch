@@ -11,7 +11,7 @@
 
 单自注意力头计算一个注意力矩阵。那矩阵捕获一种关系——通常是训练信号最小化loss的那种。如果你的数据有主谓一致、共指、长程话语、和句法分块全缠在一起,单头把它们糊成单softmax分布丢半信号。
 
-2017 Vaswani论文修复:并行跑多注意力函数,每配自己Q, K, V投影,拼接输出。每头在`d_model / n_heads`维更小子空间操作。总参数不变。表达能力上。
+2017 Vaswani论文修复:并行跑多注意力函数,每配自己Q, K, V投影,拼接输出。每头在`d_model / n_heads`维的更小子空间中操作。总参数不变。表达能力提升。
 
 多头注意力是2026每个transformer默认配的。唯一争论是*多少*头和key/value是否共享投影(Grouped-Query Attention, Multi-Query Attention, Multi-head Latent Attention)。
 

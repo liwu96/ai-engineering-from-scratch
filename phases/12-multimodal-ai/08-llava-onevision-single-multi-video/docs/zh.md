@@ -1,6 +1,6 @@
 # LLaVA-OneVision:单图、多图、视频于一模型
 
-> LLaVA-OneVision前(Li et al., 2024年8月)开VLM界有分离lineage:LLaVA-1.5单图、Mantis和VILA多图模型、Video-LLaVA和Video-LLaMA视频模型。每赢己benchmark败于他。LLaVA-OneVision argue单课程可训一模型主导三场景,且emergent task-transfer效(单图技能export至视频,多图推理export至单图)超专家总和。配方deceptively简:跨场景持常visual-token预算,加显课程从单图移至OneVision(多图)至视频。本课读预算、课程和emergent行为。
+> LLaVA-OneVision前(Li et al., 2024年8月)开VLM界有分离lineage:LLaVA-1.5单图、Mantis和VILA多图模型、Video-LLaVA和Video-LLaMA视频模型。每赢己benchmark败于他。LLaVA-OneVision argue单课程可训一模型主导三场景,且emergent task-transfer效(单图技能export至视频,多图推理export至单图)超专家总和。配方出乎意料地简单:跨场景持常visual-token预算,加显课程从单图移至OneVision(多图)至视频。本课读预算、课程和emergent行为。
 
 **类型:** 构建
 **语言:** Python(stdlib,token budget solver + curriculum planner)
@@ -76,7 +76,7 @@ Token预算需pooling。OneVision用patch grid上bilinear interpolation:24x24 = 
 
 ### LLaVA-OneVision-1.5
 
-2025 follow-up(LLaVA-OneVision-1.5, arXiv 2509.23661)是"全开"训数据、模型权重和代码。某benchmark匹proprietary缝和配方民主化。同课程,多数据,好base LLM。无架构改。
+2025 follow-up(LLaVA-OneVision-1.5, arXiv 2509.23661)是"全开"训数据、模型权重和代码。某benchmark匹闭源模型水平和配方民主化。同课程,多数据,好base LLM。无架构改。
 
 ### 与Qwen2.5-VL比
 

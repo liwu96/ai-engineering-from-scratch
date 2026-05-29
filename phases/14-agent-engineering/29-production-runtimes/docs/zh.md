@@ -129,7 +129,7 @@ Output:五trace显每形同task behavior。同agent logic、异outer shell。Dur
 | Queue-based | "Background job" | Producer/worker pool/DLQ |
 | Event-driven | "Trigger-based" | Agent react外event |
 | DLQ | "Dead-letter queue" | Failed job parking lot |
-| Claude Managed Agent | "托管harness" | Anthropic-hosted长运行async带caching+compaction |
+| Claude Managed Agent | "托管框架" | Anthropic-hosted长运行async带caching+compaction |
 
 ## 延伸阅读
 

@@ -1,6 +1,6 @@
 # LangGraph — 代理状态机
 
-> 手写ReAct循环是`while True`。LangGraph写ReAct循环是可checkpoint、可interrupt、可branch、可time-travel的图。代理未变。Harness变了。
+> 手写ReAct循环是`while True`。LangGraph写ReAct循环是可checkpoint、可interrupt、可branch、可time-travel的图。代理未变。框架变了。
 
 **类型:** 构建
 **语言:** Python
@@ -11,7 +11,7 @@
 
 你发函数调用代理。三转后出错:模型试返回500工具、用户中途改意或代理未经人批准退款。`while True:`循环无钩。不可暂停、不可回退、不可分支进"若模型择他工具"。一过demo,代理成黑盒或工或不工。
 
-次步一见即明。代理已是状态机—系统提示词加消息历史加待理工具调用加次动作。显化状态机:"模型思考"、"工具运行"、"人批准"节点和其间条件转换边。图显化,harness得四免费物:checkpointing(步间存状态)、interrupts(为人暂停)、streaming(流token和中间事件)、time-travel(回退至前态试别分支)。
+次步一见即明。代理已是状态机—系统提示词加消息历史加待理工具调用加次动作。显化状态机:"模型思考"、"工具运行"、"人批准"节点和其间条件转换边。图显化,框架得四免费物:checkpointing(步间存状态)、interrupts(为人暂停)、streaming(流token和中间事件)、time-travel(回退至前态试别分支)。
 
 LangGraph是发此抽象库。非LangChain意代理框架("这是AgentExecutor,好运")。是一等状态、一等持久化、一等interrupt图运行时。代理循环是画非手写。
 

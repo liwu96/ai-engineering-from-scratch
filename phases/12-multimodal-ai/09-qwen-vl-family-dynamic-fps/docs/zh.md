@@ -1,6 +1,6 @@
 # Qwen-VL族和动态FPS视频
 
-> Qwen-VL族—Qwen-VL(2023)、Qwen2-VL(2024)、Qwen2.5-VL(2025)、Qwen3-VL(2025)—是2026最有影响开视觉语言模型lineage。每代做单决架构赌开生态十二月内复制:经M-RoPE原生动态分辨率、动态FPS采样带绝对时对齐、ViT window attention和结构代理输出格式。至Qwen3-VL,配方稳:2D-RoPE ViT编码器带原生纵横比输入、MLP projector入大Qwen3语言基和训阶段强调OCR、grounding和代理行为为一等目标。本课按时间读族使你理解何每knob何处。
+> Qwen-VL族—Qwen-VL(2023)、Qwen2-VL(2024)、Qwen2.5-VL(2025)、Qwen3-VL(2025)—是2026最有影响开视觉语言模型lineage。每代做单决架构赌开生态十二月内复制:经M-RoPE原生动态分辨率、动态FPS采样带绝对时对齐、ViT window attention和结构代理输出格式。至Qwen3-VL,配方稳:2D-RoPE ViT编码器带原生纵横比输入、MLP projector入大Qwen3语言基和训阶段强调OCR、grounding和代理行为为一等目标。本课按时间读族使你理解每个旋钮的作用和位置。
 
 **类型:** 学习
 **语言:** Python(stdlib,M-RoPE encoder + dynamic-FPS sampler)

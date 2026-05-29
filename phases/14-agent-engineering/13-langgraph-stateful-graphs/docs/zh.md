@@ -85,7 +85,7 @@ Trace显首run human gate失败、持久、后resume产终output。
 
 - **LangGraph**——reference、产ready。用`create_react_agent`、`create_supervisor`、或建己graph。
 - **AutoGen v0.4**(课程14)——actor model alternative用于高并发场景。
-- **Claude Agent SDK**(课程17)——managed harness带内置session store。
+- **Claude Agent SDK**(课程17)——managed框架带内置session store。
 - **Custom**——当需exact控state形或checkpointer backend。
 
 ## 交付成果

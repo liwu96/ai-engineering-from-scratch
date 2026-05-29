@@ -56,7 +56,7 @@ BLIP-2两阶段预训:
 
 ### 参数经济
 
-BLIP-2 ViT-g/14 (1.1B冻) + OPT-6.7B (6.7B冻) + Q-Former (188M训) = 8B总,188M训。Q-Former独是全栈参数~2.4%。训成本反映此: handful A100上天vs端到端周。
+BLIP-2 ViT-g/14 (1.1B冻) + OPT-6.7B (6.7B冻) + Q-Former (188M训) = 8B总,188M训。Q-Former独是全栈参数~2.4%。训成本反映此: 少量A100上数天vs端到端数周。
 
 质量:BLIP-2零VQA匹或超Flamingo-80B于50x小。桥工。
 

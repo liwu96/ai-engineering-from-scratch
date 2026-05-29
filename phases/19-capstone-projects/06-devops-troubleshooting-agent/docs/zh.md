@@ -74,7 +74,7 @@ PagerDuty / Alertmanager webhook
 
 4. **根因智能体。** LangGraph三节点: `sample`拉最近15分钟遥测切片、`walk`查图邻居对象、`hypothesize`起草带遥测引用的排序根因候选。
 
-5. **证据评分。** 每假设评分 = recency * specificity * graph-path length inverse * citation count。返top-3。
+5. **证据评分。** 每假设评分 = 时近性 * 特异性 * 图路径长度倒数 * 引用数。返top-3。
 
 6. **Slack简报。** 发attachment带假设、图路径可视化(服务端渲染子图图像)、和最多一修复动作审批按钮。
 
@@ -130,7 +130,7 @@ webhook: alert.pagerduty.com -> checkout-api SLO breach, error rate 14%
 | K8s知识图 | "集群图" | 节点 = K8s对象 + 遥测series; 边 = 所有权、调度、观察 |
 | 默认只读 | "Scoped RBAC" | 智能体service account仅有get/list/describe动词; 破坏性动词于审批后独立服务 |
 | 审计日志 | "考虑vs执行" | 仅追加记录每候选命令、运行与否、谁审批 |
-| 假设排序 | "证据评分" | Recency × specificity × graph-path length inverse × citation count |
+| 假设排序 | "证据评分" | 时近性 × 特异性 × 图路径长度倒数 × 引用数 |
 | Slack审批卡 | "HITL门" | 带修复按钮的交互Slack消息; 智能体不可进展至人工点击 |
 | 遥测引用 | "证据指针" | 支持claim的Prometheus query、Loki selector、或Tempo trace URL |
 | MTTR | "解决时间" | 告警触发到SLO恢复wall-clock |

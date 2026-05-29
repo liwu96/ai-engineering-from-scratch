@@ -1,6 +1,6 @@
 # JAX简介
 
-> PyTorch变异张量。TensorFlow建图。JAX编译纯函数。那最后者改你如何思深度学习。
+> PyTorch修改张量。TensorFlow构建计算图。JAX编译纯函数。最后这个会改变你对深度学习的思考方式。
 
 **类型:** 构建
 **语言:** Python

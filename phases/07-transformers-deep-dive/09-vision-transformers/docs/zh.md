@@ -1,6 +1,6 @@
 # Vision Transformer (ViT)
 
-> 图像patch网格。句子词元网格。同一transformer吃两者。
+> 图像是一个patch网格。句子是一个词元网格。同一个transformer能处理两者。
 
 **类型:** 构建
 **语言:** Python

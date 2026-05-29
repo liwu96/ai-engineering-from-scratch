@@ -104,7 +104,7 @@ Meta 2026 agent安全"二元律"说单轮可合最多二:不可信输入、敏�
 
 ## 使用
 
-`code/main.py`无LLM跑四步循环。假"decider"函数模拟模型通过匹配用户消息模式;执行器、schema验器、observe步 harness是真。跑它看完整请求/响应编排带可打印中间态,后换假decider为任真实提供者。
+`code/main.py`无LLM跑四步循环。假"decider"函数模拟模型通过匹配用户消息模式;执行器、schema验器、observe步的测试框架是真实的。跑它看完整请求/响应编排带可打印中间态,后换假decider为任真实提供者。
 
 看点:
 

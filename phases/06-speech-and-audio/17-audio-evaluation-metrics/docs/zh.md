@@ -1,6 +1,6 @@
 # 音频评估——WER、MOS、UTMOS、MMAU、FAD和开放排行榜
 
-> 你不能发货你不能测量的。本课命名2026每个音频任务指标:ASR(WER、CER、RTFx)、TTS(MOS、UTMOS、SECS、WER-on-ASR-round-trip)、音频语言(MMAU、LongAudioBench)、音乐(FAD、CLAP)、说话人(EER)。加你比较的排行榜。
+> 你无法发布你无法衡量的东西。本课列举了2026年每个音频任务的指标：ASR(WER、CER、RTFx)、TTS(MOS、UTMOS、SECS、WER-on-ASR-round-trip)、音频语言(MMAU、LongAudioBench)、音乐(FAD、CLAP)、说话人(EER)。以及用于比较的排行榜。
 
 **类型:** 学习
 **语言:** Python
@@ -9,7 +9,7 @@
 
 ## 问题背景
 
-每个音频任务有多指标,各测不同轴。用错指标是你发货仪表盘上看棒但生产中看糟的模型原因。2026规范列表:
+每个音频任务有多个指标，各自测量不同的维度。使用错误的指标是让你发布一个仪表盘上看起来很好但生产中表现糟糕的模型的原因。2026年规范列表：
 
 | 任务 | 主要 | 辅助 |
 |------|------|------|
@@ -79,7 +79,7 @@
 
 **CLAP分数。** CLAP嵌入文本-音频对齐分数。>0.3=合理对齐。
 
-**听板MOS。** 消费级音乐仍最终裁决。Suno v5 TTS Arena ELO 1293(从配人偏好)。
+**听众评测小组MOS。** 消费级音乐仍是最终裁决。Suno v5 TTS Arena ELO 1293(来自成对人类偏好)。
 
 ### 音频语言基准
 
@@ -175,7 +175,7 @@ def eer(same_scores, diff_scores):
 
 ## 实际应用
 
-配每部署固定评估Harness,每模型更新跑。三基本规则:
+为每次部署配备固定的评估套件，每次模型更新时运行。三条基本规则：
 
 1. **评分前归一化。** 小写、标点剥、数字扩。报归一化规则。
 2. **报分布,非平均。** 延迟P50/P95/P99。分类每类召回。MMAU每类。
@@ -184,7 +184,7 @@ def eer(same_scores, diff_scores):
 ## 陷阱
 
 - **UTMOS外推。** VCTK风格干净语音训;噪声/克隆/情绪音频评分差。
-- **MOS板偏。** 20 Amazon Mechanical Turk工 ≠ 20目标用户。高风险付领域板。
+- **MOS评测板偏差。** 20个Amazon Mechanical Turk工人 ≠ 20个目标用户。风险高时请付费聘请领域专业评测小组。
 - **FAD依赖参考集。** 跨模型比同一参考分布。
 - **聚合WER。** 总体5% WER可隐藏口音语音30% WER。按人口切片报。
 - **公共基准饱和。** 大多数前沿模型标准基准近天花板。建反映流量内部保留集。
@@ -196,7 +196,7 @@ def eer(same_scores, diff_scores):
 ## 练习题
 
 1. **简单。** 跑`code/main.py`。玩具输入上算WER/CER/EER/SECS/FAD-ish/MMAU-ish。
-2. **中等。** 构TTS往返WER harness。Kokoro或F5-TTS输出跑Whisper。50提示词上算WER。标WER>10%提示词。
+2. **中等。** 构建TTS往返WER测试套件。将Kokoro或F5-TTS输出过Whisper。在50个提示词上计算WER。标记WER>10%的提示词。
 3. **困难。** 课程10 LALM选择在MMAU-Pro语音+多音频子集(各50项)评分。报每类准确率并与发布数比。
 
 ## 关键术语

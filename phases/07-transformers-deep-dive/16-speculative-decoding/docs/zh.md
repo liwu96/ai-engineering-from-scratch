@@ -37,7 +37,7 @@
 
 残差分布技巧是保持输出分布精确如`M_q`从头采样的数学洞察。
 
-### 何定加速
+### 加速的决定因素
 
 让`α` = 每草稿词元期望接受率。让`c` = 草稿/验证器成本比例。每步:
 
@@ -78,7 +78,7 @@ EAGLE-3(2025)加候选续树搜索。vLLM和SGLang默认EAGLE-2/3作Llama 3/4和
 
 验证一次前向喂N草稿词元进验证器。此扩验证器KV cache N入口。若些草稿被拒,需回滚cache到接受前缀长。
 
-生产实现(vLLM `--speculative-model`, TensorRT-LLM LookaheadDecoder)配scratch KV缓冲处理。先写,接受时commit。非概念难,但繁琐。
+生产实现(vLLM `--speculative-model`、TensorRT-LLM LookaheadDecoder)通过scratch KV缓冲处理。先写入，接受时提交。概念上不难，但实现繁琐。
 
 ## 动手实践
 
@@ -96,7 +96,7 @@ def accept_or_reject(q_prob, p_prob, draft_token, u):
     return u < min(1.0, ratio)
 ```
 
-`u`是均匀随机数。`q_prob`是验证器草稿词元概率。`p_prob`是草稿模型概率。Leviathan定理是此Bernoulli决策,后拒时从残差采样,精保安验证器分布。
+`u`是均匀随机数。`q_prob`是验证器草稿词元概率。`p_prob`是草稿模型概率。Leviathan定理表明：此Bernoulli决策后，拒绝时从残差分布采样，能精确保留验证器的输出分布。
 
 ### Step 2: 残差分布
 
@@ -107,7 +107,7 @@ def residual_dist(q, p):
     return [r / s for r in raw]
 ```
 
-元素减`p`从`q`,负值clamp零,归一化。任何拒从此采样。
+逐元素从`q`中减去`p`，将负值截断为零，然后归一化。任何拒绝时从此采样。
 
 ### Step 3: 一投机步
 
@@ -139,7 +139,7 @@ def spec_step(prefix, q_model, p_model, N, rng):
     return prefix
 ```
 
-五接受→一奖励→一验证器pass产六词元。
+五个草稿全部接受→一个奖励词元→一次验证器前向产出六个词元。
 
 ### Step 4: 测接受率
 
@@ -147,7 +147,7 @@ def spec_step(prefix, q_model, p_model, N, rng):
 
 ### Step 5: 验证分布等价
 
-经验:投机循环产词元直方图应匹配直接从验证器采样直方图。此Leviathan定理实践。chi-square测试确认采样误差内。
+经验:投机循环产词元直方图应匹配直接从验证器采样直方图。这是Leviathan定理的实践验证。chi-square检验在采样误差范围内确认两者一致。
 
 ## 实际应用
 
@@ -198,13 +198,13 @@ TensorRT-LLM 2026中最快Medusa路径。`faster-whisper`包Whisper-large配小�
 
 | 术语 | 人们怎么说 | 实际含义 |
 |------|------------|----------|
-| 草稿模型 | "便宜那个" | 提候选词元更小模型;常比验证器便宜10–50×。 |
+| 草稿模型 | "便宜那个" | 提出候选词元的更小模型；通常比验证器便宜10–50×。 |
 | 验证器 | "大那个" | 保分布目标模型;每投机步跑一次。 |
 | 接受率(α) | "草稿多常对" | 每词元验证器接受草稿概率。典型0.7–0.9。 |
 | 残差分布 | "拒后备" | `(q - p)_+`归一化;拒时采样保验证器分布。 |
 | 奖励词元 | "免费那个" | 当全部N草稿接受,从验证器下一步分布多采样一。 |
 | Medusa | "无草稿投机" | 验证器上多LM头并预测位置t+1..t+k。 |
-| EAGLE | "隐藏状态草稿" | 条件化验证器最后层隐藏状态微小transformer草稿。 |
+| EAGLE | "隐藏状态草稿" | 以验证器最后层隐藏状态为条件的微小transformer草稿模型。 |
 | Lookahead解码 | "Jacobi迭代" | 配定点迭代自投机;无草稿模型。 |
 | 树注意力 | "一次验证多候选" | 考虑多草稿续分支验证同时。 |
 | KV回滚 | "撤销拒草稿" | Scratch KV缓冲;接受commit,拒丢弃。 |

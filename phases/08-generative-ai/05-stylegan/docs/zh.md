@@ -84,7 +84,7 @@ def add_noise(x, sigma, rng):
 
 ## 陷阱
 
-- **Droplet artifacts。**StyleGAN 1在特征图产blobby droplet因AdaIN清零均值。StyleGAN 2 weight demodulation通过缩放卷积权重而非激活修复。
+- **水滴伪影。**StyleGAN 1在特征图产生水滴状伪影，因为AdaIN使均值归零。StyleGAN 2 weight demodulation通过缩放卷积权重而非激活修复。
 - **纹理粘。**StyleGAN 1和2纹理跟像素坐标,非对象坐标(插值时可见)。StyleGAN 3 alias-free卷积配windowed sinc滤波修复。
 - **模式覆盖。**截断`ψ < 0.7`看干净但从窄锥采样;如需多样性用`ψ = 1.0`。
 - **Inversion有损。**把真实照片invert进`W`通常通过优化或编码器(e4e, ReStyle, HyperStyle)做。结果多次迭代漂移。
@@ -100,7 +100,7 @@ def add_noise(x, sigma, rng):
 | 从少图像域适应 | 冻结mapping网络,微调synthesis |
 | 多模态或文本条件生成 | 别——用扩散 |
 
-产品级demo答案是"人脸照片",StyleGAN在推理成本(单前向pass,4090上<10ms)和同质量杆锐度胜扩散。
+产品级demo答案是"人脸照片"，StyleGAN在推理成本（单次前向传播，4090上<10ms）和相同质量下的锐度上胜过扩散。
 
 ## 产出成果
 
@@ -127,11 +127,11 @@ def add_noise(x, sigma, rng):
 
 ## 生产注:为何StyleGAN 2026仍部署
 
-4090上StyleGAN3在不到10ms生成1024² FFHQ人脸——`num_steps = 1`,无VAE解码,无交叉注意力pass。生产术语这是任何图像生成器地板延迟。同分辨率50步SDXL + VAE解码管道约3秒。那是**300×差距**,对窄域产品(avatar服务、ID文档管道、stock人脸生成)TCO胜。
+4090上StyleGAN3在不到10ms生成1024² FFHQ人脸——`num_steps = 1`,无VAE解码,无交叉注意力pass。生产术语这是任何图像生成器地板延迟。同分辨率50步SDXL + VAE解码管道约3秒。这是**300倍**的差距，对于窄域产品（avatar服务、ID文档管道、批量人脸生成），总体运营成本更低。
 
 两操作后果:
 
-- **无调度器,无批处理器。**目标occupancy静态批最优。连续批(LLM和扩散必需)零益因每请求取相同FLOPs。
+- **无调度器，无批处理器。**目标GPU利用率下的静态批最优。连续批（LLM和扩散必需）无任何收益，因为每次请求消耗相同FLOPs。
 - **截断`ψ`是安全旋钮。**`ψ < 0.7`从mapping网络范围窄锥采样。这是服务层对样本方差唯一杠杆。高峰负载降`ψ`,高级用户升。
 
 ## 延伸阅读

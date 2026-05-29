@@ -23,9 +23,9 @@ Claude Opus 4.7有200K token窗口(beta 1M)。GPT-5有400K。Gemini 3 Pro有2M�
 
 但注意不与上下文长线性伸缩。有128K token上下文模型付二次注意成本(vanilla transformer O(n^2)，虽多生产模型用效注意变种)。更重，检索准确退化。"Needle in a Haystack"测示模型难找置于长上下文中信息。Liu et al. (2023)研示LLM于长上下文始末检索信息近完美准确，但置于中(位置40-70%)信息准确降10-20%。这"lost-in-the-middle"效异模型但影全现架构。
 
-实教训:有200K token可用不代表用200K token效。精 curated 10K token上下文常胜 dumped 100K token上下文。上下文工程是最大化上下文窗口信噪比纪律。
+实教训:有200K token可用不代表用200K token效。精心策划的10K token上下文常胜随意堆放的100K token上下文。上下文工程是最大化上下文窗口信噪比纪律。
 
-每你入窗口token displaces可载更相关信息token。每无关工具定义、每陈对话轮、每不答问检索文本块 — 每使模型稍差于任务。
+每个入窗口token都会挤走可载更相关信息的token。每无关工具定义、每陈对话轮、每不答问检索文本块 — 每使模型稍差于任务。
 
 ## 概念讲解
 

@@ -88,7 +88,7 @@ Show-o2 (2025 follow-up, arXiv 2506.15564) scale Show-o:更大LLM基,好tokenize
 - 连续+扩散:Transfusion、MMDiT、DiT。最高质量,更复杂训。
 - VLM内连续+flow matching:JanusFlow、InternVL-U。最新。
 
-按任务择:Show-o当你欲一开模型T2I+inpainting+VQA带合理速度;Transfusion当质量paramount你可负担两loss plumbing。
+按任务择:Show-o当你欲一开模型T2I+inpainting+VQA带合理速度;Transfusion当质量最为关键且你能承担两loss管道连接复杂度时。
 
 ## 使用
 

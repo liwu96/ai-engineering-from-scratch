@@ -131,7 +131,7 @@ Token绑`aud`。Client绑`client_id`。每请求验两。Spec显禁pre-MCP远程
 
 ## 练习题
 
-1. 跑`code/main.py`。Trace两scope步升流。注步升何跳重复。
+1. 跑`code/main.py`。跟踪两次scope步升流。注步升何跳重复。
 
 2. 加refresh-token rotation:每次refresh发新refresh token并无效旧。模拟偷refresh token于rotation后用并验失败。
 

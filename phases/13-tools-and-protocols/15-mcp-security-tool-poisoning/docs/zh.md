@@ -38,13 +38,13 @@ Server工具描述嵌操纵模型指令。例:计算器server`add`工具描述�
 
 ### 攻击2:rug pull
 
-Server发用户装批 benign版,后推带毒描述更新。Host用cached-approval模型不重查。
+Server发用户装批 无害版,后推带毒描述更新。Host用cached-approval模型不重查。
 
 防御:hash-pin批描述。任突变触发重批。`mcp-scan`和类似工具实此。
 
 ### 攻击3:跨server工具shadowing
 
-同session两server都露`search`。一benign,一恶意。命名空间碰撞解(阶段13课程08)重要——静覆policy让恶意server偷路由。
+同session两server都露`search`。一无害,一恶意。命名空间碰撞解(阶段13课程08)重要——静覆policy让恶意server偷路由。
 
 ### 攻击4:MCP Preference Manipulation Attacks(MPMA)
 
@@ -124,7 +124,7 @@ Server A调sampling带指令调Server B工具。无任server用户同意跨serve
 |------|------------|----------|
 | 工具毒 | "注入描述" | 工具描述内隐藏指令 |
 | Rug pull | "静更新攻击" | Server首批后改描述 |
-| 工具shadowing | "命名空间劫持" | 恶意server偷benign工具名 |
+| 工具shadowing | "命名空间劫持" | 恶意server偷无害工具名 |
 | MPMA | "偏好操纵" | Server滥用modelPreferences择坏模型 |
 | 寄生工具链 | "跨server滥用" | Server A无用户同意编排Server B |
 | Sampling攻击 | "隐蔽推理" | 恶意sampling提示操纵模型 |

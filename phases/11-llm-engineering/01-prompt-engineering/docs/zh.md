@@ -59,7 +59,7 @@ graph TD
     style A fill:#1a1a2e,stroke:#51cf66,color:#fff
 ```
 
-**系统消息**：隐形手。设模型身份、行为约束和输出规则。模型视此为最高优先上下文。OpenAI、Anthropic和Google全支系统消息，但内处理不同。Claude系统消息 adherence 最强。GPT-5长对话时有时从系统指令漂，Gemini 3把`system_instruction`作分生成配字段而非消息。
+**系统消息**：隐形手。设模型身份、行为约束和输出规则。模型视此为最高优先上下文。OpenAI、Anthropic和Google全支系统消息，但内处理不同。Claude系统消息遵从度最强。GPT-5长对话时有时从系统指令漂，Gemini 3把`system_instruction`作分生成配字段而非消息。
 
 **用户消息**：任务。这是多人想为"提示词"。但无好系统消息，用户消息欠约束。
 
@@ -165,7 +165,7 @@ graph LR
 | 创造 | 1.0 | 1.0 | 头脑风暴、创写、创意 |
 | 混乱 | 1.5+ | 1.0 | 生产永不 |
 
-**Top-p** (nucleus sampling)是另一 knob。它限采样至累计概率超p最小token集。Top-p=0.9意模型仅考概率质量顶90% token。用温度OR top-p，非两者——它们交互不可预测。
+**Top-p** (nucleus sampling)是另一旋钮。它限采样至累计概率超p最小token集。Top-p=0.9意模型仅考概率质量顶90% token。用温度OR top-p，非两者——它们交互不可预测。
 
 ### 上下文窗口：何适何处
 
@@ -494,9 +494,9 @@ def build_multi_turn(pattern_name, turns, system_override=None):
     }
 ```
 
-### 步骤3: 多模型测试 Harness
+### 步骤3: 多模型测试框架
 
-一 harness 发同提示词至多LLM API并集结果比。用提供方抽象处理API差。
+一个测试框架发同一提示词至多LLM API并集结果比。用提供方抽象处理API差。
 
 ```python
 import json
@@ -1002,7 +1002,7 @@ Python代码(`code/prompt_engineering.py`)是独测试 harness。换入真API调
 | 术语 | 人们怎么说 | 实际含义 |
 |------|----------------|----------------------|
 | 系统消息 | "指令" | 特消息高优先处理设模型全对话身份、规则和约束 |
-| 温度 | "创造 knob" | softmax前logit分布缩因子 — 高值平分布(更随机)，低值锐(更确定) |
+| 温度 | "创造旋钮" | softmax前logit分布缩因子 — 高值平分布(更随机)，低值锐(更确定) |
 | Top-p | "Nucleus采样" | 限token采样至累计概率超p最小集，切不似token长尾 |
 | 少样本提示词 | "给例" | 含2-10输入/输出例在提示词使模型学任务模式无微调 |
 | 思维链 | "逐步思考" | 提示词模型示中间推理步，改进数学、逻辑和多步问题准确10-40% |

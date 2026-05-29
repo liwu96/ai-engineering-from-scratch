@@ -126,7 +126,7 @@ SEP-1686 2025-11-25发但更广roadmap呼三开问题:持久订阅原语、子ta
 
 ## 练习题
 
-1. 跑`code/main.py`。Kick off `generate_report` task,poll status,后fetch result。
+1. 跑`code/main.py`。启动`generate_report`任务，轮询status，后fetch result。
 
 2. 中run加`tasks/cancel`调用。验worker honor它并态成`cancelled`。
 

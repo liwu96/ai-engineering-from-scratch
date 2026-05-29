@@ -18,7 +18,7 @@
 
 CLIP前视觉是监督。集标签数据集(ImageNet:1.2M图,1000类),训CNN,发它。标签贵、标签偏标注者可共识、标签不迁新任务无微调。
 
-图caption网有十亿plus松标对免费。金毛猎犬公园图带alt text "my dog Max in the park"带监督信号—文述图。问题:可你转此有用训?
+图caption网有超十亿松标对免费。金毛猎犬公园图带alt text "my dog Max in the park"带监督信号—文述图。问题:可你转此有用训?
 
 CLIP答:视图caption对作配任务。给N图和N caption batch,学配每图至己caption对N-1 distractors。监督是"此两物属一起;此N-1不。"无类标签。无人标注。仅对比loss。
 

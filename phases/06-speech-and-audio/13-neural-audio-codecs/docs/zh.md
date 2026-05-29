@@ -1,6 +1,6 @@
 # 神经音频编解码器——EnCodec、SNAC、Mimi、DAC和语义-声学分离
 
-> 2026音频生成几乎全基于词元。EnCodec、SNAC、Mimi和DAC把连续波形转成离散序列让transformer预测。语义vs声学词元分离——第一码本作语义,余作声学——是自Transformer以来音频最重要架构转变。
+> 2026年音频生成几乎全基于词元。EnCodec、SNAC、Mimi和DAC把连续波形转成离散序列让transformer预测。语义vs声学词元分离——第一码本作语义,余作声学——是自Transformer以来音频最重要架构转变。
 
 **类型:** 学习
 **语言:** Python

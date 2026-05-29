@@ -114,7 +114,7 @@ def sample(dec, z_dim, rng):
 
 存`outputs/skill-vae-trainer.md`。
 
-技能取:数据集profile + 潜维目标 + 下游用途(重建、采样或潜扩散输入)输出:架构选择(普通/β/VQ/RVQ)、β调度、潜维、解码器似然(高斯vs类别)和评估计划(重建MSE、每维KL、`q(z|x)`和`N(0, I)`间Fréchet距离)。
+技能取：数据集概况 + 潜维目标 + 下游用途(重建、采样或潜扩散输入)输出:架构选择(普通/β/VQ/RVQ)、β调度、潜维、解码器似然(高斯vs类别)和评估计划(重建MSE、每维KL、`q(z|x)`和`N(0, I)`间Fréchet距离)。
 
 ## 练习题
 
@@ -137,7 +137,7 @@ def sample(dec, z_dim, rng):
 
 ## 生产注:VAE是扩散服务器最热路径
 
-在Stable Diffusion/Flux/SD3管道,VAE每请求调两次——一次编码(如果做img2img/inpainting)一次解码。1024²时解码pass常是整个管道单最大激活内存峰因为它把`128×128×16`潜空间上采样回`1024×1024×3`。两实际后果:
+在Stable Diffusion/Flux/SD3管道中，VAE每次请求被调用两次——一次用于编码（如果做img2img/inpainting），一次用于解码。在1024²分辨率时，解码过程通常是整个管道中激活内存占用的最大峰值，因为它需要把`128×128×16`的潜空间上采样回`1024×1024×3`。两实际后果:
 
 - **切片或tile解码。**`diffusers`暴露`pipe.vae.enable_slicing()`和`pipe.vae.enable_tiling()`。Tiling用小接缝artifact换`O(tile²)`内存而非`O(H·W)`。1024²+消费GPU必需。
 - **bf16解码器,fp32数值做最终resize。**SD 1.x VAE以fp32发布且在1024²+转fp16时*静默产生NaN*。SDXL发布`madebyollin/sdxl-vae-fp16-fix`——总优先fp16-fix变体或用bf16。

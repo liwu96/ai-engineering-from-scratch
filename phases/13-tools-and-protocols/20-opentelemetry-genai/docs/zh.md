@@ -16,7 +16,7 @@
 
 ## 问题背景
 
-2026年2月debug:用户报"我agent有时30秒响应;有时3秒。"无trace。日志示LLM调用,但无工具dispatch、无MCP server round-trip、无子agent。你猜。终你找:一MCP server偶冷启hang。
+2026年2月debug:用户报"我agent有时30秒响应;有时3秒。"无trace。日志示LLM调用,但无工具dispatch、无MCP server往返、无子agent。你猜。终你找:一MCP server偶冷启hang。
 
 无端到端trace,不可找此。OTel GenAI修复。
 

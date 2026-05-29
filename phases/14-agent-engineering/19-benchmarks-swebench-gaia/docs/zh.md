@@ -9,7 +9,7 @@
 
 ## 学习目标
 
-- 名SWE-bench测试harness(FAIL_TO_PASS)并释何gates于unit test。
+- 名SWE-bench测试框架(FAIL_TO_PASS)并释何gates于unit test。
 - 释何SWE-bench Verified(OpenAI、500 task)存在和何它remove。
 - 描述GAIA设计:人简、AI难;三difficulty level。
 - 名AgentBench八环境和OSS LLM主要blocker。
@@ -78,7 +78,7 @@ GAIA是你跑测"generalist capability"用。勿confuse code-specific benchmark�
 
 ## 构建
 
-`code/main.py`实toy SWE-bench-like harness:
+`code/main.py`实toy SWE-bench-like 框架:
 
 - 合成bug-fix task(3 task)。
 - Scripted"agent"提patch。
@@ -102,11 +102,11 @@ Output显每task+每difficulty resolution rate并make evaluator rule concrete。
 
 ## 交付成果
 
-`outputs/skill-benchmark-harness.md`建任何codebase-task pair SWE-bench-style harness带FAIL_TO_PASS/PASS_TO_PASS gating。
+`outputs/skill-benchmark-框架.md`建任何codebase-task pair SWE-bench-style 框架带FAIL_TO_PASS/PASS_TO_PASS gating。
 
 ## 练习题
 
-1. 移toy harness跑真实repo(pick你一)。写3 known bug FAIL_TO_PASS test。
+1. 移toy 框架跑真实repo(pick你一)。写3 known bug FAIL_TO_PASS test。
 2. 加step-count metric。你3 task上、何agent step每resolution?
 3. 读SWE-bench+论文。实solution-leakage check(issue text pattern match diff)。
 4. Download GAIA question从public split。Trace GPT-4-class agent何做。何tool需?

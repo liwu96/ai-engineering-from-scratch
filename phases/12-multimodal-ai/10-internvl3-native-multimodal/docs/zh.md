@@ -1,6 +1,6 @@
 # InternVL3:原生多模态预训练
 
-> InternVL3前每开VLM随同三步配方:取文LLM万亿文token训,bolt视觉编码器上,后微调缝。这工但有alignment debt—文LLM全预训预算于纯文和不原生理视觉token。当你后加视觉,LLM需重学何关视觉输入与文推理无忘文。InternVL3 (Zhu et al., 2025年4月)拒后加方法:一预训run,文和多模态interleaved从一步开始。结果78B参数匹Gemini 2.5 Pro于MMMU-Pro开。本课读原生预训案和何改当你做它。
+> InternVL3前每开VLM随同三步配方:取文LLM万亿文token训,附接视觉编码器,后微调缝。这工但有alignment debt—文LLM全预训预算于纯文和不原生理视觉token。当你后加视觉,LLM需重学何关视觉输入与文推理无忘文。InternVL3 (Zhu et al., 2025年4月)拒后加方法:一预训run,文和多模态interleaved从一步开始。结果78B参数匹Gemini 2.5 Pro于MMMU-Pro开。本课读原生预训案和何改当你做它。
 
 **类型:** 学习
 **语言:** Python(stdlib,training-corpus mixer)
@@ -28,7 +28,7 @@ Alignment debt三症状现:
 - Answer drift。同视觉问题小措辞异答。视觉编码器连接LLM绑定弱于LLM己token。
 - 视觉文不一致。VLM可正确述图像后答问题矛盾己述。视觉token不与LLM内一致性检查同文参与方式。
 
-这些症状well-documented。MM1.5节4量化。LLaVA-OneVision ablation暗示。原生预训是答。
+这些症状有充分的文献记录。MM1.5节4量化。LLaVA-OneVision ablation暗示。原生预训是答。
 
 ## 概念讲解
 
@@ -79,7 +79,7 @@ Alignment-debt假设可测:InternVL3-8B失少文benchmark点(MMLU、GSM8K)于Qwe
 
 InternVL3.5(2025年8月)scale配方。同原生预训方法,多数据,多参数。MMMU改进incremental。
 
-InternVL-U(2026)加统生成—图像输出经同backbone上MMDiT heads。"U"stand for "Understanding + generation,"追Transfusion类统模型(课程12.13)。同原生预训backbone支持理解和生成heads。
+InternVL-U(2026)加统生成—图像输出经同backbone上MMDiT heads。"U"代表"Understanding + generation"(理解+生成),追Transfusion类统模型(课程12.13)。同原生预训backbone支持理解和生成heads。
 
 ### 原生预训练权衡
 

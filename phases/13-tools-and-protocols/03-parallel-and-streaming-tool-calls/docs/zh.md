@@ -1,16 +1,16 @@
 # 并行工具调用和带工具流
 
-> 三独立天气查找序列化是三轮。并行跑总时间塌至最慢单调用。每前沿提供者现于一轮发多工具调用。收益真;管道微妙。本课走两半:并行fan-out和流参数重组,强调id关陷阱。
+> 三独立天气查找序列化是三轮。并行跑总时间塌至最慢单调用。每前沿提供者现于一轮发多工具调用。收益真;管道微妙。本课走两半:并行扇出和流参数重组,强调id关陷阱。
 
 **类型:** 构建
-**语言:** Python(stdlib,线程池+流harness)
+**语言:** Python(stdlib,线程池+流框架)
 **前置要求:** 阶段13课程02(函数调用深究)
 **时间:** ~75分钟
 
 ## 学习目标
 
 - 释`parallel_tool_calls: true`何存及何时禁。
-- 流参数块间关至正工具调用id于并行fan-out。
+- 流参数块间关至正工具调用id于并行扇出。
 - 重组部分`arguments`字符串入完整JSON不早解析。
 - 跑三城天气bench示序vs并延迟。
 
@@ -40,7 +40,7 @@ LLM -> call get_weather(Bengaluru); call get_weather(Tokyo); call get_weather(Zu
 LLM -> 终文本答
 ```
 
-一轮LLM。执行器时间是三最大而非和。OpenAI、Anthropic、Gemini产bench于fan-out负载示60至70% wall-clock减。
+一轮LLM。执行器时间是三最大而非和。OpenAI、Anthropic、Gemini产bench于扇出负载示60至70% wall-clock减。
 
 代价是关复杂。当三调用乱序完成,结果须载匹配`tool_call_id`使模型可对齐。当结果流,须组装部分参数片段入完整JSON后执。Gemini 3加unique id正解两同工具并行调用不可区分实问题。
 
@@ -52,7 +52,7 @@ LLM -> 终文本答
 - **Anthropic。**并行经`disable_parallel_tool_use: false`(Claude 3.5及以上默认)。设`true`串行。
 - **Gemini。**总并行能;`tool_config.function_calling_config.mode = "AUTO"`让模型决。
 
-禁并行当工具有序依赖(`create_file`后`write_file`)、一调用输出另调用输入、或速率限器不可handle fan-out。
+禁并行当工具有序依赖(`create_file`后`write_file`)、一调用输出另调用输入、或速率限器不可handle 扇出。
 
 ### Id关
 
@@ -64,7 +64,7 @@ LLM -> 终文本答
 
 ### 并发运行调用
 
-宿主于己线程、协程或远程worker运行每调用执行器。简harness用线程池;产用`asyncio.gather`或结构并发asyncio。完成序不可预——id是标识。
+宿主于己线程、协程或远程worker运行每调用执行器。简框架用线程池;产用`asyncio.gather`或结构并发asyncio。完成序不可预——id是标识。
 
 一常见bug:按调用列表序而非完成序回结果。这通常工因模型仅关`tool_call_id`,但若结果丢或重,乱序提交使调试难。偏好完成序带显id回。
 
@@ -102,13 +102,13 @@ call_C: 中API,三回
 
 ### Bench:序vs并
 
-`code/main.py`harness模拟三执行器带400、600、800 ms延迟。序跑1800 ms总。并跑max(400,600,800)=800 ms。差是常数非比例,故省随工具数增。
+`code/main.py`框架模拟三执行器带400、600、800 ms延迟。序跑1800 ms总。并跑max(400,600,800)=800 ms。差是常数非比例,故省随工具数增。
 
-实世警:并行调用压下游API。10-way fan-out至速率限服务会失败。阶段13课程17覆盖gateway级backpressure;重试语义规划于未来phase。
+实世警:并行调用压下游API。10-way 扇出至速率限服务会失败。阶段13课程17覆盖gateway级backpressure;重试语义规划于未来phase。
 
-### 流fan-out wall-clock
+### 流扇出 wall-clock
 
-若模型本身流,可于一调用参数完成即开始执,而非等全调用终。这是OpenAI文档优化但非全SDK露。本课harness做此:模拟流yield完整参数对象时,宿主kick off该调用。
+若模型本身流,可于一调用参数完成即开始执,而非等全调用终。这是OpenAI文档优化但非全SDK露。本课框架做此:模拟流yield完整参数对象时,宿主启动该调用。
 
 ## 使用
 
@@ -118,7 +118,7 @@ call_C: 中API,三回
 
 - 序计时器撞1.8秒。并计时器撞0.8秒于同假延迟。
 - 累加器处乱序到块通过按id缓冲并仅JSON完整时解析。
-- 执行器于id参数终即刻kick off,非全流终后。
+- 执行器于id参数终即刻启动,非全流终后。
 
 ## 交付成果
 
@@ -126,13 +126,13 @@ call_C: 中API,三回
 
 ## 练习题
 
-1. 跑`code/main.py`并变模拟延迟。确并vs序比约`max/sum`(实跑略偏理想因线程调度、序列化、harness开销)。何延迟分布并行停重要?
+1. 跑`code/main.py`并变模拟延迟。确并vs序比约`max/sum`(实跑略偏理想因线程调度、序列化、框架开销)。何延迟分布并行停重要?
 
 2. 扩累加器处"调用流中取消"案通过丢其缓冲并发`cancelled`事件。何提供者显文档此案?查Anthropic`content_block_stop`语义和OpenAI`finish_reason: "length"`行为。
 
 3. 换线程池为`asyncio.gather`。bench两。应见async小赢因低上下文切换成本,但仅执行器做真I/O。
 
-4. 择两工具不应并行(如`create_file`后`write_file`)。加`ordering_dependency`图至注册并于图门并行fan-out。这是依赖调度最小机制,未来agent-engineering phase形式化。
+4. 择两工具不应并行(如`create_file`后`write_file`)。加`ordering_dependency`图至注册并于图门并行扇出。这是依赖调度最小机制,未来agent-engineering phase形式化。
 
 5. 读OpenAI并行函数调用节和Anthropic`disable_parallel_tool_use`文档。识Anthropic荐禁并行的一实世工具类型。(提示:同资源后果突变。)
 
@@ -140,7 +140,7 @@ call_C: 中API,三回
 
 | 术语 | 人们怎么说 | 实际含义 |
 |------|------------|----------|
-| 并行工具调用 | "一轮fan-out" | 模型于一assistant消息发多工具调用 |
+| 并行工具调用 | "一轮扇出" | 模型于一assistant消息发多工具调用 |
 | `parallel_tool_calls` | "OpenAI旗" | 启或禁多调用发射 |
 | `disable_parallel_tool_use` | "Anthropic逆" | 退出旗;默认并行启 |
 | 工具调用id | "关handle" | 结果消息须echo的每调用标识符 |

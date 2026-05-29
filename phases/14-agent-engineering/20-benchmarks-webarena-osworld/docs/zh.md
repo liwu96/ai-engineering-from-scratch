@@ -63,7 +63,7 @@ Claude computer use、OpenAI CUA、Gemini 2.5 Computer Use(课程21)全train Web
 
 ## 构建
 
-`code/main.py`实toy web-agent harness:
+`code/main.py`实toy web-agent 框架:
 
 - 最小"shopping app"state machine:list_item、add_to_cart、checkout。
 - 3 task gold trajectory。
@@ -87,11 +87,11 @@ Output:每task success rate和trajectory efficiency、mirror OSWorld-Human metho
 
 ## 交付成果
 
-`outputs/skill-web-desktop-harness.md`建web/desktop agent harness带execution-based eval和trajectory efficiency metric。
+`outputs/skill-web-desktop-框架.md`建web/desktop agent 框架带execution-based eval和trajectory efficiency metric。
 
 ## 练习题
 
-1. 扩toy harness第二app(forum)。写3 task加gold trajectory。
+1. 扩toy 框架第二app(forum)。写3 task加gold trajectory。
 2. 加每task trajectory-efficiency reporting。你toy上、agent 1x、2x、或3x over gold?
 3. 实"distractor"tool——gold trajectory从未用。Scripted agent被tempt否?
 4. 读OSWorld-G。何你己eval分离grounding失败从planning失败?

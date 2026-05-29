@@ -16,7 +16,7 @@
 
 ## 问题背景
 
-2024通识:图像生成需扩散。论点:离散图像token失多信息重构细节,自回归采样千token累误差。Stable Diffusion、DALL-E 3、Imagen、Midjourney都用某种扩散。Chameleon(课程12.11)小规模部分disprove但质量未匹SDXL。
+2024通识:图像生成需扩散。论点:离散图像token失多信息重构细节,自回归采样千token累误差。Stable Diffusion、DALL-E 3、Imagen、Midjourney都用某种扩散。Chameleon(课程12.11)小规模部分证伪了这一假设但质量未匹SDXL。
 
 Emu3直攻论点。Claim:好视觉tokenizer+够scale+next-token loss=同模型扩散超图像生成亦做感知。
 
@@ -77,7 +77,7 @@ Emu3论文(2024年9月):
 
 Emu3于约300 billion多模token训7B参数模型。GPU-hour大致可比Llama-2-7B预训(A100类硅2k-4k GPU-year)。扩散模型如Stable Diffusion 3于类似预算训但需分离文编码器和更复杂管道。
 
-推理,Emu3每图像慢于SDXL:4096图像token 30 tok/s是每512x512图像~2分钟,vs SDXL 2-5秒。Speculative decoding和KV cache optimization缩缝但不关。自回归图像生成算重;这是standing trade-off。
+推理,Emu3每图像慢于SDXL:4096图像token 30 tok/s是每512x512图像~2分钟,vs SDXL 2-5秒。Speculative decoding和KV cache optimization缩缝但不关。自回归图像生成算重;这是长期存在的权衡。
 
 ### 何重要
 

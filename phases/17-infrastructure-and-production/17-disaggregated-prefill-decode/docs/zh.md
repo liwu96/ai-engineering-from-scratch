@@ -1,6 +1,6 @@
 # 解耦Prefill/Decode——NVIDIA Dynamo和llm-d
 
-> Prefill计算绑；解码内存绑。同GPU跑双浪费一资源。解耦分到分离池KV cache间传NIXL (RDMA/InfiniBand或TCP fallback)。NVIDIA Dynamo (GTC 2025公告、1.0 GA)居vLLM/SGLang/TRT-LLM上——Planner Profiler + SLA Planner自动速率匹配prefill:decode比达SLO。NVIDIA发布吞吐增益 ballpark——developer.nvidia.com (2025-06)示DeepSeek-R1 MoE GB200 NVL72 + Dynamo中延迟 regime ~6x改进、Dynamo产品页(developer.nvidia.com、未注日期)宣传GB300 NVL72 + Dynamo比Hopper MoE吞吐高达50x。"30x"数是全栈Blackwell + Dynamo + DeepSeek-R1报告社区聚合；我们未找到单首源声确30x、视作方向性主张。llm-d (Red Hat + AWS) Kubernetes原生：prefill / decode / router独立Service每角色HPA。llm-d 0.5加层级KV卸载、cache感知LoRA路由、UCCL网络、缩零。经济：多客户披露内部rollup建议$2M级推理支出30–40%省(即$600-800K/年) colocated serving换解耦Dynamo恒定SLA；确$2M→$600-800K数是内复合、非单发案例——用作量级锚、非引用。短提示(<512 tokens、短输出)不值传成本。
+> Prefill计算绑；解码内存绑。同GPU跑双浪费一资源。解耦分到分离池KV cache间传NIXL (RDMA/InfiniBand或TCP fallback)。NVIDIA Dynamo (GTC 2025公告、1.0 GA)居vLLM/SGLang/TRT-LLM上——Planner Profiler + SLA Planner自动速率匹配prefill:decode比达SLO。NVIDIA发布吞吐增益 ballpark——developer.nvidia.com (2025-06)示DeepSeek-R1 MoE GB200 NVL72 + Dynamo中等延迟范围 ~6x改进、Dynamo产品页(developer.nvidia.com、未注日期)宣传GB300 NVL72 + Dynamo比Hopper MoE吞吐高达50x。"30x"数是全栈Blackwell + Dynamo + DeepSeek-R1报告社区聚合；我们未找到单首源声确30x、视作方向性主张。llm-d (Red Hat + AWS) Kubernetes原生：prefill / decode / router独立Service每角色HPA。llm-d 0.5加层级KV卸载、cache感知LoRA路由、UCCL网络、缩零。经济：多客户披露内部rollup建议$2M级推理支出30–40%省(即$600-800K/年) 同位serving换解耦Dynamo恒定SLA；确$2M→$600-800K数是内复合、非单发案例——用作量级锚、非引用。短提示(<512 tokens、短输出)不值传成本。
 
 **类型:** 学习
 **语言:** Python(stdlib、玩具解耦vs同位模拟器)
@@ -57,7 +57,7 @@ NIXL是NVIDIA跨节点传。RDMA/InfiniBand可用、否则TCP fallback。传延�
 - 居vLLM、SGLang、TRT-LLM上orchestrator。
 - Planner Profiler测负载、SLA Planner自动配prefill:decode比。
 - Rust核心、Python扩展。
-- 吞吐增益：NVIDIA报告DeepSeek-R1 MoE GB200 NVL72 + Dynamo中延迟 regime 6x(developer.nvidia.com, 2025-06)；社区"高达30x"全Blackwell + Dynamo + DeepSeek-R1栈无单首源、视方向性。
+- 吞吐增益：NVIDIA报告DeepSeek-R1 MoE GB200 NVL72 + Dynamo中等延迟范围 6x(developer.nvidia.com, 2025-06)；社区"高达30x"全Blackwell + Dynamo + DeepSeek-R1栈无单首源、视方向性。
 - GB300 NVL72 + Dynamo：Dynamo产品页MoE吞吐比Hopper高达50x(developer.nvidia.com、未注日期)。
 
 **llm-d** (Red Hat + AWS、Kubernetes原生)：
@@ -99,7 +99,7 @@ GB300 NVL72 + Dynamo示MoE吞吐比Hopper基线50x。MoE expert路由prefill计�
 
 基准数漂——NVIDIA和推理栈每季发更新结果。引用前核对。
 
-- DeepSeek-R1 GB200 NVL72 + Dynamo：中延迟 regime吞吐~6x比基线(developer.nvidia.com, 2025-06)；社区"高达30x"全Blackwell + Dynamo栈主张是方向聚合无单首源。
+- DeepSeek-R1 GB200 NVL72 + Dynamo：中等延迟范围吞吐~6x比基线(developer.nvidia.com, 2025-06)；社区"高达30x"全Blackwell + Dynamo栈主张是方向聚合无单首源。
 - GB300 NVL72 + Dynamo：MoE吞吐比Hopper高达50x(developer.nvidia.com、未注日期)。
 - 省锚(内复合、非单案例)：$600-800K/年$2M年支出恒定SLA。
 - 解耦阈值：提示>512 tokens + 输出>200 tokens。

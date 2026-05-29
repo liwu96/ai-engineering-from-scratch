@@ -88,7 +88,7 @@ Tight loop:
 
 ## 构建
 
-`code/main.py`是stdlib eval harness:
+`code/main.py`是stdlib eval框架:
 
 - Case registry带category(benchmark、custom、online)。
 - Scripted agent under test。

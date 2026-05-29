@@ -97,7 +97,7 @@ Downside:Transfusion是双loss模型,使训动态更棘。Loss权重需调。NTP
 
 Janus-Pro(课程12.15)精Transfusion念经解耦视觉编码器为理解和生成—一用SigLIP,一用VQ—共享transformer body。Show-o(课程12.14)换扩散为离散扩散(masked prediction)。统生成族Transfusion后快分支。
 
-2026产VLM emit图像—Gemini 3 Pro、GPT-5、Claude Opus 4.7图像生成路径—几乎确用某此族后代。细节proprietary。
+2026产VLM emit图像—Gemini 3 Pro、GPT-5、Claude Opus 4.7图像生成路径—几乎确用某此族后代。细节保密。
 
 ## 使用
 
@@ -109,7 +109,7 @@ Janus-Pro(课程12.15)精Transfusion念经解耦视觉编码器为理解和生�
 - 训loop交替两loss,attention mask显。
 - 生成产一文caption和4x4图像于单forward pass。
 
-Transformer是toy。两loss plumbing、attention mask构造和推理loop是真artifact。
+Transformer是toy。两loss管道连接、attention mask构造和推理loop是真实的核心构件。
 
 ## 交付成果
 

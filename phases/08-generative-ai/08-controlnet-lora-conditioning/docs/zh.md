@@ -137,10 +137,10 @@ h = base(x) + gated
 
 ## 生产注:LoRA换、ControlNet道、多租户服务
 
-真实文本到图像SaaS同基检查点服务数百LoRAs和 dozen ControlNets。服务问题很似LLM多租户(生产文献覆盖LLM连续批和LoRAX/S-LoRA):
+真实文本到图像SaaS同基检查点服务数百LoRAs和几十个ControlNets。服务问题很似LLM多租户(生产文献覆盖LLM连续批和LoRAX/S-LoRA):
 
 - **热换LoRAs,不合并。**`W' = W + α·B·A`进基给~3-5%更快每步推理但冻`α`和基。保LoRAs VRAM热作秩r deltas;diffusers暴露`pipe.load_lora_weights()` + `pipe.set_adapters([...], adapter_weights=[...])`每请求激活。换成本是`2 · d · r · num_layers`权——MB级,亚秒。
-- **ControlNet作第二注意力道。**克隆编码器配基并跑。两ControlNets权重各1.0 = 每步两额外前向pass,非一合并pass。批大小headroom二次降。预算每活跃ControlNet~1.5×步成本。
+- **ControlNet作第二注意力道。**克隆编码器配基并跑。两ControlNets权重各1.0 = 每步两额外前向pass,非一合并pass。批大小可用空间成倍缩减。为每个活跃ControlNet预留约1.5×步成本。
 - **量化LoRAs也。**如量化基(见课程07, 8GB Flux),LoRA delta也干净量化到8位或4位。QLoRA式加载让你4位Flux基上叠5-10 LoRAs不炸内存。
 
 Flux特定:Niels Flux-on-8GB notebook量化基到4位;量化基上叠风格LoRA(`pipe.load_lora_weights("user/style-lora")`)配`weight_name="pytorch_lora_weights.safetensors"`仍工作。这是2026大多SaaS机构发配方。

@@ -63,7 +63,7 @@ Qwen2-VL引Multimodal Rotary Position Embedding。代NaViT fractional position�
 
 M-RoPE发原生动态分辨率无重训。推理时你feed任HxW图像,patch embedder产H/14 x W/14 token,每token得其(t=0, r=row, c=col)位置,RoPE旋attention正频,完。Qwen2.5-VL和Qwen3-VL续此。InternVL3 V2PE是同念带每模态变编码。
 
-Unlike AnyRes,M-RoPE是O(H x W / P^2) token于原生分辨率—无乘tile开销。Unlike NaViT,它仍期每forward单图像。跨分辨率batch仍需上patch-n'-pack。
+与AnyRes不同,M-RoPE是O(H x W / P^2) token于原生分辨率—无乘tile开销。与NaViT不同,它仍期每forward单图像。跨分辨率batch仍需上patch-n'-pack。
 
 ### NaFlex(SigLIP 2)
 
@@ -91,7 +91,7 @@ M[i, j] = 1 iff there exists b where offsets[b] <= i < offsets[b+1] and offsets[
 - 自然照:256-576 token够。下游LLM见够。内容密高处付token。
 - 视频:空间pool后每帧64-128 token,2-8 FPS。课程12.17覆盖此。
 
-2026产规则:择每任务max-pixels cap,于原生纵横比编码至那cap,pack batch,跳padding。Qwen2.5-VL暴露`min_pixels`和`max_pixels`正此knob。
+2026产规则:择每任务max-pixels cap,于原生纵横比编码至那cap,pack batch,跳padding。Qwen2.5-VL暴露`min_pixels`和`max_pixels`正是此旋钮参数。
 
 ## 使用
 
@@ -132,7 +132,7 @@ M[i, j] = 1 iff there exists b where offsets[b] <= i < offsets[b+1] and offsets[
 | NaFlex | "SigLIP 2原生flex" | 单SigLIP 2 checkpoint推理服256/729/1024 token预算无重训 |
 | M-RoPE | "多模RoPE" | 3D旋位置编码(时、行、列)理任H、W、T无位置表 |
 | cu_seqlens | "FlashAttention packing" | FlashAttention varlen path用cumulative-length tensor替密block-diagonal mask |
-| min_pixels / max_pixels | "分辨率bound" | Qwen2.5-VL每请求knob capping token数于极小或极大输入 |
+| min_pixels / max_pixels | "分辨率bound" | Qwen2.5-VL每请求旋钮,限制token数于极小或极大输入 |
 | 视觉token预算 | "每图像何token" | 每图像发patch token粗计数;定LLM提示预算和attention成本 |
 
 ## 延伸阅读

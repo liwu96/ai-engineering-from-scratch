@@ -81,8 +81,8 @@ h = h + CrossAttention(Q=h, K=text_embed, V=text_embed)
 
 ## 陷阱
 
-- **VAE-scale不匹。**SD 1.x VAE编码后施缩放常数(`scaling_factor ≈ 0.18215`)。忘此使U-Net训潜方差严重错。每检查点发一个。
-- **文本编码器静默错。**SD3需T5-XXL配>=128词元,CLIP-only fallback有损。总查`use_t5=True`否则提示词保真坍。
+- **VAE-scale不匹。**SD 1.x VAE编码后施缩放常数(`scaling_factor ≈ 0.18215`)。忘记这点会使U-Net训练时潜空间方差严重偏差。每个检查点都有一个对应的缩放因子。
+- **文本编码器静默错。**SD3需T5-XXL配>=128词元,CLIP-only fallback有损。务必确认`use_t5=True`，否则提示词保真度会崩。
 - **混潜空间。**SDXL、SD3、Flux全用不同VAE。SDXL潜训LoRA在SD3不工作。Hugging Face diffusers 0.30+拒载不匹检查点。
 - **CFG太高。**`w > 10`产饱和、油图像并过拟合提示词代价多样。甜点是`w = 3-7`。
 - **负提示词泄漏。**空负提示词变空词元;填充负提示词变`ε_uncond`。这些非同;些管道静默默认空。
@@ -125,7 +125,7 @@ h = h + CrossAttention(Q=h, K=text_embed, V=text_embed)
 
 ## 生产注:8GB消费GPU跑Flux-12B
 
-参考Flux集成是规范"我消费GPU,可发此?"配方。技巧同生产推理文献列扩散DiT用三旋钮配方:
+参考Flux集成是标准的"我只有消费级GPU，能跑这个吗？"配方。技巧同生产推理文献列扩散DiT用三旋钮配方:
 
 1. **交错加载。**Flux有三网络不需VRAM共存:T5-XXL文本编码器(~10 GB fp32)、CLIP-L(小)、12B MMDiT、和VAE。先编提示词,*删*编码器,载DiT,去噪,*删*DiT,载VAE,解码。消费8GB GPU仅每阶段一。
 2. **bitsandbytes 4位量化。**T5编码器和DiT`BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_compute_dtype=torch.bfloat16)`。内存砍8×,质量降对文本到图像不可感知(Aritra基准链接notebook)。

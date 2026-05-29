@@ -74,7 +74,7 @@ TRT-LLM解耦服务(分prefill和decode池)阶段17课程20深覆。Blackwell、
 
 ## 使用
 
-`code/main.py`算HBM footprint、解码吞吐(内存绑regime)、和$/M-token模型跨三栈：H100 + BF16 + vLLM、H100 + FP8 + vLLM、B200 + NVFP4/FP8 + TRT-LLM。跑见复合效应和每改贡献gap份额。
+`code/main.py`算HBM footprint、解码吞吐(内存绑模式)、和$/M-token模型跨三栈：H100 + BF16 + vLLM、H100 + FP8 + vLLM、B200 + NVFP4/FP8 + TRT-LLM。跑见复合效应和每改贡献gap份额。
 
 ## 交付成果
 

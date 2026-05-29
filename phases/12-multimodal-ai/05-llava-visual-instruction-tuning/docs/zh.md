@@ -22,7 +22,7 @@ BLIP-2 Q-Former(课程12.03)压缩图像至32 token。干净、高效、benchmar
 
 第二,Q-Former占188M参数,于LLaVA 2023 scale你需与目标LLM co-design。换LLM,重训Q-Former。换视觉编码器,重训。每组合是独R&D项目。
 
-LLaVA答 embarrassingly简:取ViT 576 patch token,经每2-layer MLP(`1024 → 4096 → 4096`),dump全576入LLM输入序列。无瓶颈。无阶段1于怪目标预训。仅直接LM loss训MLP。
+LLaVA的答案出奇地简单:取ViT 576 patch token,经每2-layer MLP(`1024 → 4096 → 4096`),dump全576入LLM输入序列。无瓶颈。无阶段1于怪目标预训。仅直接LM loss训MLP。
 
 数据何来?LLaVA第二洞察:用GPT-4(纯文)生成instruction数据。Feed GPT-4图像COCO caption和bounding-box数据,让它产对话、描述和复杂推理问题。158k instruction-response转免费。无人工标注。
 
@@ -102,8 +102,8 @@ LLaVA-NeXT (2024年1月)加:
 | 可训参数 | 188M + LM | 40M + LM |
 | 阶段1 loss | ITC+ITM+ITG | 仅LM |
 | LLM drop-in | 需重训 | 最小重训换 |
-| 多图 | awkward | 自然(concat) |
-| 视频 | awkward | 自然(每帧concat) |
+| 多图 | 笨拙 | 自然(concat) |
+| 视频 | 笨拙 | 自然(每帧concat) |
 | Token预算 | 小 | 大 |
 
 MLP于简和token灵活胜。Q-Former于token预算胜。2023末token预算不再binding约束(LLM context长至32k-128k+)和简主导。

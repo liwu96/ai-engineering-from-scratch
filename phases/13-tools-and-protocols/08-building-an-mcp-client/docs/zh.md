@@ -105,7 +105,7 @@ Streamable HTTP用`Mcp-Session-Id`头。Stdio无session id——进程身份IS s
 
 ## 交付成果
 
-本课产`outputs/skill-mcp-client-harness.md`。给MCP server声明列表(名、command、args),skill产harness spawning、合并工具列表、并ship带碰撞解路由函数。
+本课产`outputs/skill-mcp-client-harness.md`。给MCP server声明列表(名、command、args),skill生成启动框架、合并工具列表、并提供带碰撞解路由函数。
 
 ## 练习题
 

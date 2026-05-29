@@ -267,7 +267,7 @@ Mock JWT此用HS256带共享secret(使课程stdlib跑)。产用RS256或EdDSA带�
 
 ## 练习题
 
-1. 跑`code/main.py`。Trace 9步流。注`auth::rotate-jwks` overwrite前`state::get`立回陈数据处,及下请求现对新key验。
+1. 跑`code/main.py`。跟踪9步流。注`auth::rotate-jwks` overwrite前`state::get`立回陈数据处,及下请求现对新key验。
 
 2. 加新IdP至protected-resource metadata`authorization_servers`列表。发新IdP签名token并验验器接受。发未列IdP签名token并验验器拒带`WWW-Authenticate: Bearer error="invalid_token", error_description="iss not allowed"`。
 

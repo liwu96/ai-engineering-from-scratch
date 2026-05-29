@@ -3,7 +3,7 @@
 > MCP是agent-to-tool。A2A(Agent2Agent)是agent-to-agent——让异框架opaque agent协作开协议。Google 2025年4月发,2025年6月捐Linux Foundation,2026年4月达v1.0带150+支持者含AWS、Cisco、Microsoft、Salesforce、SAP、ServiceNow。它吸收IBM ACP并加AP2支付扩展。本课走Agent Card、Task生命周期、和两transport绑定。
 
 **类型:** 构建
-**语言:** Python(stdlib,Agent Card+Task harness)
+**语言:** Python(stdlib,Agent Card+Task框架)
 **前置要求:** 阶段13课程06(MCP基础),阶段13课程08(MCP client)
 **时间:** ~75分钟
 
@@ -138,7 +138,7 @@ Artifact可作chunk流。调用者累积。
 
 ## 使用
 
-`code/main.py`实最小A2A harness:研究agent发其card,写agent收`tasks/send`带part含PDF和文本指令,转态working→input_required→working→completed,并回文本artifact。全stdlib;用内存transport聚焦消息形。
+`code/main.py`实最小A2A框架:研究agent发其card,写agent收`tasks/send`带part含PDF和文本指令,转态working→input_required→working→completed,并回文本artifact。全stdlib;用内存transport聚焦消息形。
 
 看点:
 
@@ -154,7 +154,7 @@ Artifact可作chunk流。调用者累积。
 
 ## 练习题
 
-1. 跑`code/main.py`。Trace完整Task生命周期,含被调agent求澄清input-required pause。
+1. 跑`code/main.py`。跟踪完整Task生命周期,含被调agent求澄清input-required pause。
 
 2. 加签名Agent Card。用card规范JSON上HMAC签。写验器并验mutated card失败。
 

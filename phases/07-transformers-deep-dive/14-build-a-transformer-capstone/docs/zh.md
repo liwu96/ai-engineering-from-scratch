@@ -13,7 +13,7 @@
 
 毕业项目:端到端训小仅解码器transformer于字符级语言建模任务。读莎士比亚。生成新莎士比亚。足够小可在笔记本10分钟内训。足够正确换更大数据集和更长训练得真实LM。
 
-此课程"nanoGPT"。非原创——Karpathy 2023 nanoGPT教程是每个学生至少写一次参考实现。我们借形状并围绕已覆盖内容重整。
+此课程"nanoGPT"。非原创——Karpathy 2023 nanoGPT教程是每个学生至少写一次参考实现。我们沿用其结构，并围绕本课程已覆盖的内容进行调整。
 
 ## 概念讲解
 
@@ -50,7 +50,7 @@ logits (B, N, V)
 移一交叉熵                           ◀── 课程07
 ```
 
-### 我们产出
+### 我们实现的模块
 
 - `GPTConfig`——一处配置所有超参。
 - `MultiHeadAttention`——因果、批、可选Flash风格路径(PyTorch `scaled_dot_product_attention`)。
@@ -60,7 +60,7 @@ logits (B, N, V)
 - AdamW、余弦LR、梯度裁剪训练循环。
 - Shakespeare文本字符级分词器。
 
-### 我们不产出
+### 我们未实现的内容
 
 - RoPE——课程04概念实现。此处用学习位置嵌入简化。练习要求换入RoPE。
 - KV cache生成——每生成步重算全前缀注意力。更慢但更简单。练习要求加KV cache。
@@ -136,13 +136,13 @@ The chief that well shame and hath been his friends,
 
 ## 实际应用
 
-此毕业项目是参考架构。三扩展产真实:
+此毕业项目是参考架构。以下三个扩展可让它成为真实可用的系统：
 
 1. **换分词器。**用BPE(如`tiktoken.get_encoding("cl100k_base")`)。词表大小从65跳到~50,000。模型容量需缩放补。
 2. **更大语料训。**用`OpenWebText`或`fineweb-edu`(HuggingFace)。单A100 10B词元~24小时训125M参数GPT。
 3. **加RoPE + KV cache + Flash Attention。**下练习带你每步。
 
-最终成125M参数GPT生成流利英语。非前沿模型。但同代码路径——仅更大——是Karpathy、EleutherAI和Allen Institute 2026训研究检查点所用。
+最终得到的是一个能生成流利英语的125M参数GPT。它不是前沿模型。但同样的代码路径——只是更大——正是Karpathy、EleutherAI和Allen Institute在2026年训练研究检查点所使用的。
 
 ## 产出成果
 
@@ -164,8 +164,8 @@ The chief that well shame and hath been his friends,
 | tinyshakespeare | "标准玩具语料" | ~1.1 MB文本;2015来每字符-LM教程用它。 |
 | 绑定嵌入 | "共享输入/输出矩阵" | LM头权重=词元嵌入矩阵转置;省参数,改进质量。 |
 | bf16 autocast | "训练精度技巧" | bf16运行前向/反向,fp32保优化器状态;2021来标准。 |
-| 梯度裁剪 | "止尖峰" | 全局梯度范数限1.0;防训爆炸。 |
-| 余弦LR调度 | "2020+默认" | LR线性升温(预热)后余弦形衰减到峰值10%。 |
+| 梯度裁剪 | "止尖峰" | 全局梯度范数限1.0；防止训练梯度爆炸。 |
+| 余弦LR调度 | "2020+默认" | 学习率线性预热后余弦衰减到峰值的10%。 |
 | MFU | "模型FLOP利用率" | 实现FLOPs / 理论峰值;2026 40%稠密,30% MoE强。 |
 | 验证损失 | "留出损失" | 模型从未见数据交叉熵;过拟合检测器。 |
 

@@ -3,7 +3,7 @@
 > 阶段13教每件。此capstone线它们入一产形系统:带工具+资源+提示+task+UI MCP server、边OAuth 2.1、RBAC gateway、多server client、A2A子agent调用、OTel trace入collector、CI工具毒检测、和AGENTS.md+SKILL.md bundle。终你可捍每架构择。
 
 **类型:** 构建
-**语言:** Python(stdlib,端到端生态harness)
+**语言:** Python(stdlib,端到端生态框架)
 **前置要求:** 阶段13课程01至21
 **时间:** ~120分钟
 
@@ -128,7 +128,7 @@ research-system/
 
 2. 扩demo:加第二后端MCP server(如`bibliography`)并验gateway合并其工具入同命名空间。
 
-3. 换假A2A写agent真agent跑于子进程。用课程19 harness。
+3. 换假A2A写agent真agent跑于子进程。用课程19 框架。
 
 4. 加routing gateway中orchestrator和LLM间PII redaction步。验用户查询中email刷。
 

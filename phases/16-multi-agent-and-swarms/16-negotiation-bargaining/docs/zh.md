@@ -1,6 +1,6 @@
 # 谈判与讨价还价
 
-> Agent谈判资源、价格、任务分配和条款。2026基准集清晰：NegotiationArena(arXiv:2402.05863)示LLM可通过人设操纵("绝望")提升回报~20%；"Measuring Bargaining Abilities"(arXiv:2402.15813)示买方比卖方难且规模不帮助——其**OG-Narrator**(确定性报价生成器+LLM叙述者)推成交率从26.67%到88.88%；大规模自主谈判竞赛(arXiv:2503.06416)跑~180k谈判发现**隐藏思维链**Agent通过对 counterpart 隐藏推理获胜；Bhattacharya et al. 2025在哈佛谈判项目指标排名Llama-3最有效、Claude-3激进、GPT-4最公平。本lesson实现Contract Net Protocol(FIPA前身，Lesson 02)、接入LLM风格买方/卖方、运行OG-Narrator风格分解、测量成交率随每结构选择变化。
+> Agent谈判资源、价格、任务分配和条款。2026基准集清晰：NegotiationArena(arXiv:2402.05863)示LLM可通过人设操纵("绝望")提升回报~20%；"Measuring Bargaining Abilities"(arXiv:2402.15813)示买方比卖方难且规模不帮助——其**OG-Narrator**(确定性报价生成器+LLM叙述者)推成交率从26.67%到88.88%；大规模自主谈判竞赛(arXiv:2503.06416)跑~180k谈判发现**隐藏思维链**Agent通过对对方隐藏推理获胜；Bhattacharya et al. 2025在哈佛谈判项目指标排名Llama-3最有效、Claude-3激进、GPT-4最公平。本lesson实现Contract Net Protocol(FIPA前身，Lesson 02)、接入LLM风格买方/卖方、运行OG-Narrator风格分解、测量成交率随每结构选择变化。
 
 **类型:** 学习+构建
 **语言:** Python(stdlib)
@@ -58,12 +58,12 @@ arXiv:2402.05863提供canonical基准。头条发现：
 
 ### 思维链隐藏
 
-大规模自主谈判竞赛(arXiv:2503.06416)跨多LLM策略跑~180k谈判。赢家隐藏推理对 counterpart：
+大规模自主谈判竞赛(arXiv:2503.06416)跨多LLM策略跑~180k谈判。赢家隐藏推理对对方：
 
 - 若Agent打印"我只到$75；保留价$70"到公开可见scratchpad，对手读到。
 - 赢家私下计算策略；输出通道只含报价和最小必需叙述。
 
-这是2026回声经典博弈论(Aumann 1976理性与信息)：透露私人估值损回报。LLM不直觉此并愉快在推理痕迹里打保留价，对 counterpart 可见。
+这是2026回声经典博弈论(Aumann 1976理性与信息)：透露私人估值损回报。LLM不直觉此并愉快在推理痕迹里打保留价，对对方可见。
 
 工程教训：分离私人scratchpad上下文与公开消息上下文。非可选。
 
@@ -127,18 +127,18 @@ python3 code/main.py
 
 生产讨价清单：
 
-- **分离scratchpad。**私人状态永不到达 counterpart 上下文。不可协商。
+- **分离scratchpad。**私人状态永不到达对方上下文。不可协商。
 - **确定性报价生成。**价格、数量、ETA：计算，不提示。
 - **验证所有入报价**对schema。在协议边界拒ZOPA外报价。
 - **限轮。**最多3-5轮；死锁升级调解者。
-- **持续测量成交率和回报方差**。成交率下降是症状——常提示漂移或 counterpart 侧攻击。
+- **持续测量成交率和回报方差**。成交率下降是症状——常提示漂移或对方侧攻击。
 - **记录所有拒提案**带确定性理由。Contract Net管理者，输竞标者需理解为何。
 
 ## 练习题
 
 1. 跑`code/main.py`。确认OG-Narrator在成交率胜naive-LLM。多少？
 2. 实现**人设基础回报改进**(arXiv:2402.05863)——买方在叙述采用"本周绝望买"人设，报价生成器不变。成交率或回报变？
-3. 实现思维链**隐藏**：维护不传 counterpart 的私人scratchpad字符串。若意外漏（模拟换通道）发生什么？
+3. 实现思维链**隐藏**：维护不传对方的私人scratchpad字符串。若意外漏（模拟换通道）发生什么？
 4. 扩展Contract Net到N竞标者拍卖带保留价。当所有报价超保留，管理者如何选最低价格vs最高质量？选哪个授予规则为何？
 5. 读Bhattacharya et al. 2025哈佛谈判项目指标。实现两种不同风格讨价者（激进vs公平）。测量对称和非对称配对回报方差。
 

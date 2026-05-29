@@ -106,7 +106,7 @@ InternVL-U subsume Janus-Pro架构择入更大框架。解耦编码器念今规�
 
 ## 练习题
 
-1. Janus-Pro-7B GenEval超DALL-E 3。释何7B开模型可生成匹前沿proprietary模型但理解不。
+1. Janus-Pro-7B GenEval超DALL-E 3。释何7B开模型可生成匹前沿闭源模型但理解不。
 
 2. 实路由函数:给提示文,分类为`understand`或`generate`。何处理歧义提示如"describe and then sketch"?
 

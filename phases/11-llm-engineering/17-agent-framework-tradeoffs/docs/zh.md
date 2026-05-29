@@ -11,7 +11,7 @@
 
 你有需多于一次LLM调用任务。可能是研究工作流(计划、搜索、总结、引用)。可能是代码审管道(解析diff、批评、补、验证)。可能是预订航班、写邮件和报销的多转助手。你择框架。
 
-三天后,你发现框架抽象漏。CrewAI给角色但"研究员"需交结构计划给"作家"时斗。AutoGen给代理间聊天但无一等状态所以你checkpoint是对话日志pickle。LangGraph给状态图但强你命名每过渡于知代理何做前。Agno给你尖叫于试fan out至三并发worker的单代理原语。
+三天后,你发现框架抽象漏。CrewAI给角色但"研究员"需交结构计划给"作家"时斗。AutoGen给代理间聊天但无一等状态所以你checkpoint是对话日志pickle。LangGraph给状态图但强你命名每过渡于知代理何做前。Agno在尝试扇出至三个并发worker时在单代理原语上力不从心。
 
 修非"择最佳框架"。是匹配框架核心抽象至你问题形。本课画那图。
 
@@ -94,7 +94,7 @@
 | 问题形 | 择框架 | 何 |
 |---------------|---------------------|-----|
 | 带类型状态、人批准、长跑工作流DAG | LangGraph | 一等状态、checkpointer、interrupts、time-travel。 |
-| 带角色研究/写管道 | CrewAI(顺序)或LangGraph子图 | CrewAI角色每任务便宜表达;分支复杂时用LangGraphscale up。 |
+| 带角色研究/写管道 | CrewAI(顺序)或LangGraph子图 | CrewAI角色每任务便宜表达;分支复杂时用LangGraph扩展。 |
 | 提议者批评者或师徒对话 | AutoGen | 两代理聊天是其原生形。 |
 | 单代理带工具、session、记忆 | Agno | 最薄设置,内置存和记忆。 |
 | 带reducers千并行fanout | LangGraph + `Send` | 唯带一等并行dispatch原语。 |

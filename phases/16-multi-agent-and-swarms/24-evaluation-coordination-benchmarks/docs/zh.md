@@ -92,7 +92,7 @@ AAAI 2026 Bridge Program——多Agent协调工作坊(https://multiagents.org/20
 
 - 模拟玩具任务3多Agent系统。
 - 每计算MARBLE风格里程碑指标。
-- 跑污染检查通过从"训练"集 withheld 任务。
+- 跑污染检查通过从"训练"集留出的任务。
 - 显式比随机基线。
 - 打印基准声称评分卡。
 

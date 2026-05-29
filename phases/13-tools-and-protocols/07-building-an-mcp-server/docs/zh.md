@@ -146,7 +146,7 @@ echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{}}' | python main.
 
 3. 实`resources/subscribe`使server每当笔记修改push`notifications/resources/updated`。加keepalive任务。
 
-4. 移server至FastMCP。Python文件应缩至少于80行。线行为须同;用同JSON-RPC测harness验。
+4. 移server至FastMCP。Python文件应缩至少于80行。线行为须同;用同JSON-RPC测试框架验。
 
 5. 读spec`server/tools`节并识本课server未实一工具定义域。(提示:有数;择一加。)
 

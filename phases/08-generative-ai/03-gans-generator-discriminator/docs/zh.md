@@ -48,7 +48,7 @@ min_G max_D  E_real[log D(x)] + E_fake[log(1 - D(G(z)))]
 | 2017 | WGAN, WGAN-GP | BCE换Wasserstein距离+梯度惩罚。修复梯度消失。 |
 | 2017 | Spectral normalization | Lipschitz-bound判别器。2026判别器仍用。 |
 | 2018 | Progressive GAN | 先训低分辨率,加层。首个megapixel结果。 |
-| 2019 | StyleGAN / StyleGAN2 | 映射网络+自适应实例归一化。固定领域照片真实state of the art。 |
+| 2019 | StyleGAN / StyleGAN2 | 映射网络+自适应实例归一化。固定领域照片真实的最佳水准。 |
 | 2021 | StyleGAN3 | Alias-free、平移等变——2026仍是人脸黄金标准。 |
 | 2022 | StyleGAN-XL | 条件、类感知、更大规模。 |
 | 2024 | R3GAN | 配更强正则重品牌;1024²无tricks工作。 |
@@ -102,7 +102,7 @@ if step % 200 == 0:
 - **生成器记忆一个模式。**对D输入加噪声、用minibatch-discriminator层、或切WGAN-GP。
 - **批归一化泄漏统计。**真实批+假货批流过同BN层混合统计。用实例归一化或谱归一化替代。
 - **Inception-score博弈。**FID和IS低样本计数噪。eval用≥10k样本。
-- **单次采样是条件任务谎言。**仍需CFG scale、截断tricks、和重采样得可用输出。
+- **单次采样是条件任务的谎言。**仍需CFG缩放、截断技巧和重采样才能得到可用输出。
 
 ## 实际应用
 
@@ -144,13 +144,13 @@ GAN锐利但狭窄。一旦领域开放——照片、任意文本提示、视�
 
 ## 生产注:单次推理是GAN持久优势
 
-GAN不再在开放域生成样本质量胜,但它们仍推理成本胜。在生产推理文献词汇GAN有:
+GAN不再在开放域生成样本质量上胜出，但在推理成本上仍有优势。在生产推理文献中，GAN具有以下特点：
 
-- **无prefill、无decode阶段。**单`G(z)`前向pass。TTFT≈总延迟。
-- **无KV-cache压力。**唯一状态是权重。批大小bounded by激活内存,非cache。
-- **平凡连续批。**因每请求取相同固定FLOPs,服务器目标occupancy静态批常最优。无in-flight调度器需。
+- **无prefill、无decode阶段。**单次`G(z)`前向传播。TTFT≈总延迟。
+- **无KV-cache压力。**唯一状态是权重。批大小受激活内存限制，而非缓存。
+- **平凡连续批。**因每次请求消耗相同固定FLOPs，服务器在目标GPU利用率下的静态批通常最优，无需动态调度器。
 
-这是为何GAN蒸馏(SDXL-Turbo, SD3-Turbo, ADD, LCM)是2026快速文本到图像主导技术:它塌缩20-50步扩散管道到1-4 GAN式前向pass同时保持扩散基分布。对抗loss存活作为训练时旋钮把慢生成器变快。
+这是为何GAN蒸馏(SDXL-Turbo, SD3-Turbo, ADD, LCM)是2026快速文本到图像的主导技术：它将20-50步扩散管道压缩到1-4次GAN式前向传播，同时保持扩散基分布。对抗损失以训练时旋钮的形式存活，用于将慢速生成器变为快速生成器。
 
 ## 延伸阅读
 

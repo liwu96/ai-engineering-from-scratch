@@ -19,7 +19,7 @@
 
 ## 概念讲解
 
-![四种MARL regime:独立、集中critic、self-play、league](../assets/marl.svg)
+![四种MARL范式：独立、集中critic、self-play、league](../assets/marl.svg)
 
 **形式化:马尔可夫博弈。**MDP的推广:状态`S`,联合动作`a = (a_1, …, a_n)`,转移`P(s' | s, a)`,以及每个智能体的奖励`R_i(s, a, s')`。每个智能体`i`在自己的策略`π_i`下最大化自己的回报。如果奖励相同,是**完全合作**。如果是零和,是**对抗性**。如果混合,是**一般博弈**。
 

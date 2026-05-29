@@ -18,7 +18,7 @@
 1. **KV cache。**存每前缀词元K和V向量。每新词元注意力是对缓存key一次query。推理从每生成步`O(N²)`降到`O(N)`。
 2. **Flash注意力机制。**tile注意力计算使完整N×N矩阵永不触HBM。softmax+matmul全在SRAM。A100上2-4× wall-clock加速;H100 FP8上5-10×。
 
-到2026两者通用。每个生产推理栈(vLLM、TensorRT-LLM、SGLang、llama.cpp)假设它们。每个前沿模型发配Flash注意力机制启用。
+到2026两者通用。每个生产推理栈(vLLM、TensorRT-LLM、SGLang、llama.cpp)假设它们。每个前沿模型都默认启用Flash注意力机制。
 
 ## 概念讲解
 
@@ -49,7 +49,7 @@ bytes_per_token_per_layer = 2 * d_head * dtype_size
 32K上下文 = 10.4 GB
 ```
 
-那10GB是为何Llama 3 70B在128K上下文需40GB A100大部分仅KV cache批大小1。
+这10GB就是为何Llama 3 70B在128K上下文、批大小为1时，40GB A100的大部分显存都被KV cache占用。
 
 **GQA是KV cache胜利。**MHA配64头会是32GB。MLA压缩更远。
 
@@ -63,7 +63,7 @@ P = softmax(S)       (HBM读, HBM写)
 O = P @ V            (HBM读, HBM写)
 ```
 
-三HBM往返。H100上,HBM带宽3 TB/s;SRAM 30 TB/s。每HBM行是比一切在芯片上慢10倍。
+三HBM往返。H100上,HBM带宽3 TB/s;SRAM 30 TB/s。每次HBM访问都比片上操作慢约10倍。
 
 Flash注意力机制:
 
@@ -78,7 +78,7 @@ Flash注意力机制:
     写O_tile到HBM
 ```
 
-每tile一次HBM行。总内存占用从`O(N²)`降到`O(N)`。反向从正向重算某些值而非存它们——又内存赢。
+每个tile只有一次HBM往返。总内存占用从`O(N²)`降到`O(N)`。反向传播从正向重算某些值而非存储它们——又一次内存胜利。
 
 **数值技巧。**运行softmax跨tile维护`(max, sum)`使最终归一化精确。非近似——Flash注意力机制算与标准注意力bit-identical输出(除fp16非结合性)。
 
@@ -106,7 +106,7 @@ Flash 4发时仅正向。训练仍用Flash 3。Flash 4 GQA和varlen支持待(202
 
 经典批推理:等最慢序列完,后起新批。短响应早完浪费GPU。
 
-连续批(首次Orca发,后在vLLM、TensorRT-LLM、SGLang):旧完立刻换新请求进批。典型聊天工作负载5-10×吞吐增益。
+连续批(首先由Orca提出，现已集成在vLLM、TensorRT-LLM、SGLang中):旧序列完成后立刻换入新请求。典型聊天工作负载5-10×吞吐增益。
 
 ### PagedAttention——KV cache作虚拟内存
 
@@ -136,7 +136,7 @@ class KVCache:
         return self.K[layer][head], self.V[layer][head]
 ```
 
-简单:在每层每头列表保增长每词元K, V向量。
+原理简单：在每层每个头的列表中存储不断追加的K、V向量。
 
 ### Step 2: tile softmax
 
@@ -206,7 +206,7 @@ vllm serve meta-llama/Llama-3.1-70B-Instruct \
 
 | 术语 | 人们怎么说 | 实际含义 |
 |------|------------|----------|
-| KV cache | "让解码快技巧" | 存每前缀词元K和V;新query对它们attend而非重算。 |
+| KV cache | "让解码快技巧" | 存每前缀词元K和V；新词元的query关注已缓存的K/V而无需重新计算。 |
 | HBM | "GPU主内存" | 高带宽内存;H100上80GB,B200上192GB。~3TB/s带宽。 |
 | SRAM | "芯片内存" | 每SM快内存,H100上约256KB每SM。~30TB/s带宽。 |
 | Flash注意力机制 | "Tile注意力kernel" | 算注意力不显N×N在HBM。 |

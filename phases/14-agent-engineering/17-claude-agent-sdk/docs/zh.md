@@ -1,6 +1,6 @@
 # Claude Agent SDK——Subagent和Session Store
 
-> Claude Agent SDK是Claude Code harness library形。Built-in tool、subagent用于context isolation、hook、W3C trace传播、session store parity。Claude Managed Agent是托管替代用于长运行异步工作。
+> Claude Agent SDK是Claude Code 框架 library形。Built-in tool、subagent用于context isolation、hook、W3C trace传播、session store parity。Claude Managed Agent是托管替代用于长运行异步工作。
 
 **类型:** 学习+构建
 **语言:** Python(stdlib)
@@ -9,14 +9,14 @@
 
 ## 学习目标
 
-- 释Anthropic Client SDK(raw API)和Claude Agent SDK(harness形)间diff。
+- 释Anthropic Client SDK(raw API)和Claude Agent SDK(框架形)间diff。
 - 描述subagent——parallelization和context isolation——和何时reach它们。
 - 名Python SDK session store面(`append`、`load`、`list_session`、`delete`、`list_subkey`)和`--session-mirror`角色。
-- 实stdlib harness带built-in tool、isolated context subagent spawn、lifecycle hook、和session store。
+- 实stdlib 框架带built-in tool、isolated context subagent spawn、lifecycle hook、和session store。
 
 ## 问题背景
 
-Raw LLM API给你一round-trip。产agent需tool执行、MCP server、lifecycle hook、subagent spawn、session持久、trace传播。Claude Agent SDK ship此形作library——同harness Claude Code用、exposed用于custom agent。
+Raw LLM API给你一round-trip。产agent需tool执行、MCP server、lifecycle hook、subagent spawn、session持久、trace传播。Claude Agent SDK ship此形作library——同框架 Claude Code用、exposed用于custom agent。
 
 ## 概念讲解
 
@@ -97,7 +97,7 @@ Trace显subagent context isolation(orchestrator context size bounded)、hook执�
 
 ## 使用
 
-- **Claude Agent SDK**用于Claude-first product欲Claude Code harness形。
+- **Claude Agent SDK**用于Claude-first product欲Claude Code 框架形。
 - **Claude Managed Agent**用于托管长运行异步工作。
 - **OpenAI Agents SDK**(课程16)用于OpenAI-first counterpart。
 - **LangGraph+custom tool**若你欲graph形state machine。
@@ -123,7 +123,7 @@ Trace显subagent context isolation(orchestrator context size bounded)、hook执�
 | Session store | "对话DB" | Persist、load、list、delete turn带subagent cascade |
 | Hook | "Lifecycle callback" | Pre/post tool、session、prompt submit、compact、stop |
 | W3C trace context | "跨process trace" | Parent span propagate入CLI subprocess |
-| Managed Agent | "托管harness" | Anthropic-hosted长运行异步工作 |
+| Managed Agent | "托管框架" | Anthropic-hosted长运行异步工作 |
 | `--session-mirror` | "Transcript mirror" | Session turn stream时写至外文件 |
 | MCP server | "Tool surface" | 外tool/resource source attach agent |
 

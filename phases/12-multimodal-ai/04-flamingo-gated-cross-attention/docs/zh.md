@@ -91,7 +91,7 @@ Otter (2023)建OpenFlamingo上加MIMIC-IT(多模态instruction数据集)instruct
 
 - Idefics / Idefics2 / Idefics3: Hugging Face gated cross-attention lineage,逐简(Idefics2丢resampler为直接patch token带adaptive pooling)。
 - Flamingo-to-Chameleon过渡:2024多队移至early-fusion(课程12.11);Flamingo类gated cross-attention留存于需backbone冻结产。
-- Gemini interleaved输入:概念继承Flamingo interleaved格式灵活,虽确切机制proprietary。
+- Gemini interleaved输入:概念继承Flamingo interleaved格式灵活,虽确切机制未公开。
 
 ### 与BLIP-2比
 
@@ -100,7 +100,7 @@ Otter (2023)建OpenFlamingo上加MIMIC-IT(多模态instruction数据集)instruct
 | 视觉桥 | Q-Former一次于输入 | 每M层Gated cross-attention |
 | 视觉token | 每图32 | 每图每cross-attn层64 |
 | 冻LLM | 是 | 是 |
-| Few-shot in-context | 弱 | 强—论文centerpiece |
+| Few-shot in-context | 弱 | 强—论文核心亮点 |
 | Interleaved输入 | 无原生支持 | 是,设计目标 |
 | 训数据 | 130M对 | 1.3B对 + 43M interleaved页 |
 | 参数量 | 188M训 | ~10B训(cross-attn层) |

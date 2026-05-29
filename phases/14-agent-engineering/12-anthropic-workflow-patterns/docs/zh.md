@@ -81,7 +81,7 @@ python3 code/main.py
 
 - 多任务直API call。
 - 仅当模式真需durable state(LangGraph)、actor-model concurrency(AutoGen v0.4)、或role templating(CrewAI)用framework。
-- Reach Claude Agent SDK当你欲Claude Code harness形无重建。
+- Reach Claude Agent SDK当你欲Claude Code框架形无重建。
 
 ## 交付成果
 

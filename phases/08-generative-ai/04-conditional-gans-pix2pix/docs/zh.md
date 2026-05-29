@@ -44,7 +44,7 @@ Pix2Pix需配对`(x, y)`数据。CycleGAN(Zhu等,2017)以额外loss代价弃此�
 
 `code/main.py`在1-D数据实现微小条件GAN。条件`c`是类标签(0或1)。任务:为给定类从条件分布产生样本。
 
-### Step 1: 向G和D输入append条件
+### Step 1: 向G和D的输入添加条件
 
 ```python
 def G(z, c, params):
@@ -104,7 +104,7 @@ Pix2Pix当有数千配对示例、任务窄且可重复、需快推理时仍是�
 
 ## 产出成果
 
-存`outputs/skill-img2img-chooser.md`。技能取任务描述、数据可用性(配对vs非配对、N样本)、延迟/质量预算,输出:方法(Pix2Pix、CycleGAN、ControlNet变体、SDXL + IP-Adapter)、训练数据要求、推理成本、和eval协议(LPIPS、FID、任务特定)。
+存`outputs/skill-img2img-chooser.md`。技能取任务描述、数据可用性(配对vs非配对、N样本)、延迟/质量预算,输出:方法(Pix2Pix、CycleGAN、ControlNet变体、SDXL + IP-Adapter)、训练数据要求、推理成本、和评估协议(LPIPS、FID、任务特定)。
 
 ## 练习题
 
@@ -135,7 +135,7 @@ Pix2Pix当有数千配对示例、任务窄且可重复、需快推理时仍是�
 | SDXL-Turbo Img2Img | 1-4 | ~0.15-0.35 s |
 | ControlNet + SDXL base | 20-30 | ~3-5 s |
 
-Pix2Pix在静态批吞吐胜(每请求相同FLOPs)。扩散在质量和泛化胜。现代玩法常发布Pix2Pix式蒸馏模型窄任务和扩散fallback尾部输入。
+Pix2Pix在静态批吞吐胜(每请求相同FLOPs)。扩散在质量和泛化胜。现代做法通常为窄任务发布Pix2Pix式蒸馏模型，并以扩散作为尾部输入的后备方案。
 
 ## 延伸阅读
 

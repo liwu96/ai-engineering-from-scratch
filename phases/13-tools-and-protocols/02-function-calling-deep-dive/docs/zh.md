@@ -110,7 +110,7 @@ Tool(
 )
 ```
 
-三小函数翻它至三提供者形。`code/main.py`harness正做此,后round-trip假工具调用经每提供者响应形。无网络需——本课教形,非HTTP。
+三小函数翻它至三提供者形。`code/main.py`框架正做此,后往返传递假工具调用经每提供者响应形。无网络需——本课教形,非HTTP。
 
 产团队包此翻译器入`AbstractToolset`(Pydantic AI)、`UniversalToolNode`(LangGraph)或`BaseTool`(LlamaIndex)。阶段13课程17发gateway露OpenAI形API前三任一前。
 
@@ -151,7 +151,7 @@ Tool(
 | `tool_use`块 | "Anthropic调用形" | 内联内容块带id、name、input |
 | `functionCall`部分 | "Gemini调用形" | 含name、args、id的`parts[]`条 |
 | 参数-as-string | "JSON字符串化" | OpenAI回args为JSON字符串,非对象 |
-| 并行工具调用 | "一轮fan-out" | 一assistant消息多工具调用 |
+| 并行工具调用 | "一轮扇出" | 一assistant消息多工具调用 |
 | Refusal | "模型拒" | 严格模式独有拒绝块替调用 |
 | OpenAPI 3.0子集 | "Gemini schema怪" | Gemini用JSON-Schema类方言带小差 |
 

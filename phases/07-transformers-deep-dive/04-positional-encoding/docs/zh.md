@@ -71,7 +71,7 @@ attn_score[i, j] = (q_i · k_j) / √d  -  m_h · |i - j|
 | RoPE + YaRN | 优秀 | fine-tune阶段 | Qwen2-1M、Llama 3.1 128K |
 | ALiBi | 优秀 | 免费 | BLOOM、MPT、Baichuan |
 
-RoPE胜因它slot入注意力不改架构、编码相对位置、`base`超参给长上下文fine-tune干净旋钮。
+RoPE胜出，因为它可以无缝嵌入注意力机制而不改变架构、编码相对位置，且`base`超参为长上下文微调提供了简洁的调节旋钮。
 
 ## 动手实践
 

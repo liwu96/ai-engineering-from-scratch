@@ -3,7 +3,7 @@
 > 大多MCP server是哑执行器:取参数、跑代码、回内容。Sampling让server翻方向:它问client LLM做决策。这使server托管agent循环无需server拥任模型凭证。SEP-1577,2025-11-25合并,加sampling请求内工具使循环可含更深推理。漂风险注:SEP-1577 sampling内工具形2026 Q1实验且SDK API仍在settling。
 
 **类型:** 构建
-**语言:** Python(stdlib,sampling harness)
+**语言:** Python(stdlib,sampling测试框架)
 **前置要求:** 阶段13课程07(MCP server),阶段13课程10(资源和提示)
 **时间:** ~75分钟
 
@@ -71,7 +71,7 @@ Client跑其LLM,回:
 - `speedPriority`:倾向快模型。
 - `intelligencePriority`:倾向更强模型。
 
-加`hints`:server偏命名模型。Client可不hon hint;client用户配总赢。
+加`hints`:server偏命名模型。Client可不遵循hint;client用户配置总赢。
 
 ### `includeContext`
 
@@ -124,7 +124,7 @@ Server永不触LLM API。Client用户用己凭证付completion。
 
 ## 使用
 
-`code/main.py`发假server-to-client sampling harness。模拟"summarize_repo"工具调两sampling轮(择文件、后摘要),假client回罐装响应。Harness示:
+`code/main.py`构建假server-to-client sampling测试框架。模拟"summarize_repo"工具调两sampling轮(择文件、后摘要),假client回罐装响应。Harness示:
 
 - Server发带`modelPreferences` `sampling/createMessage`。
 - Client回completion。

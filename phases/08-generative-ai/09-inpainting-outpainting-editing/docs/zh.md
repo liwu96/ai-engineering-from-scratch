@@ -9,7 +9,7 @@
 
 ## 问题背景
 
-客户发完美产品照配背景 distract 标牌。你想擦标牌并余像素精确同。不能从零跑文本到图像——结果会有不同颜色、不同光照、不同产品角度。你想仅掩区*再生*,并再生尊周围上下文。
+客户发来完美产品照，但背景中有干扰视线的标牌。你想擦掉标牌，同时让其余像素保持精确一致。不能从零跑文本到图像——结果会有不同颜色、不同光照、不同产品角度。你想仅掩区*再生*,并再生尊周围上下文。
 
 那是inpainting。变体:
 
@@ -17,7 +17,7 @@
 - **Outpainting。**掩外(或画布外)再生,保内。
 - **图像编辑。**全图像再生但保原始语义或结构忠实(SDEdit, InstructPix2Pix)。
 
-2026每个扩散管道发inpainting模式。Flux.1-Fill、Stable Diffusion Inpaint、SDXL-Inpaint、DALL-E 3 Edit。它们同原理工作。
+2026每个扩散管道都提供inpainting模式。Flux.1-Fill、Stable Diffusion Inpaint、SDXL-Inpaint、DALL-E 3 Edit。它们同原理工作。
 
 ## 概念讲解
 

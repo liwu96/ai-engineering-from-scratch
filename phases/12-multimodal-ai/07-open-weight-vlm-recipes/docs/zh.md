@@ -10,17 +10,17 @@
 ## 学习目标
 
 - 命五轴VLM设计空间:图像编码器、connector、LLM、数据混、分辨率调度。
-- 读MM1/Idefics2/Cambrian-1 ablation表并预何knob移给定benchmark。
+- 读MM1/Idefics2/Cambrian-1 ablation表并预何旋钮调整给定基准。
 - 给定算力预算和任务混为新VLM择配方(编码器、connector、数据、分辨率)。
 - 释何详人工caption于同token数胜GPT-4V蒸馏。
 
 ## 问题背景
 
-百开权重VLM存。多"好"和"state-of-the-art"间缝非架构。是数据、分辨率调度和编码器择。知何knob先转当你模型underperform省你5M GPU-hour错。
+百开权重VLM存。多"好"和"state-of-the-art"间缝非架构。是数据、分辨率调度和编码器择。知何旋钮先调当你模型underperform省你5M GPU-hour错。
 
 2023波(LLaVA-1.5、InstructBLIP、MiniGPT-4)于caption pair预训+LLaVA-Instruct-150k跑。好基线。顶MMMU 35%。
 
-2024波(MM1、Idefics2、Molmo、Cambrian-1、Prismatic VLMs)跑 exhaustive ablation。结果惊且实。
+2024波(MM1、Idefics2、Molmo、Cambrian-1、Prismatic VLMs)跑详尽消融实验。结果惊且实。
 
 ## 概念讲解
 
@@ -46,15 +46,15 @@ Cambrian-1"Cambrian Vision Encoders Match-Up"(Tong et al., 2024)于vision-centri
 
 ### 轴2:Connector设计wash
 
-MM1、Idefics2、Prismatic和MM-Interleaved都达同结论:于固定视觉token数,connector架构barely重要。Mean-pooled patch上2-layer MLP于同token预算32-query Q-Former内1点工。
+MM1、Idefics2、Prismatic和MM-Interleaved都达同结论:于固定视觉token数,connector架构几乎不重要。Mean-pooled patch上2-layer MLP于同token预算32-query Q-Former内1点工。
 
-何重要是token数。多视觉token = 多LLM算 = 好性能至点,后diminishing return。64 token每图像OCR太少。576-1024 token是多开VLM甜点。2048+仅帮文档和图表。
+何重要是token数。多视觉token = 多LLM算 = 好性能至某点,后边际收益递减。64 token每图像OCR太少。576-1024 token是多开VLM甜点。2048+仅帮文档和图表。
 
 Q-Former vs MLP是成本问题非质量问题:Q-Former不管图像分辨率capped 32-64 token;MLP发全patch token。高清输入,Q-Former省LLM context;低分辨率,差是噪。
 
 ### 轴3:LLM大小定天花板
 
-LLM从7B至13B加倍MMMU可靠每VLM论文加2-4点。70B你saturation多benchmark。VLM多模推理天花板是LLM文推理天花板—视觉编码器仅feed它,非替它推理。
+LLM从7B至13B加倍MMMU可靠每VLM论文加2-4点。70B时多项基准已达饱和。VLM多模推理天花板是LLM文推理天花板—视觉编码器仅feed它,非替它推理。
 
 这是何Qwen2.5-VL-72B和Claude Opus 4.7 crush MMMU-Pro和ScreenSpot-Pro:语言brain巨大。7B VLM不可通过clever connector设计替70B VLM。
 
@@ -128,10 +128,10 @@ Prismatic VLMs (Karamcheti et al., 2024)是控全轴论文。同13B LLM、同ins
 
 | 术语 | 人们怎么说 | 实际含义 |
 |------|-----------------|-----------------------|
-| Ablation | "转一knob" | 多run训异于精一设计空间轴,持余常 |
+| Ablation | "调一旋钮" | 多run训异于精一设计空间轴,持余常 |
 | Connector | "桥"/"projector" | 映视觉编码器输出入LLM token空间可训模块(MLP、Q-Former、Perceiver) |
 | 详人工caption | "密caption" | 多句人工写描述(典型80-300 token)富于web alt text |
-| 蒸馏 | "GPT-4V caption" | 强proprietary VLM生成训数据;便利但易继承hallucination |
+| 蒸馏 | "GPT-4V caption" | 强闭源VLM生成训数据;便利但易继承hallucination |
 | AnyRes / 动态res | "高清路径" | 经tiling或M-RoPE feed大于编码器原生分辨率图像策略 |
 | Resolution ramp | "课程" | 低分辨率开增训调度,加速对齐学习 |
 | Vision-centric bench | "CV-Bench / BLINK" | 强密视觉感知非语言重推理评估 |

@@ -18,7 +18,7 @@
 
 Transformer操作向量序列。文已是序列(字节或token)。图像是三色通道2D像素网格—非序列。若flatten每像素,224x224 RGB图像成150,528 token,于那长度self-attention不可开(序列长度二次方)。
 
-2020前方法CNN特征提取器bolt至前:ResNet产7x7 2048维向量特征图,feed那49 token至transformer。这工但继承CNN偏(平移等变性、局部感受野)和失transformer规模胃口。
+2020前方法CNN特征提取器接在前端:ResNet产7x7 2048维向量特征图,feed那49 token至transformer。这工但继承CNN偏(平移等变性、局部感受野)和失transformer规模胃口。
 
 Dosovitskiy et al. (2020)问直问题:若跳CNN何如?分图像至固定大小patch(如16x16像素),线性投每patch至向量,加位置embedding,feed序列至vanilla transformer。时此异端—无卷积视觉。于够数据(JFT-300M,后LAION)于ImageNet超ResNet并续改进。
 
@@ -87,7 +87,7 @@ final LN    = 1.5k
 total       ≈ 86M
 ```
 
-于载checkpoint前每ViTball-park此。Backbone大小定你下游VLM VRAM基线。
+于载checkpoint前对每个ViT粗略估算此数。Backbone大小定你下游VLM VRAM基线。
 
 ### 2026产配
 
