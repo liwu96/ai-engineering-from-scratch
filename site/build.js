@@ -12,7 +12,7 @@ const fs = require('fs');
 const path = require('path');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
-const README_PATH = path.join(REPO_ROOT, 'README.md');
+const README_PATH = path.join(REPO_ROOT, 'README.zh.md');
 const ROADMAP_PATH = path.join(REPO_ROOT, 'ROADMAP.md');
 const GLOSSARY_PATH = path.join(REPO_ROOT, 'glossary', 'terms.md');
 const OUTPUT_PATH = path.join(__dirname, 'data.js');
@@ -74,11 +74,11 @@ function parseReadme(content, roadmapStatuses) {
     // New: ### ![](https://img.shields.io/badge/Phase_0-Setup_&_Tooling-95A5A6?style=for-the-badge) `12 lessons`
     // New: <summary><b>🟣 Phase 1 — Math Foundations</b> &nbsp;<code>22 lessons</code>&nbsp; <em>Description</em></summary>
     const phaseHeaderMatch =
-      line.match(/###\s+Phase\s+(\d+):\s+(.+?)\s*`(\d+)\s+lessons?`/) ||
-      line.match(/###\s+!\[\]\([^)]*?Phase[_\s]+(\d+)[-_]([^?)]+?)-[A-F0-9]{6}[^)]*\)\s*`(\d+)\s+lessons?`/i);
+      line.match(/###\s+Phase\s+(\d+)[:：]\s*(.+?)\s*`(\d+)\s+(?:lessons?|节课)`/) ||
+      line.match(/###\s+!\[\]\([^)]*?Phase[_\s]+(\d+)[-_]([^?)]+?)-[A-F0-9]{6}[^)]*\)\s*`(\d+)\s+(?:lessons?|节课)`/i);
     const detailsHeaderMatch =
-      line.match(/<summary><strong>Phase\s+(\d+):\s+(.+?)<\/strong>\s*<code>(\d+)\s+(?:lessons?|projects?)<\/code>.*?<em>(.*?)<\/em>/) ||
-      line.match(/<summary>\s*<b>\s*(?:[^\w\s]+\s+)?Phase\s+(\d+)\s*[—\-:]\s*(.+?)<\/b>.*?<code>(\d+)\s+(?:lessons?|projects?)<\/code>.*?<em>(.*?)<\/em>/);
+      line.match(/<summary><strong>Phase\s+(\d+):\s+(.+?)<\/strong>\s*<code>(\d+)\s+(?:lessons?|projects?|节课|个项目)<\/code>.*?<em>(.*?)<\/em>/) ||
+      line.match(/<summary>\s*<b>\s*(?:[^\w\s]+\s+)?Phase\s+(\d+)\s*[—\-:]\s*(.+?)<\/b>.*?<code>(\d+)\s+(?:lessons?|projects?|节课|个项目)<\/code>.*?<em>(.*?)<\/em>/);
 
     if (phaseHeaderMatch) {
       const [, idStr, rawName] = phaseHeaderMatch;
@@ -112,7 +112,7 @@ function parseReadme(content, roadmapStatuses) {
     }
 
     // Detect start of lesson table
-    if (currentPhase && line.match(/^\|\s*#\s*\|\s*Lesson/)) {
+    if (currentPhase && line.match(/^\|\s*#\s*\|\s*(?:Lesson|课程)/)) {
       inLessonTable = true;
       isCapstoneTable = false;
       continue;
