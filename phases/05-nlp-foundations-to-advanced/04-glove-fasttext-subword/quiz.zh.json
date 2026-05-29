@@ -1,0 +1,60 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "GloVe相对于Word2Vec的贡献是什么？",
+      "options": ["直接分解带加权损失的词-词共现矩阵", "字节级分词", "更深的神经网络", "子词n元组嵌入"],
+      "correct": 0,
+      "explanation": "GloVe用精心设计的加权对数损失对全局共现矩阵进行分解。"
+    },
+    {
+      "stage": "pre",
+      "question": "FastText解决了Word2Vec和GloVe没有解决的什么问题？",
+      "options": ["降低训练成本", "多语言迁移", "通过组合字符n元组为未见词产生向量", "多义词消歧"],
+      "correct": 2,
+      "explanation": "FastText从子词n元组组合词向量，因此OOV词仍然能得到合理的向量。"
+    },
+    {
+      "stage": "check",
+      "question": "在GloVe中，权重函数f(x) = (x/x_max)^alpha起什么作用？",
+      "options": ["降低极频繁对的权重以避免它们主导损失", "选择负样本", "随机初始化权重", "将向量归一化到单位长度"],
+      "correct": 0,
+      "explanation": "加权防止像(the, and)这样的普遍共现主导训练。"
+    },
+    {
+      "stage": "check",
+      "question": "BPE合并步骤如何选择下一个要合并的对？",
+      "options": ["随机对", "字典序第一对", "语料库中最频繁的相邻标记对", "IDF最高的对"],
+      "correct": 2,
+      "explanation": "BPE迭代地合并最频繁的相邻对。"
+    },
+    {
+      "stage": "check",
+      "question": "为什么GPT-2使用字节级BPE？",
+      "options": ["字节BPE跳过合并训练", "256字节的基础词汇涵盖任何输入，完全消除词汇外问题", "字节比字符训练更快", "字节隐式保留大小写"],
+      "correct": 1,
+      "explanation": "从256字节开始意味着每个UTF-8字符串都能被分词；没有OOV。"
+    },
+    {
+      "stage": "post",
+      "question": "微调预训练Transformer时应该使用哪个分词器？",
+      "options": ["始终使用SentencePiece", "模型自带的精确分词器；不匹配会破坏嵌入", "词汇量最大的", "始终使用字节级BPE"],
+      "correct": 1,
+      "explanation": "分词器-模型不匹配会静默地损坏输入；始终将自带分词器与其模型配对。"
+    },
+    {
+      "stage": "post",
+      "question": "什么情况下你会选择FastText而不是GloVe作为预训练词向量？",
+      "options": ["当你需要50d模型时", "对于形态丰富的语言或频繁出现新词和拼写错误的领域", "当延迟最紧张时", "当语料库非常小时"],
+      "correct": 1,
+      "explanation": "FastText的子词组合处理GloVe无法处理的词形变化、新词和拼写错误。"
+    },
+    {
+      "stage": "post",
+      "question": "WordPiece、BPE和SentencePiece词汇表的基本单位是什么？",
+      "options": ["句子", "完整词", "段落", "词级别以下的子词片段（字符、n元组或学习的合并）"],
+      "correct": 3,
+      "explanation": "三者都是子词分词器；它们的区别在于如何学习合并或片段，而不是是否为子词。"
+    }
+  ]
+}

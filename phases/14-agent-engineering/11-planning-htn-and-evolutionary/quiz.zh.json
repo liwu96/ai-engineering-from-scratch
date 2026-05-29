@@ -1,0 +1,88 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "HTN在什么情况下增加可证明的正确性？",
+      "options": [
+        "当前提条件被强制执行时",
+        "当LLM置信度超过0.9时",
+        "当任务树超过10个节点时",
+        "当使用GPU加速时"
+      ],
+      "correct": 0,
+      "explanation": "HTN通过在运算符上强制执行前提条件/效果来增加可证明的正确性。"
+    },
+    {
+      "stage": "pre",
+      "question": "AlphaEvolve适用于什么类型的问题？",
+      "options": [
+        "需要人类判断的模糊任务",
+        "具有确定性适应度函数的问题",
+        "需要情感推理的任务",
+        "依赖用户偏好的问题"
+      ],
+      "correct": 1,
+      "explanation": "AlphaEvolve针对可用确定性适应度函数评分的问题设计。"
+    },
+    {
+      "stage": "check",
+      "question": "ChatHTN中LLM建议的角色是什么？",
+      "options": [
+        "LLM拥有完整的规划权威",
+        "LLM建议仅作为候选分解，符号层拥有正确性",
+        "LLM直接执行HTN运算符",
+        "LLM替代前提条件检查"
+      ],
+      "correct": 1,
+      "explanation": "在ChatHTN中，LLM提供候选分解，但符号层负责验证和正确性保障。"
+    },
+    {
+      "stage": "check",
+      "question": "AlphaEvolve在4x4复数矩阵乘法上取得了什么结果？",
+      "options": [
+        "56年来首次超越Strassen算法的改进",
+        "比Strassen快10倍",
+        "使用更少的内存但速度相同",
+        "首次在量子硬件上运行"
+      ],
+      "correct": 0,
+      "explanation": "AlphaEvolve实现了56年来首次在4x4复数矩阵乘法上超越Strassen算法的改进。"
+    },
+    {
+      "stage": "check",
+      "question": "HTN运算符包含什么？",
+      "options": [
+        "仅任务名称和描述",
+        "仅后置条件",
+        "前提条件和效果（原语）",
+        "仅嵌入向量"
+      ],
+      "correct": 2,
+      "explanation": "HTN运算符是携带前提条件和效果的原语；这使得正确性可验证。"
+    },
+    {
+      "stage": "post",
+      "question": "没有评估器时的主要警告是什么？",
+      "options": [
+        "HTN树变得太大",
+        "让LLM判断代码是否更好不是适应度函数",
+        "进化循环无法终止",
+        "前提条件检查失败"
+      ],
+      "correct": 1,
+      "explanation": "如果没有确定性评估器，LLM的判断不等同于适应度函数，进化方法会失效。"
+    },
+    {
+      "stage": "post",
+      "question": "何时应该选择ReAct/ReWOO而非HTN？",
+      "options": [
+        "当任务需要形式化规划时",
+        "大多数任务不需要形式化规划时",
+        "当适应度函数可用时",
+        "当任务树超过5层时"
+      ],
+      "correct": 1,
+      "explanation": "大多数任务不需要HTN的形式化规划开销；ReAct/ReWOO通常更实用。"
+    }
+  ]
+}

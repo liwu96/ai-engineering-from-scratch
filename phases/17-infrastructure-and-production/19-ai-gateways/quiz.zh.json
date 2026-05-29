@@ -1,0 +1,76 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "AI网关在课程中的核心角色是什么？",
+      "options": [
+        "模型微调服务",
+        "检索向量数据库",
+        "仅日志记录的sidecar",
+        "位于应用和模型提供商之间的进程，在一个API后面整合路由、故障转移、重试、速率限制、密钥引用、可观测性和护栏"
+      ],
+      "correct": 3,
+      "explanation": "AI网关是横切关注点的统一层：路由、故障转移、成本控制、安全和可观测性集中管理。"
+    },
+    {
+      "stage": "check",
+      "question": "Kong的基准测试报告LiteLLM的规模上限是什么？",
+      "options": [
+        "上限50 RPS",
+        "在约2000 RPS时崩溃，8 GB内存且持续负载下级联失败",
+        "线性扩展到10000 RPS以上",
+        "LiteLLM无法进行基准测试"
+      ],
+      "correct": 1,
+      "explanation": "LiteLLM适合开发和中等规模；在高吞吐量生产场景中存在内存和稳定性限制。"
+    },
+    {
+      "stage": "check",
+      "question": "根据Kong的同等CPU基准测试，Kong AI Gateway比Portkey和LiteLLM快多少？",
+      "options": [
+        "比Portkey快228%，比LiteLLM快859%",
+        "快约10%和20%",
+        "相同",
+        "比两者都慢"
+      ],
+      "correct": 0,
+      "explanation": "Kong基于Go和Nginx，吞吐量优于Python实现的LiteLLM和Node.js实现的Portkey。"
+    },
+    {
+      "stage": "check",
+      "question": "课程将哪个网关定位为20-40ms延迟开销，专注于护栏/PII脱敏/越狱检测？",
+      "options": [
+        "Kong AI Gateway",
+        "LiteLLM",
+        "Cloudflare AI Gateway",
+        "Portkey"
+      ],
+      "correct": 3,
+      "explanation": "Portkey专注于LLM安全功能（护栏、PII、越狱检测），代价是20-40ms延迟开销。"
+    },
+    {
+      "stage": "post",
+      "question": "课程说什么是自托管vs托管网关决策的决定因素？",
+      "options": [
+        "网关是否开源",
+        "支持的提供商数量",
+        "每请求成本",
+        "数据驻留要求"
+      ],
+      "correct": 3,
+      "explanation": "数据驻留（GDPR、HIPAA等法规要求数据留在特定区域）是最常迫使自托管的因素。"
+    },
+    {
+      "stage": "post",
+      "question": "当SLA是TTFT P99 < 100ms时，哪些网关在预算内？",
+      "options": [
+        "任何网关",
+        "仅Portkey",
+        "仅LiteLLM",
+        "Kong（约3-8ms）或Cloudflare/Vercel边缘网关（约1-3ms）；Portkey的20-40ms太重"
+      ],
+      "correct": 3,
+      "explanation": "100ms的TTFT P99 SLA意味着网关开销必须在个位数毫秒；Portkey的20-40ms会消耗过多延迟预算。"
+    }
+  ]
+}

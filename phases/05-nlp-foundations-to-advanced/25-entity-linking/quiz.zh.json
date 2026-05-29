@@ -1,0 +1,60 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "实体链接在NER之上增加了什么？",
+      "options": ["翻译", "情感极性", "词性标注", "将每个检测到的提及映射到知识库（Wikidata、Wikipedia或领域KB）中的唯一条目"],
+      "correct": 3,
+      "explanation": "EL将提及转换为规范的KB id，消歧同名实体之间的歧义。"
+    },
+    {
+      "stage": "pre",
+      "question": "实体链接的两个主要子任务是什么？",
+      "options": ["分词和解析", "词性标注和词形还原", "嵌入和聚类", "候选生成（合理KB条目的候选列表）和消歧（给定上下文选择正确的）"],
+      "correct": 3,
+      "explanation": "EL分解为提出候选然后按上下文适配度对其排名。"
+    },
+    {
+      "stage": "check",
+      "question": "为什么必须在消歧准确率旁边报告提及召回率？",
+      "options": ["GDPR要求提及召回率", "召回率替代精确率", "消歧无法从缺失候选中恢复；管道受候选生成召回率的限制", "spaCy需要召回率"],
+      "correct": 2,
+      "explanation": "如果候选遗漏了金标实体，没有消歧器能修复它；召回率限制了管道质量。"
+    },
+    {
+      "stage": "check",
+      "question": "GENRE如何执行实体链接？",
+      "options": ["在有效KB id字典树上的约束解码下逐标记解码实体的规范名称", "通过BM25", "通过计算TF-IDF", "通过PageRank"],
+      "correct": 0,
+      "explanation": "GENRE用约束解码生成规范的KB名称以保证有效id。"
+    },
+    {
+      "stage": "check",
+      "question": "实体链接中的NIL处理是什么？",
+      "options": ["当没有候选是真实匹配时预测'不在KB中'标签（新兴实体、不知名人物）", "返回整个候选列表", "小写化输入", "跳过每个提及"],
+      "correct": 0,
+      "explanation": "NIL预测防止猜测KB不涵盖的实体的错误KB id。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么流行度偏差在专业领域的实体链接中有害？",
+      "options": ["在网络数据上训练的模型过度预测频繁实体（例如篮球运动员Jordan而不是ML研究员Michael I. Jordan）", "它只偏向较旧的实体", "流行度删除NIL", "流行度有助于召回率"],
+      "correct": 0,
+      "explanation": "流行度先验使预测偏离较少见的、特定领域的名称冲突。"
+    },
+    {
+      "stage": "post",
+      "question": "2026年安全的LLM-EL模式是什么？",
+      "options": ["提供候选列表并使用约束JSON输出，LLM只能从有效KB id中选择", "仅提示'找到实体'", "自由格式生成", "跳过候选生成"],
+      "correct": 0,
+      "explanation": "将LLM约束到有效候选列表可以防止捏造的KB id并保持输出可查询。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么NER提及边界必须精确才能让实体链接工作？",
+      "options": ["边界错误会传播：'Bank of America'被截断为'Bank'会出现错误候选并损害EL召回率", "边界精度只影响NER指标，不影响实体链接候选质量", "边界改变分词", "边界破坏Wikipedia查找"],
+      "correct": 0,
+      "explanation": "边界错误的提及检索到错误的别名集，将错误传播到消歧中。"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "知识图谱的原子单位是什么？",
+      "options": ["词性标注", "（主语，关系，宾语）三元组", "标记", "句子"],
+      "correct": 1,
+      "explanation": "知识图谱将信息存储为(s, r, o)三元组；聚合的三元组形成图。"
+    },
+    {
+      "stage": "pre",
+      "question": "2026年关系抽取中AEVS代表什么？",
+      "options": ["锚定-抽取-验证-补充：锚定跨度、抽取三元组、对照源验证、补充覆盖率", "自动编码器向量搜索", "异步实体验证服务", "聚合实体-值模式"],
+      "correct": 0,
+      "explanation": "AEVS是2026年用于有根据RE的幻觉缓解框架。"
+    },
+    {
+      "stage": "check",
+      "question": "为什么每个三元组必须携带源溯源（文档id+跨度）？",
+      "options": ["溯源让你审计三元组并拒绝跨度与源文本不匹配的幻觉", "它加速抽取", "溯源改变本体", "SPARQL需要溯源"],
+      "correct": 0,
+      "explanation": "溯源启用审计，是AEVS风格幻觉检测的核心。"
+    },
+    {
+      "stage": "check",
+      "question": "关系规范化做什么？",
+      "options": ["将表面动词短语（例如'was born in'、'is a native of'）映射到固定属性id，使图可查询", "删除三元组", "添加嵌入", "翻译文档"],
+      "correct": 0,
+      "explanation": "规范化将释义折叠为规范的KG属性id。"
+    },
+    {
+      "stage": "check",
+      "question": "为什么关系抽取通常需要先进行共指消解？",
+      "options": ["像'he founded Apple'这样的代词在三元组抽取之前必须解析为命名实体", "共指添加嵌入", "共指提供位置", "共指归一化大小写"],
+      "correct": 0,
+      "explanation": "没有共指，RE将关系附加到代词而不是底层命名实体。"
+    },
+    {
+      "stage": "post",
+      "question": "哪种选择以开放IE召回率换取图可查询性？",
+      "options": ["跳过NER", "随机采样三元组", "仅嵌入图", "在合并到KG之前将开放IE关系映射到封闭本体（例如Wikidata属性）"],
+      "correct": 3,
+      "explanation": "封闭本体使图可查询；规范化步骤在下游回报。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么许多生产KG使用时态限定符（开始/结束时间）？",
+      "options": ["更快的SPARQL", "RDF需要", "许多关系是时间有界的（雇主、配偶、角色）；限定符防止变得过时的'永远为真'声明", "删除NIL实体"],
+      "correct": 2,
+      "explanation": "时间有界关系需要限定符（例如Wikidata P580/P582），否则事实会静默地变得过时。"
+    },
+    {
+      "stage": "post",
+      "question": "什么是REBEL？",
+      "options": ["向量数据库", "输出已经是Wikidata属性id的三元组的seq2seq关系抽取器", "分词器", "共指模型"],
+      "correct": 1,
+      "explanation": "REBEL（Babelscape）是在远程监督的Wikidata三元组上训练的seq2seq RE模型。"
+    }
+  ]
+}

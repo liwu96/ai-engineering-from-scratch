@@ -1,0 +1,60 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "什么是BIO标注？",
+      "options": ["逐标记标签：B-TYPE表示实体开始，I-TYPE表示内部，O表示外部", "二元实体与非实体方案", "一种分词风格", "实体的树形表示"],
+      "correct": 0,
+      "explanation": "BIO将跨度提取转换为带B/I/O前缀的标记分类。"
+    },
+    {
+      "stage": "pre",
+      "question": "为什么基于规则的地名词典在生产NER中很脆弱？",
+      "options": ["它们需要GPU", "它们很慢", "它们对新实体的覆盖率为零，无法消歧（例如苹果水果vs公司）", "它们无法处理多标记实体"],
+      "correct": 2,
+      "explanation": "地名词典可以匹配已知字符串但无法消歧含义或泛化到未见名称。"
+    },
+    {
+      "stage": "check",
+      "question": "CRF相对于HMM用于NER的关键优势是什么？",
+      "options": ["CRF避免了维特比算法", "CRF不需要训练数据", "CRF是判别式的，可以混合任意特征（形状、大写、邻居）", "CRF更快"],
+      "correct": 2,
+      "explanation": "CRF是判别式的，允许你以丰富的、重叠的特征为条件。"
+    },
+    {
+      "stage": "check",
+      "question": "在BiLSTM-CRF架构中，CRF层的作用是什么？",
+      "options": ["执行分词", "通过在LSTM发射之上建模标签到标签转换来强制有效的BIO标签序列", "预训练LSTM", "替换嵌入"],
+      "correct": 1,
+      "explanation": "LSTM特征之上的CRF建模标签间依赖关系，排除非法序列。"
+    },
+    {
+      "stage": "check",
+      "question": "为什么NER必须用实体级F1而不是标记级F1评估？",
+      "options": ["实体级F1更容易计算", "预测跨度必须与真实跨度精确匹配；标记级F1通过计算部分匹配来夸大准确率", "标记级F1无法处理BIO", "实体级F1是HuggingFace的要求"],
+      "correct": 1,
+      "explanation": "跨度精确匹配是有意义的指标；标记级F1通过部分重叠来虚高分数。"
+    },
+    {
+      "stage": "post",
+      "question": "HuggingFace NER管道中的aggregation_strategy='simple'做什么？",
+      "options": ["小写化输出", "跳过分词", "将连续的B-X和I-X标记合并为单个跨度", "只返回最置信的实体"],
+      "correct": 2,
+      "explanation": "它将相同类型的连续BIO标记合并为跨度级实体。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么标准BIO在嵌套实体上失败？",
+      "options": ["BIO需要Transformer", "BIO是平面逐标记方案，无法表达两个不同类型的重叠跨度", "BIO无法表示多标记实体", "BIO丢弃类型标签"],
+      "correct": 1,
+      "explanation": "BIO为每个标记分配一个标签；嵌套跨度需要多次传递或基于跨度的模型。"
+    },
+    {
+      "stage": "post",
+      "question": "2026年在什么情况下经典NER（CRF或BiLSTM-CRF）仍然胜过LLM？",
+      "options": ["在嵌套实体上", "只要输入是英文", "在开放域叙事上", "在严格延迟预算、充足标签、稳定本体或非生成式监管约束下"],
+      "correct": 3,
+      "explanation": "经典NER在延迟、标注数据充足、固定本体和本地部署约束方面胜出。"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "最小代理工作台的三个文件是什么？",
+      "options": [
+        "AGENTS.md（路由器）、agent_state.json（状态）、task_board.json（队列）",
+        "README.md、config.json、tasks.txt",
+        "CLAUDE.md、memory.json、queue.json",
+        "system_prompt.md、state.db、todo.json"
+      ],
+      "correct": 0,
+      "explanation": "最小工作台三文件：AGENTS.md（指令路由器）、agent_state.json（持久状态）、task_board.json（任务队列）。"
+    },
+    {
+      "stage": "pre",
+      "question": "AGENTS.md应如何构建？",
+      "options": [
+        "包含所有指令的完整文档",
+        "简短路由器，指向更深的文档和状态/任务板",
+        "每个代理的配置文件",
+        "工具调用的JSON schema"
+      ],
+      "correct": 1,
+      "explanation": "AGENTS.md应是简短路由器，指向更深的专业文档；把所有内容塞入AGENTS.md会使它难以维护。"
+    },
+    {
+      "stage": "check",
+      "question": "Augment Code数据显示了什么？",
+      "options": [
+        "质量提升等同于Haiku到Opus的升级",
+        "成本降低50%",
+        "速度提高2倍",
+        "错误率降低10%"
+      ],
+      "correct": 1,
+      "explanation": "Augment Code数据：好的工作台设计带来的质量提升等同于从Haiku升级到Opus的模型升级。"
+    },
+    {
+      "stage": "check",
+      "question": "文件支持的状态与聊天历史状态的区别是什么？",
+      "options": [
+        "文件更快",
+        "聊天记录是临时的，文件在会话崩溃后仍然存在",
+        "文件支持更多格式",
+        "文件更安全"
+      ],
+      "correct": 1,
+      "explanation": "聊天历史在会话结束后消失；文件支持的状态在会话崩溃、重启后仍然持久存在。"
+    },
+    {
+      "stage": "check",
+      "question": "冲突指令如何影响性能？",
+      "options": [
+        "代理请求澄清",
+        "从交互模式降至贪心模式（解决率从48.8%降至28%）",
+        "代理忽略所有指令",
+        "代理崩溃"
+      ],
+      "correct": 1,
+      "explanation": "冲突指令使代理降级到不那么深思熟虑的策略，解决率从48.8%显著降至28%。"
+    },
+    {
+      "stage": "post",
+      "question": "跨工具符号链接如何工作？",
+      "options": [
+        "每个工具有自己的指令副本",
+        "单一源文件扇出到每个编码代理",
+        "工具共享同一配置",
+        "工具通过API共享指令"
+      ],
+      "correct": 1,
+      "explanation": "维护一个主AGENTS.md，用符号链接分发到CLAUDE.md、.cursor/rules/等——单一真实来源。"
+    },
+    {
+      "stage": "post",
+      "question": "嵌套AGENTS.md如何工作？",
+      "options": [
+        "子目录覆盖父目录",
+        "串联最近的上层树；子目录扩展根",
+        "只使用最近的文件",
+        "只使用根文件"
+      ],
+      "correct": 1,
+      "explanation": "嵌套AGENTS.md从根到当前目录串联，子目录文件扩展（而非替换）父目录指令。"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "LDA对每个文档假设什么？",
+      "options": ["每个文档只属于一个主题", "文档是句子", "每个文档是主题的混合；每个主题是词上的分布", "文档独立于主题"],
+      "correct": 2,
+      "explanation": "LDA的生成故事是混合成员：每个文档有主题分布，每个主题有词分布。"
+    },
+    {
+      "stage": "pre",
+      "question": "BERTopic使用什么来形成主题聚类？",
+      "options": ["对词汇表直接softmax", "用句子Transformer编码文档，用UMAP降维，然后用HDBSCAN聚类", "运行BM25然后k均值", "端到端训练LSTM"],
+      "correct": 1,
+      "explanation": "BERTopic = 嵌入 + UMAP + HDBSCAN，主题词使用基于类的TF-IDF。"
+    },
+    {
+      "stage": "check",
+      "question": "为什么scikit-learn的LDA期望原始计数（CountVectorizer），而不是TF-IDF？",
+      "options": ["TF-IDF太慢", "LDA的概率模型定义在整数词计数上；TF-IDF扭曲了底层分布", "LDA无法处理浮点数", "内存限制"],
+      "correct": 1,
+      "explanation": "LDA似然假设计数；输入TF-IDF值违反了模型假设。"
+    },
+    {
+      "stage": "check",
+      "question": "BERTopic输出中HDBSCAN的-1标签是什么意思？",
+      "options": ["保留类别", "密度算法无法自信分配的文档的异常值聚类", "停用词聚类", "顶级主题"],
+      "correct": 1,
+      "explanation": "HDBSCAN用-1标记未聚类的点；在BERTopic中这些是不适合任何主题的文档。"
+    },
+    {
+      "stage": "check",
+      "question": "主题模型评估的常用默认相干性指标是哪个？",
+      "options": ["BLEU", "准确率", "仅困惑度", "通过顶级主题词滑动窗口的NPMI计算c_v相干性"],
+      "correct": 3,
+      "explanation": "c_v相干性（Roder等人，2015年）是规范的自动主题相干性指标。"
+    },
+    {
+      "stage": "post",
+      "question": "什么时候LDA通常比BERTopic更适合？",
+      "options": ["在短推文上", "混合成员主题分布有用且嵌入会截断输入的长文档", "当嵌入有噪声时", "当每个文档需要单个主题时"],
+      "correct": 1,
+      "explanation": "长文档受益于LDA的混合成员模型；BERT编码器会截断输入。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么BERTopic通常在短文本（推文、标题）上胜出？",
+      "options": ["短文本主题更少", "它更快", "嵌入空间中的语义相似度捕获了词袋计数过于稀疏时的含义", "它支持更多语言"],
+      "correct": 2,
+      "explanation": "BERT嵌入为短文本提供语义相似度，而词重叠统计在短文本上失败。"
+    },
+    {
+      "stage": "post",
+      "question": "你应该监控哪种常见的LDA失效模式？",
+      "options": ["文档混合和为1", "主题完美匹配标注类别", "吸收停用词或极频繁词的垃圾主题", "文档太少的主题"],
+      "correct": 2,
+      "explanation": "LDA可以创建吸收停用词的垃圾主题；更严格的min_df/max_df和停用词过滤可以缓解。"
+    }
+  ]
+}

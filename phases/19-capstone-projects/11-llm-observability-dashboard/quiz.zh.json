@@ -1,0 +1,88 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "Langfuse、Phoenix和OpenLLMetry收敛于哪种摄取模式？",
+      "options": [
+        "每个供应商的专有JSON",
+        "Prometheus展示格式",
+        "通过OTLP HTTP的OpenTelemetry GenAI语义约定",
+        "纯CSV日志文件"
+      ],
+      "correct": 2,
+      "explanation": "OTel标准化：GenAI语义约定为LLM追踪提供统一模式（span类型、属性名称），使不同工具的数据可以互操作。"
+    },
+    {
+      "stage": "pre",
+      "question": "为什么在存储层分离ClickHouse和Postgres？",
+      "options": [
+        "它们可以互换，随机选择一个",
+        "Postgres在span摄取上更快",
+        "ClickHouse不能存储字符串",
+        "ClickHouse处理对span的列式分析，而Postgres保存用户、会话和应用元数据"
+      ],
+      "correct": 3,
+      "explanation": "存储分工：ClickHouse擅长大量追踪数据的聚合分析（按模型/时间段统计成本）；Postgres擅长事务性数据（用户账户、会话状态）。"
+    },
+    {
+      "stage": "check",
+      "question": "OpenTelemetry Collector中的尾部采样处理器做什么？",
+      "options": [
+        "在追踪完成后决定是否保留，使用如保留错误加采样成功的规则",
+        "将旧的追踪重放到Postgres",
+        "无条件地流式传输每个字节",
+        "截断低于100ms的span"
+      ],
+      "correct": 0,
+      "explanation": "尾部采样：等到整个追踪完成后再决定是否保留——可以智能地保留所有错误追踪和采样成功追踪，而不是随机丢弃。"
+    },
+    {
+      "stage": "check",
+      "question": "仪表板如何检测跨周的漂移？",
+      "options": [
+        "计算汇聚提示嵌入的PSI或KL散度，并观察评估得分趋势",
+        "人工目视检查仪表板",
+        "读取最新部署时间戳",
+        "统计唯一追踪ID"
+      ],
+      "correct": 0,
+      "explanation": "统计漂移检测：PSI/KL散度量化输入分布的偏移；配合评估得分趋势，可以区分"模型漂移"和"数据分布漂移"。"
+    },
+    {
+      "stage": "check",
+      "question": "交付物对注入的PII泄露回归的MTTR目标是什么？",
+      "options": [
+        "1小时以内",
+        "24小时以内",
+        "下一个值班轮次以内",
+        "从bug部署到Slack告警5分钟以内"
+      ],
+      "correct": 3,
+      "explanation": "5分钟MTTR：PII泄露是合规紧急事件——5分钟内的自动检测和告警可以在影响用户之前启动响应。"
+    },
+    {
+      "stage": "post",
+      "question": "哪些SDK系列必须生成规范的GenAI span以满足追踪覆盖率评分标准？",
+      "options": [
+        "仅vLLM",
+        "至少六个：OpenAI、Anthropic、Google GenAI、LangChain、LlamaIndex和vLLM",
+        "任何一个SDK就足够了",
+        "仅OpenAI和Anthropic"
+      ],
+      "correct": 1,
+      "explanation": "全面覆盖：实际生产系统通常同时使用多个LLM提供商和框架——可观测性方案必须覆盖所有主要集成点。"
+    },
+    {
+      "stage": "post",
+      "question": "评估结果如何链接回原始LLM调用？",
+      "options": [
+        "作为每晚通过电子邮件发送的CSV",
+        "仅作为Slack消息",
+        "作为没有追踪ID的单独Postgres表",
+        "作为写入ClickHouse中父追踪子span的评估span"
+      ],
+      "correct": 3,
+      "explanation": "评估可追溯性：将评估结果作为子span附加到原始追踪上，使开发者可以从评估失败直接跳转到完整的调用上下文。"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "如果客户需要在一个API后面同时使用Claude、Llama和Cohere，您会首选哪个平台？",
+      "options": [
+        "Vertex AI",
+        "AWS Bedrock",
+        "Azure OpenAI Service",
+        "直接使用Anthropic API"
+      ],
+      "correct": 1,
+      "explanation": "AWS Bedrock是多模型市场，支持来自多个提供商的模型通过统一API访问。"
+    },
+    {
+      "stage": "pre",
+      "question": "哪家超大规模云厂商的策略被描述为独家合作而非市场模式？",
+      "options": [
+        "Azure OpenAI",
+        "Vertex AI",
+        "AWS Bedrock",
+        "OCI Generative AI"
+      ],
+      "correct": 0,
+      "explanation": "Azure OpenAI Service是与OpenAI的独家合作伙伴关系，而非开放模型市场。"
+    },
+    {
+      "stage": "check",
+      "question": "Azure OpenAI（使用PTU）与Bedrock按需使用在Llama 3.1 405B等效任务上的中位TTFT差距大约是多少？",
+      "options": [
+        "约100毫秒",
+        "约5毫秒",
+        "约250毫秒",
+        "约25毫秒"
+      ],
+      "correct": 3,
+      "explanation": "Azure PTU与Bedrock按需之间的中位TTFT差距约为25毫秒。"
+    },
+    {
+      "stage": "check",
+      "question": "哪个Bedrock 2025功能可以在CloudWatch中原生提供最清晰的每产品成本归因？",
+      "options": [
+        "Bedrock Knowledge Bases",
+        "Application Inference Profiles",
+        "Bedrock Guardrails",
+        "Bedrock Agents"
+      ],
+      "correct": 1,
+      "explanation": "Application Inference Profiles允许按产品/应用标记推理调用，实现原生CloudWatch成本归因。"
+    },
+    {
+      "stage": "check",
+      "question": "Azure PTU通常在什么持续利用率范围内开始优于按需计费？",
+      "options": [
+        "5-10%",
+        "80-95%",
+        "20-30%",
+        "40-60%"
+      ],
+      "correct": 3,
+      "explanation": "Azure PTU在约40-60%的持续利用率下开始比按需计费更经济。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么课程推荐2026年对产品关键LLM调用采用双提供商最低策略？",
+      "options": [
+        "SOC 2 Type II要求",
+        "前沿模型领导地位每月轮换，单一供应商锁定会使您错过三分之二的前沿能力",
+        "超大规模云厂商拒绝签署BAA除非您同时使用竞争对手",
+        "单一供应商定价总是更贵"
+      ],
+      "correct": 1,
+      "explanation": "前沿模型能力分布在多个提供商之间且快速变化；绑定单一供应商意味着错过最佳选择。"
+    },
+    {
+      "stage": "post",
+      "question": "哪种说法最准确地描述三个平台的FinOps界面？",
+      "options": [
+        "Azure原生最清晰，Bedrock不透明",
+        "Vertex完全没有归因界面",
+        "三个平台都提供相同的每请求归因",
+        "Bedrock原生最清晰，Vertex通过BigQuery最灵活，Azure在没有插桩的情况下最不透明"
+      ],
+      "correct": 3,
+      "explanation": "三个平台的FinOps能力各有侧重：Bedrock原生清晰，Vertex BigQuery灵活，Azure需要额外插桩。"
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "Llama Guard在典型的2026年部署中扮演什么角色？",
+      "options": [
+        "思维链的推理脚手架",
+        "RLHF的奖励模型",
+        "分词器替代方案",
+        "跨MLCommons危害类别的输入和/或输出安全分类器，放置在LLM前后"
+      ],
+      "correct": 3,
+      "explanation": "Llama Guard：部署在LLM前（过滤有害输入）和后（检查有害输出）的安全分类器，基于MLCommons危害分类标准。"
+    },
+    {
+      "stage": "check",
+      "question": "Llama Guard 3大约覆盖多少个MLCommons危害类别？",
+      "options": [
+        "7",
+        "3",
+        "40",
+        "14"
+      ],
+      "correct": 3,
+      "explanation": "Llama Guard 3覆盖14个MLCommons危害类别，包括暴力、色情、网络攻击、化学武器等广泛的危害类型。"
+    },
+    {
+      "stage": "check",
+      "question": "Garak的架构是如何组织的？",
+      "options": [
+        "工具、资源、提示",
+        "嵌入、检索器、重排序器",
+        "路由器、智能体、队列",
+        "探针（攻击生成器）、检测器（输出评分器）、测试套件（活动管理器）"
+      ],
+      "correct": 3,
+      "explanation": "Garak三层架构：探针生成攻击变体，检测器评分响应是否违规，测试套件协调大规模并行评估活动。"
+    },
+    {
+      "stage": "check",
+      "question": "PyRIT主要设计用于什么，它与Garak有何不同？",
+      "options": [
+        "它们在范围和受众上完全相同",
+        "PyRIT是奖励模型训练器；Garak是分词器",
+        "PyRIT运行深度多轮活动（转换器链、Crescendo和TAP等编排器、评分），而Garak运行数千个单轮探针",
+        "PyRIT是Llama Guard变体；Garak是Prompt Guard变体"
+      ],
+      "correct": 2,
+      "explanation": "互补工具：Garak=广度（数千个单轮探针，适合CI/CD回归测试）；PyRIT=深度（多轮活动，适合发布前红队测试）。"
+    },
+    {
+      "stage": "post",
+      "question": "2026年推荐的默认红队工具栈配置是什么？",
+      "options": [
+        "用手动审查完全替代LLM评估",
+        "使用PAIR代替任何工具",
+        "在模型两侧放置Llama Guard，每晚运行Garak进行回归测试，发布前活动使用PyRIT",
+        "仅在发布时运行一次Garak"
+      ],
+      "correct": 2,
+      "explanation": "推荐配置：Llama Guard（持续防护）+ Garak（每晚回归）+ PyRIT（发布前深度测试）——三层互补的安全保障。"
+    },
+    {
+      "stage": "post",
+      "question": "Llama Guard、Garak和PyRIT共享什么评估陷阱？",
+      "options": [
+        "报告的攻击/防御率取决于裁判身份和探针的陈旧程度；必须指定裁判并随着模型补丁刷新探针",
+        "它们只在英语中有效",
+        "它们需要白盒访问",
+        "它们无法在GPU上运行"
+      ],
+      "correct": 0,
+      "explanation": "评估可重复性：不注明裁判模型和探针版本的红队结果无法比较——模型更新后必须重新校准所有评估。"
+    }
+  ]
+}

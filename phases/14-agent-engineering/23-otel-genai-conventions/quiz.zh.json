@@ -1,0 +1,88 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "代理运行的span名称是什么？",
+      "options": [
+        "run_agent",
+        "invoke_agent",
+        "execute_agent",
+        "start_agent"
+      ],
+      "correct": 1,
+      "explanation": "OTel GenAI规范中代理运行的标准span名称是invoke_agent。"
+    },
+    {
+      "stage": "pre",
+      "question": "三种span类别是什么？",
+      "options": [
+        "模型/客户端、代理、工具",
+        "输入、处理、输出",
+        "开始、中间、结束",
+        "快速、中速、慢速"
+      ],
+      "correct": 0,
+      "explanation": "OTel GenAI规范定义三类span：模型/客户端（LLM调用）、代理（代理操作）、工具（工具执行）。"
+    },
+    {
+      "stage": "check",
+      "question": "CLIENT与INTERNAL span类型如何区分使用？",
+      "options": [
+        "CLIENT用于付费服务，INTERNAL用于免费服务",
+        "CLIENT用于远程服务；INTERNAL用于进程内框架",
+        "CLIENT用于用户调用，INTERNAL用于系统调用",
+        "CLIENT更快，INTERNAL更慢"
+      ],
+      "correct": 1,
+      "explanation": "CLIENT span用于调用远程服务（如LLM API）；INTERNAL span用于进程内框架操作。"
+    },
+    {
+      "stage": "check",
+      "question": "内容捕获的默认行为是什么？",
+      "options": [
+        "默认捕获所有内容",
+        "默认不应捕获，需选择启用",
+        "仅捕获错误内容",
+        "仅在调试模式捕获"
+      ],
+      "correct": 1,
+      "explanation": "出于隐私考虑，提示和响应内容默认不应捕获；需要通过配置明确选择启用。"
+    },
+    {
+      "stage": "check",
+      "question": "数据源的属性键是什么？",
+      "options": [
+        "gen_ai.retrieval.source",
+        "gen_ai.vector.store",
+        "gen_ai.data_source.id",
+        "gen_ai.corpus.name"
+      ],
+      "correct": 2,
+      "explanation": "用于标识检索数据源的属性键是gen_ai.data_source.id。"
+    },
+    {
+      "stage": "post",
+      "question": "如何在span中存储提示内容？",
+      "options": [
+        "直接存储在span属性中",
+        "外部存储（S3、日志存储），span上携带引用ID",
+        "压缩后存储在span中",
+        "加密后存储在span中"
+      ],
+      "correct": 1,
+      "explanation": "提示内容应外部存储以控制成本和隐私，span上仅携带指向外部存储的引用ID。"
+    },
+    {
+      "stage": "post",
+      "question": "如何选择启用实验性GenAI规范？",
+      "options": [
+        "OTEL_GENAI_EXPERIMENTAL=true",
+        "OTEL_SEMCONV_STABILITY_OPT_IN=gen_ai_latest_experimental",
+        "OTEL_GENAI_MODE=experimental",
+        "OTEL_ENABLE_GENAI=1"
+      ],
+      "correct": 1,
+      "explanation": "通过设置OTEL_SEMCONV_STABILITY_OPT_IN=gen_ai_latest_experimental来选择启用实验性规范。"
+    }
+  ]
+}

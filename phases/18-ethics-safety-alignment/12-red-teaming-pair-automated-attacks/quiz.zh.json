@@ -1,0 +1,76 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "为什么手动红队测试不足以评估前沿模型？",
+      "options": [
+        "它无法扩展；攻击成功率需要针对每次模型发布的移动目标进行统计样本",
+        "手动提示总是被过滤器阻止",
+        "手动测试产生太多假阳性",
+        "手动测试人员无法阅读模型输出"
+      ],
+      "correct": 0,
+      "explanation": "扩展问题：手动红队太慢、太贵，无法跟上模型发布速度；自动化攻击可以在每次发布后系统地重新测试。"
+    },
+    {
+      "stage": "check",
+      "question": "PAIR代表什么，它做什么？",
+      "options": [
+        "提示自动迭代细化；攻击者LLM以先前尝试作为上下文反馈，迭代提出针对目标的越狱方案",
+        "成对对抗推理路由；在模型之间路由攻击",
+        "预操作检查推理；防御性脚手架",
+        "说服性对抗迭代奖励；用说服者替换RM"
+      ],
+      "correct": 0,
+      "explanation": "PAIR：攻击者LLM生成越狱→目标响应→攻击者基于响应改进→循环，直到成功或耗尽预算。黑盒且高效。"
+    },
+    {
+      "stage": "check",
+      "question": "为什么对黑盒目标来说PAIR比GCG更高效？",
+      "options": [
+        "PAIR使用比GCG更大的攻击者模型",
+        "GCG只攻击开源模型",
+        "GCG需要白盒梯度访问并产生不可读的后缀，无法使用上下文反馈；PAIR是黑盒的、自然语言的，支持上下文学习",
+        "PAIR忽略目标的响应"
+      ],
+      "correct": 2,
+      "explanation": "GCG vs PAIR：GCG需要梯度（白盒），产生乱码后缀；PAIR仅需API访问（黑盒），生成可读的自然语言攻击。"
+    },
+    {
+      "stage": "check",
+      "question": "为什么攻击成功率（ASR）必须同时报告查询预算和裁判身份？",
+      "options": [
+        "因为裁判总是一致的",
+        "因为预算只由JailbreakBench设定",
+        "因为ASR随攻击者被允许的查询数量以及哪个LLM判断响应为越狱而变化",
+        "因为ASR是出口管制法规要求的"
+      ],
+      "correct": 2,
+      "explanation": "报告规范：不说明预算和裁判的ASR数字无意义——同一攻击在不同预算和不同裁判下可能相差数十个百分点。"
+    },
+    {
+      "stage": "post",
+      "question": "以下哪种自动化攻击最好地描述为"带剪枝的树状攻击"？",
+      "options": [
+        "TAP",
+        "GCG",
+        "PAP",
+        "AutoDAN"
+      ],
+      "correct": 0,
+      "explanation": "TAP（Tree of Attacks with Pruning）：构建攻击变体树并剪枝低成功率分支，比PAIR更系统地探索攻击空间。"
+    },
+    {
+      "stage": "post",
+      "question": "哪个标准化基准跨7个类别使用510个行为，包含语义和功能危害测试？",
+      "options": [
+        "JailbreakBench",
+        "HarmBench",
+        "WMDP",
+        "TruthfulQA"
+      ],
+      "correct": 1,
+      "explanation": "HarmBench：510个有害行为，7个类别，同时测试语义合规（说了什么）和功能危害（能否真正实现危害）。"
+    }
+  ]
+}

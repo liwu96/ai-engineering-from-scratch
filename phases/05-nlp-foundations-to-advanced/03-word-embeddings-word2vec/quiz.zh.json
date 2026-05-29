@@ -1,0 +1,60 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "什么是分布假设？",
+      "options": ["你通过一个词的伴侣来了解它", "词在文档中均匀分布", "所有词都可以嵌入300维", "频繁词携带最多含义"],
+      "correct": 0,
+      "explanation": "Firth（1957年）的分布假设：相似的上下文意味着相似的含义。"
+    },
+    {
+      "stage": "pre",
+      "question": "为什么Word2Vec中对词汇表的普通softmax不实用？",
+      "options": ["在100k+词汇项上计算softmax每个训练步骤过于昂贵", "Softmax无法建模概率", "Softmax没有梯度", "它会导致梯度消失"],
+      "correct": 0,
+      "explanation": "全词汇softmax太昂贵；负采样将其重新表述为二元分类。"
+    },
+    {
+      "stage": "check",
+      "question": "skip-gram和CBOW有什么区别？",
+      "options": ["Skip-gram使用二元组；CBOW使用一元组", "Skip-gram从中心词预测上下文词；CBOW从上下文预测中心词", "Skip-gram从上下文预测中心词；CBOW反之", "Skip-gram训练深度网络；CBOW是浅层的"],
+      "correct": 1,
+      "explanation": "Skip-gram：中心→上下文。CBOW：上下文→中心。"
+    },
+    {
+      "stage": "check",
+      "question": "在负采样中，正对（中心词，上下文词）的目标是什么？",
+      "options": ["最大化sigmoid(W[center] dot W'[context])使其接近1", "强制它们正交", "最小化它们的点积", "使向量去相关"],
+      "correct": 0,
+      "explanation": "正对将sigmoid训练接近1；采样的负对将sigmoid训练接近0。"
+    },
+    {
+      "stage": "check",
+      "question": "训练Word2Vec后，哪个权重矩阵成为词嵌入？",
+      "options": ["单独的训练后投影", "输入到隐藏的W矩阵（中心词表）", "两者相乘", "隐藏到输出的W'矩阵"],
+      "correct": 1,
+      "explanation": "中心词表W是标准嵌入输出；W'通常被丢弃或平均进来。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么Word2Vec在多义词（例如'bank'）上失败？",
+      "options": ["窗口太小", "它忽略稀有词", "负采样丢弃稀有含义", "它为每个词分配一个静态向量，因此'river bank'和'financial bank'共享同一个向量"],
+      "correct": 3,
+      "explanation": "静态嵌入无法消歧义；上下文嵌入（ELMo/BERT）解决了这个问题。"
+    },
+    {
+      "stage": "post",
+      "question": "2026年在什么情况下你仍然会选择Word2Vec而不是Transformer？",
+      "options": ["轻量级、设备端、特定领域检索，其中单行查找是延迟预算", "当你需要上下文消歧时", "当输入很长时", "当对话质量很重要时"],
+      "correct": 0,
+      "explanation": "Word2Vec在极小延迟预算、设备端推理或快速特定领域训练上胜出。"
+    },
+    {
+      "stage": "post",
+      "question": "什么使得著名的类比'king - man + woman ~ queen'成为可能？",
+      "options": ["模型将皇室编码为标志位", "Skip-gram在皇室词汇上训练", "向量算术捕获像'皇室'这样的线性方向，可跨性别传递", "余弦相似度对性别不变"],
+      "correct": 2,
+      "explanation": "嵌入空间中的方向编码关系特征，因此加减法可以系统地移动。"
+    }
+  ]
+}

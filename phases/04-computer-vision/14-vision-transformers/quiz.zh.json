@@ -1,0 +1,39 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "ViT如何将图像转换为标记序列？",
+      "options": ["将整个图像展平为一个向量", "应用kernel_size = stride = patch_size的卷积，将图像分割为不重叠的块，并在一次操作中将每个块线性投影为标记嵌入", "先运行CNN，将其特征图用作标记", "对像素强度排序"],
+      "correct": 1,
+      "explanation": "ViT的第一层是kernel_size = stride = 16的卷积，将224x224图像变成14x14的16x16块网格，每个投影到dim=768。这个单一卷积同时完成分块和投影。结果是196个标记，标准Transformer编码器可以处理。"
+    },
+    {
+      "stage": "pre",
+      "question": "ViT中的[CLS]标记是什么，为什么需要它？",
+      "options": ["一个预置到标记序列中的学习向量；经过N个Transformer层后，其输出聚合了整个图像并输入分类器头", "一个特殊的像素值", "缺失数据的占位符", "一个Dropout掩码"],
+      "correct": 0,
+      "explanation": "ViT遵循BERT的约定：在块序列前面添加一个学习向量（CLS标记）。自注意力让每个标记看到其他每个标记，所以CLS标记从所有块聚合全局信息。分类器只读取CLS输出。替代设计在所有块标记上使用平均池化（ConvNeXt和许多后ViT模型使用）。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么原始ViT论文需要JFT-300M预训练才能击败ResNet，而DeiT不需要？",
+      "options": ["没有JFT-300M的ViT是坏的", "ViT比CNN有更弱的归纳偏置；没有足够的数据它会过拟合。DeiT通过强增强（RandAugment、Mixup、CutMix）、随机深度和可选的CNN蒸馏，展示了ViT仅在ImageNet-1k上也能正常训练", "DeiT使用不同的注意力", "ViT论文是错的"],
+      "correct": 1,
+      "explanation": "ViT缺乏归纳偏置（没有局部性，没有内置的平移等变性）意味着网络必须从数据中学习这些。有100万ImageNet图像这很难；有3亿JFT图像这很容易。DeiT用训练方案改进替代了数据：大量增强、随机深度和CNN教师蒸馏，所有这些都补偿了先验的缺乏。"
+    },
+    {
+      "stage": "post",
+      "question": "前LayerNorm（`x = x + sublayer(LN(x))`）与后LayerNorm（`x = LN(x + sublayer(x))`）——现代Transformer使用哪种，为什么？",
+      "options": ["后LN；更简单", "前LN；它在没有学习率预热的情况下稳定地训练更深的网络，避免了后LN在约6层后的梯度不稳定", "它们相同", "两者都不；现代Transformer跳过LayerNorm"],
+      "correct": 1,
+      "explanation": "后LN是原始Transformer（2017年），需要仔细的预热和6-8层后的小学习率。前LN（Xiong等，2020年；ViT、GPT-2+、每个现代LLM使用）数值上更稳定：残差流在不通过LN的情况下累积，每个子层对归一化输入操作。每个深于12层的Transformer都使用前LN。"
+    },
+    {
+      "stage": "post",
+      "question": "Swin Transformer引入了窗口注意力。它解决了什么问题？",
+      "options": ["梯度消失", "全注意力的成本为O((H*W)^2)；Swin将注意力限制在7x7块的局部窗口内，将成本降低到O(H*W * window^2)。交替的块将窗口移动半个大小，使信息最终在图像中混合", "BatchNorm不支持", "对纹理过拟合"],
+      "correct": 1,
+      "explanation": "4x4块的224x224图像有56*56 = 3136个标记；全注意力每层是3136^2 = 约1000万对。Swin只在7x7窗口内注意，每窗口给49^2 = 2401对（加上窗口数量）。交替块中的移位窗口在几层内跨窗口混合信息。这在不放弃注意力的情况下将类CNN的局部性先验带回Transformer。"
+    }
+  ]
+}

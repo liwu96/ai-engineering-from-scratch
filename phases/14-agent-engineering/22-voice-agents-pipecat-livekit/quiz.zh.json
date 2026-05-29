@@ -1,0 +1,88 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "语音管道的两个方向是什么？",
+      "options": [
+        "请求和响应",
+        "下游（源到接收器）和上游（反馈、取消、打断）",
+        "输入和输出",
+        "发送和接收"
+      ],
+      "correct": 1,
+      "explanation": "语音管道有两个方向：下游（音频从源流向接收器）和上游（VAD事件、取消、打断）。"
+    },
+    {
+      "stage": "pre",
+      "question": "标准语音管道顺序是什么？",
+      "options": [
+        "VAD -> STT -> LLM -> TTS -> 传输",
+        "STT -> VAD -> LLM -> TTS -> 传输",
+        "传输 -> VAD -> STT -> LLM -> TTS",
+        "LLM -> VAD -> STT -> TTS -> 传输"
+      ],
+      "correct": 0,
+      "explanation": "标准顺序：VAD（检测语音）-> STT（转文字）-> LLM（生成响应）-> TTS（合成语音）-> 传输。"
+    },
+    {
+      "stage": "check",
+      "question": "LiveKit的两个代理类是什么？",
+      "options": [
+        "MultimodalAgent和VoicePipelineAgent",
+        "RealtimeAgent和BatchAgent",
+        "StreamingAgent和BufferedAgent",
+        "LocalAgent和RemoteAgent"
+      ],
+      "correct": 0,
+      "explanation": "LiveKit提供MultimodalAgent（实时多模态）和VoicePipelineAgent（经典管道）两个类。"
+    },
+    {
+      "stage": "check",
+      "question": "打断（Barge-in）如何工作？",
+      "options": [
+        "系统等待TTS完成",
+        "用户打断时，上游取消帧停止TTS中途",
+        "系统静音用户",
+        "LLM重新生成响应"
+      ],
+      "correct": 1,
+      "explanation": "打断：VAD检测到用户说话时，发送上游取消帧，停止TTS播放并重新开始处理。"
+    },
+    {
+      "stage": "check",
+      "question": "优质语音延迟的目标是什么？",
+      "options": [
+        "约100-200ms",
+        "约450-600ms",
+        "约1-2秒",
+        "约50ms"
+      ],
+      "correct": 1,
+      "explanation": "约450-600ms是当前技术下语音代理延迟的优质目标，低于此值感觉自然。"
+    },
+    {
+      "stage": "post",
+      "question": "忽略STT置信度的问题是什么？",
+      "options": [
+        "增加API成本",
+        "将低置信度转录作为事实处理",
+        "导致TTS错误",
+        "降低VAD精度"
+      ],
+      "correct": 1,
+      "explanation": "将低置信度STT转录作为确定性输入可能导致代理基于错误理解行动。"
+    },
+    {
+      "stage": "post",
+      "question": "组件延迟如何影响用户体验？",
+      "options": [
+        "仅最慢的组件重要",
+        "每个组件50-200ms，总和决定体验",
+        "并行运行使延迟无关紧要",
+        "仅TTS延迟重要"
+      ],
+      "correct": 1,
+      "explanation": "语音管道中每个组件的延迟累加：VAD + STT + LLM + TTS + 传输之和决定用户感知延迟。"
+    }
+  ]
+}

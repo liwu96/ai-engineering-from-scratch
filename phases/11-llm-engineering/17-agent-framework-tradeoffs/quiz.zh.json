@@ -1,0 +1,64 @@
+{
+  "questions": [
+    {
+      "stage": "post",
+      "question": "哪个框架是需要崩溃后恢复、中途接受人工批准并并行扇出到三个检索器的工作流的首选？",
+      "options": [
+        "CrewAI",
+        "AutoGen",
+        "LangGraph",
+        "Agno"
+      ],
+      "correct": 2,
+      "explanation": ""
+    },
+    {
+      "stage": "post",
+      "question": "为什么LLM选择的路由比每轮显式路由消耗更多令牌？",
+      "options": [
+        "它预先并行获取下一个节点以对冲延迟。",
+        "规划器LLM调用在每轮选择下一步，为每个决策添加提示和完成令牌。",
+        "它为团队中的每个代理复制工具列表。",
+        "它将整个对话历史发送给验证模型。"
+      ],
+      "correct": 1,
+      "explanation": ""
+    },
+    {
+      "stage": "post",
+      "question": "代码审查中的提议者-批评者对话自然映射到哪个框架的核心抽象？",
+      "options": [
+        "CrewAI的顺序Crew",
+        "LangGraph的StateGraph",
+        "AutoGen的GroupChat / ConversableAgent对",
+        "Agno的带工具的单一Agent"
+      ],
+      "correct": 2,
+      "explanation": ""
+    },
+    {
+      "stage": "post",
+      "question": "哪个框架直接附加到Agent原语上有内置存储驱动程序（SQLite、Postgres、Redis、Mongo、DynamoDB）用于会话和内存持久化？",
+      "options": [
+        "LangGraph",
+        "CrewAI",
+        "AutoGen",
+        "Agno"
+      ],
+      "correct": 3,
+      "explanation": ""
+    },
+    {
+      "stage": "post",
+      "question": "你有一个两次调用的摘要器：获取文本，摘要。哪个选项是正确的框架选择？",
+      "options": [
+        "LangGraph StateGraph——始终使用框架以保证可靠性。",
+        "带研究员+摘要员角色的CrewAI——角色使其更清晰。",
+        "使用提供商SDK的普通Python——对于小型管道，没有框架就是最快的框架。",
+        "AutoGen GroupChat——两个代理可以讨论最佳摘要。"
+      ],
+      "correct": 2,
+      "explanation": ""
+    }
+  ]
+}

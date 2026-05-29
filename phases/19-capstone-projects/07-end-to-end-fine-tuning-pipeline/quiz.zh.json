@@ -1,0 +1,88 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "数据准备期间的污染检查防范什么？",
+      "options": [
+        "SFT和DPO阶段之间的分词器漂移",
+        "训练和服务之间的GPU驱动版本不匹配",
+        "llama.cpp构建之间的GGUF版本偏差",
+        "公共基准测试（如MMLU-Pro和MT-Bench-v2）中的测试集泄露到训练数据中"
+      ],
+      "correct": 3,
+      "explanation": "数据污染：如果基准测试题目进入训练集，评估结果会虚假地高估模型能力——污染检查是确保评估有效性的关键步骤。"
+    },
+    {
+      "stage": "pre",
+      "question": "为什么管道组合SFT然后DPO（或GRPO）而不是单独使用DPO？",
+      "options": [
+        "Axolotl没有实现DPO",
+        "SFT在标记的完成上建立领域行为，而DPO或GRPO将模型与偏好对或可验证奖励对齐",
+        "DPO需要单独的基础模型架构",
+        "DPO无法在量化权重上运行"
+      ],
+      "correct": 1,
+      "explanation": "两阶段训练：SFT先教模型正确的格式和领域知识，DPO/GRPO再根据人类偏好或奖励信号调整风格——分工合作效果更好。"
+    },
+    {
+      "stage": "check",
+      "question": "EAGLE-3对vLLM服务阶段的贡献是什么？",
+      "options": [
+        "新的提示缓存层",
+        "工具调用的OPA策略",
+        "自动数据去重步骤",
+        "提前预测N个令牌的草稿头；目标模型在一次传递中验证，吞吐量提升2-3倍"
+      ],
+      "correct": 3,
+      "explanation": "EAGLE-3推测解码：小型草稿模型快速预测多个令牌，主模型批量验证——在不降低质量的情况下大幅提升吞吐量。"
+    },
+    {
+      "stage": "check",
+      "question": "哪个指标报告推测解码草稿与目标模型的对齐程度？",
+      "options": [
+        "接受率",
+        "覆盖率差值",
+        "PSI",
+        "困惑度"
+      ],
+      "correct": 0,
+      "explanation": "接受率：草稿令牌被目标模型接受的比例——接受率越高，推测解码的加速效果越好（100%=理论最大加速）。"
+    },
+    {
+      "stage": "check",
+      "question": "管道发布哪三种量化格式以实现部署灵活性？",
+      "options": [
+        "ONNX、CoreML、TFLite",
+        "GPTQ-INT4-Marlin、AWQ-INT4和GGUF-Q4_K_M",
+        "仅INT8跨三个运行时",
+        "FP32、FP16、BF16"
+      ],
+      "correct": 1,
+      "explanation": "三种量化：GPTQ（GPU服务器）、AWQ（优化的GPU推理）、GGUF（CPU/边缘设备）——覆盖从数据中心到本地设备的全部场景。"
+    },
+    {
+      "stage": "post",
+      "question": "此顶点项目的模型卡遵循哪个框架惯例？",
+      "options": [
+        "数据集数据表",
+        "模型开放框架（MOF）2026模板，涵盖数据、训练、评估、安全、许可和可重现性",
+        "仅HuggingFace YAML前置内容",
+        "OpenAI的模型卡格式"
+      ],
+      "correct": 1,
+      "explanation": "MOF 2026：比Mitchell等人（2019）的模型卡更全面的新标准，特别包含了安全评估和可重现性要求。"
+    },
+    {
+      "stage": "post",
+      "question": "哪个HPA指标用于自动扩展服务副本？",
+      "options": [
+        "队列等待时间",
+        "CPU利用率",
+        "GPU温度",
+        "网络出口字节"
+      ],
+      "correct": 0,
+      "explanation": "队列等待时间：比CPU利用率更直接地反映服务压力——当请求堆积时立即扩容，而不是等到CPU打满才反应。"
+    }
+  ]
+}

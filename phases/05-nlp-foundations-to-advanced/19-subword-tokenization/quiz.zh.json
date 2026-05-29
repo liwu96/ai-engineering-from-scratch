@@ -1,0 +1,60 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "子词分词相比词级词汇表能给你带来什么？",
+      "options": ["稀有词分解为已知子词片段，消除OOV同时保持词汇有界", "更小的模型", "更快的训练", "更好的嵌入"],
+      "correct": 0,
+      "explanation": "子词标记通过分解覆盖任何输入，消除了词级词汇的OOV问题。"
+    },
+    {
+      "stage": "pre",
+      "question": "为什么GPT-2使用字节级BPE而不是字符级BPE？",
+      "options": ["Transformer需要", "字节BPE跳过合并", "256字节基础词汇涵盖任何UTF-8输入，保证没有[UNK]标记", "字节更小"],
+      "correct": 2,
+      "explanation": "字节级BPE从256字节开始，所以每个输入都能编码；没有OOV。"
+    },
+    {
+      "stage": "check",
+      "question": "Unigram分词器如何构建其词汇表？",
+      "options": ["贪婪IDF加权", "从大型候选集开始，迭代地修剪删除后对语料库对数似然损害最小的标记", "贪婪的频繁对合并", "随机采样"],
+      "correct": 1,
+      "explanation": "Unigram拟合一个一元组语言模型，并迭代地删除最无用的标记以达到目标词汇量大小。"
+    },
+    {
+      "stage": "check",
+      "question": "WordPiece的合并标准与BPE的有什么区别？",
+      "options": ["WordPiece使用字节", "WordPiece是无监督的", "WordPiece合并最大化训练语料库似然的对，而BPE合并最频繁的对", "WordPiece跳过合并"],
+      "correct": 2,
+      "explanation": "WordPiece按似然选择合并；BPE按原始频率选择。"
+    },
+    {
+      "stage": "check",
+      "question": "哪个工具可以直接在原始多语言Unicode文本上训练分词器？",
+      "options": ["spaCy", "tiktoken", "tokenizers-lite", "SentencePiece（将空白编码为特殊标记并训练BPE或Unigram）"],
+      "correct": 3,
+      "explanation": "SentencePiece在没有预分词的原始文本上训练BPE/Unigram；tiktoken只进行编码。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么生产CI必须对已部署的tokenizer.json进行哈希检查？",
+      "options": ["分词器漂移会产生与模型训练时不同的标记ID，静默地损坏输出", "HuggingFace需要", "压缩存储", "它减少词汇量大小"],
+      "correct": 0,
+      "explanation": "即使是小的分词器变化也会改变ID；哈希检查在漂移到达用户之前捕获它。"
+    },
+    {
+      "stage": "post",
+      "question": "单个表情符号占用多个标记的常见原因是什么？",
+      "options": ["表情符号被保留", "多码点表情符号编码为多个UTF-8字节；没有专用标记，每个字节就是自己的子词", "表情符号存储为浮点数", "表情符号是停止字符"],
+      "correct": 1,
+      "explanation": "复合表情符号编码为多个字节；字节级分词器每个字形可能使用多个标记。"
+    },
+    {
+      "stage": "post",
+      "question": "什么启发式方法指导新单语言Transformer的词汇量大小？",
+      "options": ["总是8000", "总是1M", "1B参数以下模型约32k；1-10B约50-100k；多语言或前沿模型200k+", "匹配训练语料库大小"],
+      "correct": 2,
+      "explanation": "词汇量大小随模型和语言覆盖范围扩展；这些是粗略的社区默认值。"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "Voyager将什么视为行动空间？",
+      "options": [
+        "原始Minecraft命令",
+        "存储、检索和组合的可执行代码（JavaScript函数）",
+        "仅文本提示",
+        "强化学习Q值"
+      ],
+      "correct": 1,
+      "explanation": "Voyager的贡献是使代码成为行动：技能是程序，而不是原始命令。"
+    },
+    {
+      "stage": "pre",
+      "question": "定义Voyager代理的三个组件是什么？",
+      "options": [
+        "编码器、解码器、价值头",
+        "自动课程、技能库、迭代提示",
+        "规划者、执行者、评判者",
+        "检索器、生成器、排名器"
+      ],
+      "correct": 1,
+      "explanation": "Voyager围绕课程、技能库和迭代提示构建代理。"
+    },
+    {
+      "stage": "check",
+      "question": "技能执行尝试可以返回哪三个信号？",
+      "options": [
+        "通过、失败、重试",
+        "成功、错误（带堆栈跟踪）、自我验证失败",
+        "绿、黄、红",
+        "心跳、确认、否认"
+      ],
+      "correct": 1,
+      "explanation": "Voyager的迭代提示机制由这三个信号驱动，反馈到下一个版本中。"
+    },
+    {
+      "stage": "check",
+      "question": "自动课程如何选择下一个任务？",
+      "options": [
+        "在行动空间上随机均匀",
+        "略高于当前能力，基于环境状态和技能库（探索甜点）",
+        "始终是最难的可用任务",
+        "仅用户提供的列表"
+      ],
+      "correct": 1,
+      "explanation": "提议者的目标是略高于当前能力的任务，使进展稳定。"
+    },
+    {
+      "stage": "check",
+      "question": "课程中与Voyager技能最匹配的2026年产品是哪个？",
+      "options": [
+        "OpenAI微调",
+        "Claude Agent SDK技能：按需加载的命名、可检索的代码加指令",
+        "Pinecone索引",
+        "AWS Lambda层"
+      ],
+      "correct": 1,
+      "explanation": "Agent SDK技能与Voyager的命名-可检索-可组合代码模式匹配。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么课程建议在写入时对技能库进行去重？",
+      "options": [
+        "磁盘昂贵",
+        "没有去重，相同技能会以略微不同的描述多次添加；检索应返回一个规范版本",
+        "提供商拒绝重复",
+        "Git阻止重复"
+      ],
+      "correct": 1,
+      "explanation": "近重复描述折叠为单一规范技能，使检索保持干净。"
+    },
+    {
+      "stage": "post",
+      "question": "组合技能漂移描述了什么问题？",
+      "options": [
+        "Python升级后技能停止编译",
+        "父技能静默采用从未经测试过的精化子版本；通过固定技能版本修复",
+        "技能在存储中被加密",
+        "检索返回空"
+      ],
+      "correct": 1,
+      "explanation": "没有版本固定，对子技能的改进静默改变父技能的行为。"
+    }
+  ]
+}

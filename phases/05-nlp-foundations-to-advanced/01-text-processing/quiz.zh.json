@@ -1,0 +1,60 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "为什么语言模型在训练前需要预处理？",
+      "options": ["预处理提高GPU利用率", "模型消费离散整数标记，而不是原始文本", "模型直接读取字符串", "预处理仅对没有空白的语言是必需的"],
+      "correct": 1,
+      "explanation": "模型对整数标记ID进行操作；预处理将连续的语言桥接到离散输入。"
+    },
+    {
+      "stage": "pre",
+      "question": "哪种预处理操作是基于规则的后缀剥离？",
+      "options": ["词干提取", "词性标注", "词形还原", "分词"],
+      "correct": 0,
+      "explanation": "词干提取用规则截断后缀；它很快但可能出错。"
+    },
+    {
+      "stage": "check",
+      "question": "Porter词干提取器步骤1a对单词'ponies'返回什么？",
+      "options": ["ponies", "ponie", "pony", "poni"],
+      "correct": 3,
+      "explanation": "'ies'规则将后缀替换为'i'，产生'poni'；真实Porter中步骤1b会进一步处理它。"
+    },
+    {
+      "stage": "check",
+      "question": "为什么词形还原通常需要词性标注？",
+      "options": ["Unicode处理", "速度", "语法上下文消歧了'better'（形容词）和'better'（动词）等形式", "减少内存使用"],
+      "correct": 2,
+      "explanation": "词元取决于语法角色；没有标注，查找会产生歧义。"
+    },
+    {
+      "stage": "check",
+      "question": "将NLTK Penn Treebank词性标注转换为WordNet标注时，以'V'开头的标注映射到什么？",
+      "options": ["'n'（名词）", "'v'（动词）", "'r'（副词）", "'a'（形容词）"],
+      "correct": 1,
+      "explanation": "以动词为前缀的Penn Treebank标注映射到WordNet的'v'。"
+    },
+    {
+      "stage": "post",
+      "question": "NLP预处理中的'训练/推理不匹配'是什么？",
+      "options": ["训练和测试之间不同的批次大小", "训练和服务应用不同的预处理，因此模型在推理时看到不熟悉的分布", "GPU内存问题", "在notebook中混合使用分词器库"],
+      "correct": 1,
+      "explanation": "训练与推理时不同的预处理是最常见的生产NLP故障。"
+    },
+    {
+      "stage": "post",
+      "question": "在Transformer管道中，你会选择哪个工具而不是经典预处理？",
+      "options": ["NLTK word_tokenize", "模型自带的分词器（例如通过tokenizers/transformers）", "正则表达式分词器", "spaCy en_core_web_sm"],
+      "correct": 1,
+      "explanation": "Transformer模型自带配套分词器；经典预处理被绕过。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么要在requirements中固定NLTK和spaCy的版本？",
+      "options": ["许可证兼容性", "分词器和词形还原器行为在次要版本之间会改变，静默地改变训练分布", "旧版本支持更多语言", "新版本更慢"],
+      "correct": 1,
+      "explanation": "库升级可能改变分词输出，偏离训练分布。"
+    }
+  ]
+}

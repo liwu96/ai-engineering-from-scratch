@@ -1,0 +1,76 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "为什么预填充和解码需要不同的最优GPU配置？",
+      "options": [
+        "预填充必须在AMD上运行，解码在NVIDIA上",
+        "预填充是矩阵乘法吞吐量的计算密集型；解码是HBM带宽的内存密集型，将它们共置会浪费其中一种资源",
+        "它们使用不同的模型权重",
+        "解码需要更多网络带宽"
+      ],
+      "correct": 1,
+      "explanation": "预填充和解码有根本不同的硬件需求；共置迫使在计算密集型GPU上运行内存密集型操作，效率低下。"
+    },
+    {
+      "stage": "check",
+      "question": "NVIDIA Dynamo使用什么传输方式在预填充和解码池之间移动KV缓存？",
+      "options": [
+        "普通HTTP",
+        "仅gRPC双向流",
+        "NFS上的共享文件系统",
+        "NIXL（可用时使用RDMA/InfiniBand，回退到TCP）"
+      ],
+      "correct": 3,
+      "explanation": "NIXL是NVIDIA的自定义传输层，优先使用RDMA/InfiniBand实现低延迟KV缓存传输，无法用时回退TCP。"
+    },
+    {
+      "stage": "check",
+      "question": "根据课程，解耦何时不合算？",
+      "options": [
+        "Blackwell上的MoE工作负载",
+        "共享系统提示的多租户服务",
+        "8K+前缀的RAG",
+        "512个令牌以下的提示和200个令牌以下的输出，KV传输税超过收益"
+      ],
+      "correct": 3,
+      "explanation": "对于短提示+短输出，KV传输的网络开销会超过解耦带来的GPU利用率提升，得不偿失。"
+    },
+    {
+      "stage": "check",
+      "question": "Dynamo和llm-d之间的核心架构差异是什么？",
+      "options": [
+        "Dynamo是开源的；llm-d是闭源的",
+        "Dynamo在CPU上运行；llm-d在GPU上",
+        "Dynamo是vLLM/SGLang/TRT-LLM之上的编排器；llm-d是Kubernetes原生的，预填充/解码/路由器作为独立Service",
+        "Dynamo需要AMD；llm-d需要NVIDIA"
+      ],
+      "correct": 2,
+      "explanation": "Dynamo在现有推理引擎上层叠加解耦；llm-d是Kubernetes原生设计，将每个组件作为独立Kubernetes服务。"
+    },
+    {
+      "stage": "post",
+      "question": "哪些Dynamo组件自动为SLO调优预填充:解码比例？",
+      "options": [
+        "Sidecar代理和Envoy过滤器",
+        "Planner Profiler和SLA Planner",
+        "Cluster Autoscaler",
+        "Marlin内核"
+      ],
+      "correct": 1,
+      "explanation": "Dynamo的Planner Profiler分析工作负载特性，SLA Planner根据目标SLO自动计算最优预填充:解码比例。"
+    },
+    {
+      "stage": "post",
+      "question": "解耦如何与感知缓存路由交互？",
+      "options": [
+        "解耦完全禁用KV缓存复用",
+        "感知缓存路由器可以将请求落在已持有其前缀的解码池上；未命中时流经预填充->解码，两者相互叠加",
+        "它们互斥",
+        "感知缓存路由只适用于共置服务"
+      ],
+      "correct": 1,
+      "explanation": "两者协同：感知缓存路由优先将请求路由到缓存命中节点；解耦使预填充和解码独立扩展。"
+    }
+  ]
+}

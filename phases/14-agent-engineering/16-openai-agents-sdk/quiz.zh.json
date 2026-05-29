@@ -1,0 +1,88 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "OpenAI Agents SDK的五个核心原语是什么？",
+      "options": [
+        "Agent、Handoff、Guardrail、Session、Tracing",
+        "Model、Tool、Memory、State、Loop",
+        "Plan、Execute、Review、Retry、Ship",
+        "Input、Process、Output、Log、Monitor"
+      ],
+      "correct": 0,
+      "explanation": "五个原语是：Agent、Handoff（交接）、Guardrail（护栏）、Session（会话）、Tracing（追踪）。"
+    },
+    {
+      "stage": "pre",
+      "question": "模型如何看到交接？",
+      "options": [
+        "作为特殊系统消息",
+        "作为名为transfer_to_<agent_name>的工具",
+        "作为隐藏的API调用",
+        "作为提示注入"
+      ],
+      "correct": 1,
+      "explanation": "交接作为工具暴露给模型，名称格式为transfer_to_<agent_name>。"
+    },
+    {
+      "stage": "check",
+      "question": "三种护栏类型是什么？",
+      "options": [
+        "输入、输出和工具护栏",
+        "安全、合规和质量护栏",
+        "硬、软和建议护栏",
+        "前置、后置和中间护栏"
+      ],
+      "correct": 0,
+      "explanation": "SDK提供输入护栏、输出护栏和工具护栏三种类型。"
+    },
+    {
+      "stage": "check",
+      "question": "并行护栏与阻塞护栏的区别是什么？",
+      "options": [
+        "并行与主LLM同时运行（延迟更低但浪费令牌）；阻塞先运行",
+        "并行更贵，阻塞更便宜",
+        "并行用于输出，阻塞用于输入",
+        "并行需要GPU，阻塞不需要"
+      ],
+      "correct": 0,
+      "explanation": "并行护栏与主LLM同时运行，降低延迟但在拒绝时浪费令牌；阻塞护栏先运行再继续。"
+    },
+    {
+      "stage": "check",
+      "question": "关于追踪的默认行为是什么？",
+      "options": [
+        "默认关闭",
+        "默认开启；OPENAI_AGENTS_DISABLE_TRACING=1可关闭",
+        "需要付费订阅",
+        "仅在生产环境可用"
+      ],
+      "correct": 1,
+      "explanation": "追踪默认开启；通过OPENAI_AGENTS_DISABLE_TRACING=1环境变量可选择退出。"
+    },
+    {
+      "stage": "post",
+      "question": "什么是交接漂移，如何修复？",
+      "options": [
+        "代理变慢；增加超时",
+        "A->B->A循环；添加跳数计数器",
+        "代理忘记上下文；增加记忆",
+        "交接失败；重试逻辑"
+      ],
+      "correct": 1,
+      "explanation": "交接漂移是代理在A->B->A间无限循环；通过添加跳数计数器并在超出时拒绝来修复。"
+    },
+    {
+      "stage": "post",
+      "question": "内置工具护栏的间隙是什么？",
+      "options": [
+        "工具护栏仅适用于函数工具，不适用于内置工具",
+        "工具护栏太慢",
+        "工具护栏需要付费",
+        "工具护栏不支持异步"
+      ],
+      "correct": 1,
+      "explanation": "工具护栏仅适用于函数工具（开发者定义的），不适用于SDK内置工具如代码解释器。"
+    }
+  ]
+}

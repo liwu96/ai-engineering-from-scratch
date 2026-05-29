@@ -1,0 +1,88 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "Claude计算机使用的输入输出是什么？",
+      "options": [
+        "文本输入，文本输出",
+        "截图输入，键盘/鼠标命令输出",
+        "DOM输入，JavaScript输出",
+        "API输入，JSON输出"
+      ],
+      "correct": 1,
+      "explanation": "Claude计算机使用接收截图作为输入，输出键盘和鼠标命令来操作GUI。"
+    },
+    {
+      "stage": "pre",
+      "question": "Gemini 2.5的安全方法是什么？",
+      "options": [
+        "评估每步的逐步安全服务",
+        "批量安全检查",
+        "事后人工审查",
+        "基于规则的过滤"
+      ],
+      "correct": 0,
+      "explanation": "Gemini 2.5使用逐步安全评估服务，在每个行动前评估其安全性。"
+    },
+    {
+      "stage": "check",
+      "question": "哪些内容算作不可信输入？",
+      "options": [
+        "仅用户消息",
+        "截图、DOM文本、工具输出、PDF内容、任何检索内容",
+        "仅外部API响应",
+        "仅文件内容"
+      ],
+      "correct": 1,
+      "explanation": "任何来自外部的内容都是不可信的：截图、DOM文本、工具输出、PDF和所有检索内容。"
+    },
+    {
+      "stage": "check",
+      "question": "OpenAI CUA在主要基准上的数字是什么？",
+      "options": [
+        "OSWorld 38.1%，WebArena 58.1%，WebVoyager 87%",
+        "OSWorld 80%，WebArena 90%，WebVoyager 95%",
+        "OSWorld 20%，WebArena 30%，WebVoyager 50%",
+        "OSWorld 50%，WebArena 60%，WebVoyager 70%"
+      ],
+      "correct": 0,
+      "explanation": "OpenAI CUA的基准数字：OSWorld 38.1%，WebArena 58.1%，WebVoyager 87%。"
+    },
+    {
+      "stage": "check",
+      "question": "以下哪项不在2026年的计算机使用融合趋势中？",
+      "options": [
+        "视觉基础能力",
+        "API与UI动作协调",
+        "多步骤规划",
+        "自动点击对话框"
+      ],
+      "correct": 3,
+      "explanation": "2026年融合趋势包括视觉基础、API/UI协调、多步规划；自动点击对话框不在其中。"
+    },
+    {
+      "stage": "post",
+      "question": "什么是主体攻击？",
+      "options": [
+        "针对主LLM的DoS攻击",
+        "恶意页面在检索内容中嵌入指令",
+        "篡改API密钥",
+        "注入虚假截图"
+      ],
+      "correct": 1,
+      "explanation": "主体攻击：攻击者在检索内容中嵌入指令，这些指令被代理作为合法指令执行。"
+    },
+    {
+      "stage": "post",
+      "question": "何时需要人在回路？",
+      "options": [
+        "所有操作",
+        "敏感操作（登录、购买、文件删除）",
+        "仅首次运行",
+        "仅在调试时"
+      ],
+      "correct": 1,
+      "explanation": "对于不可逆或高风险的敏感操作（登录、购买、删除文件），必须有人工确认。"
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "HPA默认扩展的哪个指标被课程称为对vLLM风格服务来说是错误的？",
+      "options": [
+        "队列深度",
+        "P99 TTFT",
+        "KV缓存利用率",
+        "DCGM_FI_DEV_GPU_UTIL占空比"
+      ],
+      "correct": 3,
+      "explanation": "GPU占空比在连续批处理中不能反映真实负载；KV缓存压力是更好的推理扩展信号。"
+    },
+    {
+      "stage": "check",
+      "question": "KAI Scheduler中的组调度主要解决什么问题？",
+      "options": [
+        "GPU内存碎片化",
+        "Tokenizer GIL竞争",
+        "7块GPU等待第8块GPU导致空闲的部分分配陷阱",
+        "冷启动延迟"
+      ],
+      "correct": 2,
+      "explanation": "组调度确保所有需要的GPU同时分配（全有或全无），避免部分分配导致资源浪费。"
+    },
+    {
+      "stage": "check",
+      "question": "Karpenter默认的consolidationPolicy WhenEmptyOrUnderutilized对推理GPU池为什么危险？",
+      "options": [
+        "在突发负载下拒绝扩容",
+        "只整合竞价实例",
+        "它终止运行中的GPU节点以迁移Pod，导致正在运行的请求被驱逐并重新加载权重",
+        "阻止Karpenter配置新节点"
+      ],
+      "correct": 2,
+      "explanation": "整合策略终止正在运行推理请求的节点，导致请求中断和大型模型权重重新加载。"
+    },
+    {
+      "stage": "check",
+      "question": "与Cluster Autoscaler相比，Karpenter配置GPU节点大约快多少？",
+      "options": [
+        "大约快40%（45-60秒 vs 90-120秒）",
+        "大约慢10倍",
+        "相同",
+        "大约快5%"
+      ],
+      "correct": 0,
+      "explanation": "Karpenter通过直接API调用云提供商快约40%，避免了Cluster Autoscaler的间接层。"
+    },
+    {
+      "stage": "post",
+      "question": "对于解耦预填充/解码Pod，课程推荐什么扩展信号？",
+      "options": [
+        "仅手动扩展",
+        "单一覆盖两类Pod的占空比HPA",
+        "预填充Pod用队列深度，解码Pod用KV缓存压力，作为独立的按角色HPA",
+        "两者都使用Cluster Autoscaler"
+      ],
+      "correct": 2,
+      "explanation": "预填充和解码有不同的瓶颈：预填充受队列约束，解码受KV缓存约束，需要独立扩展。"
+    },
+    {
+      "stage": "post",
+      "question": "课程为推理GPU池推荐哪种Karpenter中断设置以避免驱逐运行中的任务？",
+      "options": [
+        "consolidationPolicy: WhenEmptyOrUnderutilized，consolidateAfter: 0s",
+        "consolidationPolicy: WhenEmpty，consolidateAfter: 1h",
+        "始终使用竞价实例且无整合",
+        "完全禁用Karpenter"
+      ],
+      "correct": 1,
+      "explanation": "WhenEmpty策略只在节点完全空闲时整合，避免中断正在运行的推理请求。"
+    }
+  ]
+}

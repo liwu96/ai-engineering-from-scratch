@@ -1,0 +1,88 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "状态持久性的耐用性测试是什么？",
+      "options": [
+        "3分钟内是否有用",
+        "3个月后在CI重新运行时是否有用",
+        "在下一次会话中是否有用",
+        "在不同机器上是否有用"
+      ],
+      "correct": 1,
+      "explanation": "真正应该持久化的状态需要通过测试：3个月后某人重新运行CI时，这个状态还有意义吗？"
+    },
+    {
+      "stage": "pre",
+      "question": "合约版本的schema字段是什么？",
+      "options": [
+        "schema_version",
+        "version",
+        "api_version",
+        "contract_version"
+      ],
+      "correct": 0,
+      "explanation": "状态schema应包含schema_version字段，使加载代码能检测不兼容并拒绝加载旧schema。"
+    },
+    {
+      "stage": "check",
+      "question": "原子写入的正确方式是什么？",
+      "options": [
+        "直接写入目标文件",
+        "tempfile.mkstemp，写入，fsync，os.replace（原子重命名）",
+        "写入然后复制",
+        "使用数据库事务"
+      ],
+      "correct": 0,
+      "explanation": "原子写入：创建临时文件，写入内容，fsync确保落盘，然后os.replace原子替换目标文件。"
+    },
+    {
+      "stage": "check",
+      "question": "幂等性键解决什么问题？",
+      "options": [
+        "减少API成本",
+        "工具调用后检查点前崩溃",
+        "防止并发修改",
+        "加速状态写入"
+      ],
+      "correct": 1,
+      "explanation": "幂等性键解决：工具调用已执行但崩溃在状态持久化前——重放时可检测到并跳过已完成操作。"
+    },
+    {
+      "stage": "check",
+      "question": "如何处理大型工件？",
+      "options": [
+        "直接嵌入状态",
+        "单独文件，状态中只保留路径",
+        "压缩后存储",
+        "存储在外部服务"
+      ],
+      "correct": 1,
+      "explanation": "大型工件（代码文件、报告等）应单独存储，状态JSON只保留指向文件的路径引用。"
+    },
+    {
+      "stage": "post",
+      "question": "事件溯源加快照有什么优势？",
+      "options": [
+        "减少存储使用",
+        "可重播代理决策；与Postgres WAL形状相同",
+        "加速读取",
+        "简化代码"
+      ],
+      "correct": 1,
+      "explanation": "事件溯源：存储所有状态变更事件，加快照恢复当前状态；可重放调试历史，与数据库WAL相同模式。"
+    },
+    {
+      "stage": "post",
+      "question": "schema_version不匹配时应该发生什么？",
+      "options": [
+        "自动迁移",
+        "管理器拒绝加载直到迁移脚本运行",
+        "忽略版本差异",
+        "删除旧状态"
+      ],
+      "correct": 1,
+      "explanation": "schema版本不匹配时，管理器应拒绝加载旧状态并要求运行迁移脚本，防止静默数据损坏。"
+    }
+  ]
+}

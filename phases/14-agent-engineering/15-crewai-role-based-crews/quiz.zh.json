@@ -1,0 +1,88 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "CrewAI的四个核心原语是什么？",
+      "options": [
+        "Agent、Task、Crew、Process",
+        "Role、Goal、Tool、Memory",
+        "Plan、Execute、Review、Ship",
+        "Model、Prompt、Chain、Output"
+      ],
+      "correct": 0,
+      "explanation": "CrewAI的四个原语是：Agent（角色）、Task（任务）、Crew（团队）、Process（流程）。"
+    },
+    {
+      "stage": "pre",
+      "question": "生产环境的推荐起点是什么？",
+      "options": [
+        "Crew",
+        "Flow",
+        "Pipeline",
+        "Swarm"
+      ],
+      "correct": 1,
+      "explanation": "Flow提供事件驱动的代码拥有确定性控制流，是生产环境的更好起点。"
+    },
+    {
+      "stage": "check",
+      "question": "Crew与Flow的核心区别是什么？",
+      "options": [
+        "Crew用Python，Flow用TypeScript",
+        "Crew是自主LLM驱动的；Flow是事件驱动的代码拥有确定性",
+        "Crew更快，Flow更便宜",
+        "Crew支持工具，Flow不支持"
+      ],
+      "correct": 1,
+      "explanation": "Crew让LLM自主决定协作；Flow让开发者通过代码控制确定性流程。"
+    },
+    {
+      "stage": "check",
+      "question": "以下哪项不是CrewAI支持的记忆类型？",
+      "options": [
+        "短期记忆",
+        "长期记忆",
+        "实体记忆",
+        "量化记忆"
+      ],
+      "correct": 3,
+      "explanation": "CrewAI支持短期、长期和实体记忆；量化记忆不是CrewAI的记忆类型。"
+    },
+    {
+      "stage": "check",
+      "question": "背景故事膨胀指的是什么问题？",
+      "options": [
+        "背景故事太短导致代理混乱",
+        "2000词的背景故事占用上下文预算",
+        "背景故事在每轮重复",
+        "背景故事导致模型过拟合"
+      ],
+      "correct": 1,
+      "explanation": "过长的背景故事消耗上下文预算，挤出实际任务内容。"
+    },
+    {
+      "stage": "post",
+      "question": "层级流程何时值得使用？",
+      "options": [
+        "只有2个代理时",
+        "4个以上专家需要管理者Agent来路由时",
+        "任务是顺序的时",
+        "所有代理使用相同工具时"
+      ],
+      "correct": 1,
+      "explanation": "当4个以上专家需要管理者来路由任务时，层级流程的开销才合理。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么课程警告不要使用自由形式的Crew？",
+      "options": [
+        "它比Flow慢",
+        "输出变化大，调试痛苦",
+        "它不支持工具",
+        "它需要更多API密钥"
+      ],
+      "correct": 1,
+      "explanation": "自由形式Crew的高输出变化性和难以调试的特性使其不适合可靠的生产系统。"
+    }
+  ]
+}

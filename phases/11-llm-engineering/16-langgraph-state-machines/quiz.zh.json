@@ -1,0 +1,64 @@
+{
+  "questions": [
+    {
+      "stage": "post",
+      "question": "为什么LangGraph State TypedDict中的`messages`字段需要`Annotated[list, add_messages]`？",
+      "options": [
+        "它启用了来自模型的令牌增量流式传输。",
+        "没有reducer，节点更新会覆盖列表而不是追加，导致每轮丢失先前的历史记录。",
+        "它在将检查点写入磁盘时压缩消息列表。",
+        "它在运行时将普通字典转换为LangChain消息对象。"
+      ],
+      "correct": 1,
+      "explanation": ""
+    },
+    {
+      "stage": "post",
+      "question": "`interrupt_before=['tools']`和`interrupt_after=['tools']`之间的区别是什么？",
+      "options": [
+        "没有区别；它们是别名。",
+        "`interrupt_before`在模型发出tool_calls后但工具执行前暂停；`interrupt_after`在工具已经运行后暂停。",
+        "`interrupt_before`首先在沙箱中运行工具；`interrupt_after`在生产中运行。",
+        "`interrupt_before`用于单元测试；`interrupt_after`用于生产。"
+      ],
+      "correct": 1,
+      "explanation": ""
+    },
+    {
+      "stage": "post",
+      "question": "给定线程的检查点历史，如何时间旅行到先前的状态并探索不同的分支？",
+      "options": [
+        "调用`graph.reset(thread_id)`然后`graph.invoke(new_input, config)`。",
+        "删除检查点目录并使用相同的thread_id重新调用。",
+        "使用配置中所需的先前`checkpoint_id`调用图；传递`None`作为输入从该检查点重放，传递新值在恢复前追加到它。",
+        "设置`graph.rewind = True`并重新调用。"
+      ],
+      "correct": 2,
+      "explanation": ""
+    },
+    {
+      "stage": "post",
+      "question": "在四节点ReAct图（agent、tools、条件边、静态边回到agent）中，条件边在哪里？",
+      "options": [
+        "从`tools`回到`agent`，根据工具输出是否为空进行路由。",
+        "从`agent`，如果最后一条消息有tool_calls则路由到`tools`，否则路由到`END`。",
+        "从`START`，根据输入长度路由到`agent`或`END`。",
+        "没有条件边；两者都是静态的。"
+      ],
+      "correct": 1,
+      "explanation": ""
+    },
+    {
+      "stage": "post",
+      "question": "什么时候应该使用`Send(node_name, state)`而不是普通边？",
+      "options": [
+        "在失败后重试节点。",
+        "延迟节点直到计时器到期。",
+        "调度N个目标节点的并行执行，其输出通过状态reducer合并回来。",
+        "在不同进程中调用节点以实现隔离。"
+      ],
+      "correct": 2,
+      "explanation": ""
+    }
+  ]
+}

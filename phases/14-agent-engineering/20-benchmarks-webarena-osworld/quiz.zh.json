@@ -1,0 +1,88 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "WebArena为什么自托管？",
+      "options": [
+        "节省API成本",
+        "固定可复现版本，基于执行，不易出错",
+        "避免网络延迟",
+        "支持离线使用"
+      ],
+      "correct": 1,
+      "explanation": "WebArena自托管网站以固定可复现版本，使用执行结果（不是字符串匹配）避免不稳定性。"
+    },
+    {
+      "stage": "pre",
+      "question": "OSWorld为什么使用截图？",
+      "options": [
+        "截图比DOM更快",
+        "强制在1920x1080分辨率下进行真实GUI基础能力测试",
+        "截图更容易标注",
+        "避免JavaScript执行"
+      ],
+      "correct": 1,
+      "explanation": "仅截图评估强制代理具备真实GUI视觉理解能力，而不是依赖DOM访问快捷方式。"
+    },
+    {
+      "stage": "check",
+      "question": "OSWorld的两种失败模式是什么？",
+      "options": [
+        "GUI基础能力和操作知识",
+        "速度和准确性",
+        "记忆和推理",
+        "规划和执行"
+      ],
+      "correct": 1,
+      "explanation": "OSWorld揭示了两类失败：GUI视觉基础能力（找到正确的UI元素）和操作知识（如何操作UI）。"
+    },
+    {
+      "stage": "check",
+      "question": "OSWorld-Human增加了什么？",
+      "options": [
+        "更多任务",
+        "黄金行动轨迹，显示1.4-2.7倍步骤效率差距",
+        "更难的任务",
+        "多语言支持"
+      ],
+      "correct": 1,
+      "explanation": "OSWorld-Human添加了人类黄金轨迹，揭示AI完成相同任务需要人类1.4-2.7倍的步骤。"
+    },
+    {
+      "stage": "check",
+      "question": "WebArena发布时的成功率数字是什么？",
+      "options": [
+        "人类78.24% vs AI 14.41%",
+        "人类90% vs AI 50%",
+        "人类78.24% vs AI 40%",
+        "人类50% vs AI 14.41%"
+      ],
+      "correct": 0,
+      "explanation": "WebArena发布时：人类78.24%成功率，最佳AI系统14.41%成功率。"
+    },
+    {
+      "stage": "post",
+      "question": "在有DOM访问权限时使用截图评估会错过什么？",
+      "options": [
+        "GUI基础能力挑战",
+        "任务完成率",
+        "执行速度",
+        "API调用次数"
+      ],
+      "correct": 1,
+      "explanation": "仅用截图评估有DOM访问权限的代理会掩盖视觉基础能力的真实挑战。"
+    },
+    {
+      "stage": "post",
+      "question": "忽略轨迹长度会隐藏什么？",
+      "options": [
+        "任务准确性",
+        "成本和低效率，1.4-2.7倍的差距",
+        "模型大小",
+        "API延迟"
+      ],
+      "correct": 0,
+      "explanation": "成功率不反映效率；AI代理通常需要人类1.4-2.7倍的步骤，隐藏了真实成本。"
+    }
+  ]
+}

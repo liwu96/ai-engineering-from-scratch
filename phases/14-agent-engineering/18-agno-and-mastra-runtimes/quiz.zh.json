@@ -1,0 +1,88 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "Agno和Mastra的语言配对是什么？",
+      "options": [
+        "两者都用Python",
+        "Agno用Python，Mastra用TypeScript",
+        "Agno用Go，Mastra用Rust",
+        "两者都用TypeScript"
+      ],
+      "correct": 1,
+      "explanation": "Agno是Python运行时，Mastra是TypeScript运行时，针对各自语言生态优化。"
+    },
+    {
+      "stage": "pre",
+      "question": "Agno的生产架构是什么？",
+      "options": [
+        "有状态的长期运行进程",
+        "无状态会话作用域FastAPI；会话状态存储在数据库",
+        "每代理一个Docker容器",
+        "基于Lambda的无服务器"
+      ],
+      "correct": 1,
+      "explanation": "Agno使用无状态FastAPI处理器，会话状态持久化到数据库，便于水平扩展。"
+    },
+    {
+      "stage": "check",
+      "question": "Mastra的三个核心原语是什么？",
+      "options": [
+        "Agents、Tools、Workflows",
+        "Models、Prompts、Outputs",
+        "Tasks、Workers、Queues",
+        "Routes、Handlers、Middleware"
+      ],
+      "correct": 0,
+      "explanation": "Mastra围绕Agents、Tools和Workflows三个原语构建。"
+    },
+    {
+      "stage": "check",
+      "question": "Agno的实例化成本大约是多少？",
+      "options": [
+        "约10毫秒和约100 KiB每代理",
+        "约2微秒和约3.75 KiB每代理",
+        "约1秒和约1 MiB每代理",
+        "约100微秒和约10 KiB每代理"
+      ],
+      "correct": 0,
+      "explanation": "Agno的超低开销：约2微秒实例化时间和约3.75 KiB内存每代理。"
+    },
+    {
+      "stage": "check",
+      "question": "Mastra统一模型路由器涵盖多少模型？",
+      "options": [
+        "跨94个提供商的3300+模型",
+        "跨10个提供商的100+模型",
+        "跨50个提供商的1000+模型",
+        "跨5个提供商的50+模型"
+      ],
+      "correct": 0,
+      "explanation": "Mastra的统一模型路由器支持跨94个提供商的3300+模型，无需切换SDK。"
+    },
+    {
+      "stage": "post",
+      "question": "什么情况不应选择Agno的低开销？",
+      "options": [
+        "每请求需要数千个代理时",
+        "每请求只有一个慢速代理调用，开销不是瓶颈",
+        "需要并行代理时",
+        "需要快速启动时"
+      ],
+      "correct": 0,
+      "explanation": "如果每请求只有一个慢速LLM调用，微秒级开销可忽略不计；低开销在需要大量代理时才有意义。"
+    },
+    {
+      "stage": "post",
+      "question": "关于Mastra许可的注意事项是什么？",
+      "options": [
+        "完全MIT开源",
+        "ee/目录源码可见，限制商业使用",
+        "仅限非商业使用",
+        "需要企业许可才能使用"
+      ],
+      "correct": 1,
+      "explanation": "Mastra的ee/目录包含企业功能，采用源码可见许可，限制商业使用。"
+    }
+  ]
+}

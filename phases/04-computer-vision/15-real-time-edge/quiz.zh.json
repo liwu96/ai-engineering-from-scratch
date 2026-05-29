@@ -1,0 +1,39 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "你对一个模型进行基准测试，报告"在4090上每张图像平均12ms"。缺少什么？",
+      "options": ["没有；这是完整的基准测试", "百分位数（p50/p95/p99）、预热规程和CUDA同步；单独的均值隐藏了尾延迟，可能测量的是内核调度而不是内核执行", "模型大小", "数据集名称"],
+      "correct": 1,
+      "explanation": "生产延迟用百分位数衡量，因为实时系统在尾部失败，而不是在均值失败。没有预热，JIT编译会使前几次测量膨胀。没有torch.cuda.synchronize，GPU内核启动在内核完成之前返回，所以你测量的是调度，而不是执行。这三点都必须正确，数字才有意义。"
+    },
+    {
+      "stage": "pre",
+      "question": "FLOPs和设备延迟不完全相关。为什么？",
+      "options": ["FLOPs计数器有问题", "不同操作具有不同的硬件友好性；深度卷积可能FLOPs更低，但在GPU上受内存限制，而密集卷积高效使用Tensor Core。内存带宽、内核启动开销和缓存行为也在原始FLOPs之外影响延迟", "FLOPs忽略批次大小", "PyTorch不正确地计算FLOPs"],
+      "correct": 1,
+      "explanation": "FLOPs是一个廉价的代理。墙钟延迟取决于操作与硬件优势的匹配程度：密集矩阵乘法固定Tensor Core；深度卷积在内存带宽上停滞；注意力在序列长度^2的内存读取上停滞。对于架构搜索FLOPs很有用；对于部署决策要在目标设备上测量。"
+    },
+    {
+      "stage": "post",
+      "question": "训练后静态INT8量化在ImageNet类视觉模型上通常损失多少精度？",
+      "options": ["5-10个百分点", "正确校准时0.1-1个百分点；批归一化融合卷积模型在INT8下表现特别好", "总是0；这是无损的", "20+个点；不可用"],
+      "correct": 1,
+      "explanation": "在校准良好的视觉模型上静态PTQ损失一个百分点的零头到约1个点。更大的损失模式是：(a)校准数据不足；(b)量化具有极端异常值的激活（用逐通道量化或裁剪修复）；(c)未融合的BatchNorm层。处理好这些后，INT8几乎是免费的。"
+    },
+    {
+      "stage": "post",
+      "question": "你的移动应用需要一个10MB以下、延迟低于10ms的视觉模型。你选择哪个骨干网络？",
+      "options": ["ResNet-50", "MobileNetV3-Small或量化为INT8的EfficientNet-Lite-B0；两者都针对此预算，并能干净地编译到TFLite / Core ML", "ViT-Base", "ConvNeXt-Large"],
+      "correct": 1,
+      "explanation": "2026年移动视觉发布仍由MobileNetV3和EfficientNet-Lite变体主导，因为它们是为此预算设计的：深度卷积、h-swish、squeeze-excite、从一开始就支持量化感知训练。ResNet-50和ViT-Base在FP32中超过100MB，INT8中超过25MB，在测量延迟之前就超出了大小预算。"
+    },
+    {
+      "stage": "post",
+      "question": "你用opset 17将PyTorch模型导出到ONNX，失败并显示"Unsupported operator"。最可能的原因是什么？",
+      "options": ["ONNX库已过时", "(1)没有ONNX映射的自定义算子；(2)追踪无法捕获的非确定性控制流路径；(3)Python中隐式但没有ONNX等价物的张量-标量交互。修复：替换算子，使用`torch.jit.script`处理控制流，或升级opset", "模型参数太多", "输入形状错误"],
+      "correct": 1,
+      "explanation": "ONNX导出默认是追踪，所以追踪无法捕获的任何内容——运行时控制流、Python级别的分支、自定义CUDA算子——都会失败。大多数失败是一个没有ONNX等价物的单个节点（通常是一个微小的自定义算子或对torch.special.*的调用）。修复方法是替换算子、切换到`torch.jit.script`，或移至更新的opset。"
+    }
+  ]
+}

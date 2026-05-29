@@ -1,0 +1,39 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "为什么DiT（扩散Transformer）取代了视频和高分辨率图像生成中的U-Net骨干？",
+      "options": ["Transformer更小", "U-Net的归纳偏置（局部卷积、固定跳跃连接）限制了全局上下文；DiT用自注意力处理图像块，允许任意长程依赖，并以最小的架构修改扩展到视频", "DiT的参数更少", "U-Net不支持条件"],
+      "correct": 1,
+      "explanation": "视频需要时间块之间的长程注意力——卷积U-Net无法有效建模。DiT将图像/视频块视为序列标记，并将全注意力应用于它们，就像LLM处理文本一样。这给出了相同的扩展规律：更多参数、更多数据、更好的质量。Sora、Wan、Mochi都是DiT架构。"
+    },
+    {
+      "stage": "pre",
+      "question": "整流流与DDPM的主要区别是什么？",
+      "options": ["整流流跳过VAE", "整流流从噪声到数据学习直线ODE轨迹，而不是DDPM弯曲的随机扩散路径。直线路径可以用更少的采样步骤遍历，这就是FLUX.1-schnell可以用4步而DDPM需要50+步的原因", "整流流不需要调度器", "DDPM更快"],
+      "correct": 1,
+      "explanation": "DDPM的马尔科夫链添加/去除随机噪声，产生弯曲的轨迹，需要许多小步骤。整流流训练向量场在单个向量场步骤中直接从噪声点到其数据配对。ODE求解器比SDE求解器更有效地遵循直线路径，将步骤减少到4-8步而没有明显的质量损失。"
+    },
+    {
+      "stage": "post",
+      "question": "MMDiT（多模态扩散Transformer，如Stable Diffusion 3）与原始DiT的不同之处是什么？",
+      "options": ["MMDiT使用卷积", "MMDiT在单个Transformer块中对图像块和文本标记进行联合注意力——图像和文本有独立的投影但共享注意力机制。这允许深度跨模态交互，而不是简单的交叉注意力", "MMDiT移除了条件", "MMDiT使用两个独立的Transformer"],
+      "correct": 1,
+      "explanation": "原始DiT用交叉注意力层条件化文本（文本=键/值，图像=查询）。MMDiT让两种模态作为联合序列相互关注——文本标记可以关注图像块，反之亦然。这种双向流改善了文本-图像对齐，这是SD3、FLUX和Sora的核心创新。"
+    },
+    {
+      "stage": "post",
+      "question": "AdaLN-Zero在DiT中做什么？",
+      "options": ["将层归一化权重初始化为零", "AdaLN从扩散时间步和文本嵌入预测层归一化尺度和偏移参数；'-Zero'意味着初始化使残差块最初像恒等一样，类似于扩散模型调节的ResNet Zero块", "将所有注意力权重设置为零", "跳过时间步嵌入"],
+      "correct": 1,
+      "explanation": "标准LayerNorm有固定的尺度/偏移。AdaLN动态地从条件（步骤、文本）预测这些。Zero初始化确保网络在早期训练时就像没有条件一样——稳定训练。这是DiT替换U-Net上常见的交叉注意力条件的方式，因为它允许时间步和提示在每一层处修改激活。"
+    },
+    {
+      "stage": "post",
+      "question": "FLUX.1-schnell如何实现4步生成？",
+      "options": ["使用更小的模型", "FLUX.1-schnell是从完整的FLUX.1-dev蒸馏而来的整流流模型；一致性蒸馏+整流直线轨迹训练学生在4步中产生与教师50步输出相匹配的输出", "跳过VAE编码", "使用确定性采样"],
+      "correct": 1,
+      "explanation": "FLUX.1-schnell使用两项改进：（1）整流流更直线轨迹使步骤可减少；（2）一致性蒸馏训练网络将任何时间步映射到最终干净图像。结合起来，这允许4步而不会过多牺牲质量。类似的蒸馏在SDXL-Turbo和LCM-LoRA中使用。"
+    }
+  ]
+}

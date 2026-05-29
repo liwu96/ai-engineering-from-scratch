@@ -1,0 +1,76 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "MATS做什么，其规模大约如何？",
+      "options": [
+        "奖励模型训练服务",
+        "ML对齐与理论学者计划：一个研究导师计划，自2021年以来有527+位学者，180+篇论文，约80%的2025年前校友从事安全/安保工作",
+        "颁发AI出口许可证的监管机构",
+        "欧盟拥有的前沿安全研究所"
+      ],
+      "correct": 1,
+      "explanation": "MATS的重要性：作为对齐研究人才管道，已培训了数百名研究人员并产生了大量影响力论文，是学术界进入AI安全领域的主要途径之一。"
+    },
+    {
+      "stage": "check",
+      "question": "Redwood Research引入了哪个议程？",
+      "options": [
+        "LLM的差分隐私",
+        "AI控制（第10课）：通过U/T/H协议在颠覆下保持安全",
+        "通过SynthID的水印",
+        "宪法AI"
+      ],
+      "correct": 1,
+      "explanation": "Redwood Research的贡献：AI控制框架——在不假设AI对齐的前提下，如何通过协议设计确保安全部署。"
+    },
+    {
+      "stage": "check",
+      "question": "哪个组织撰写了《上下文内阴谋》论文和"迈向AI阴谋安全案例"框架？",
+      "options": [
+        "METR",
+        "MATS",
+        "Eleos AI",
+        "Apollo Research"
+      ],
+      "correct": 3,
+      "explanation": "Apollo Research：专注于AI阴谋和欺骗行为研究，发现了生产级模型中阴谋行为的第一批实证证据。"
+    },
+    {
+      "stage": "check",
+      "question": "METR在对齐生态系统中的独特方法论风格是什么？",
+      "options": [
+        "基础模型的对抗训练",
+        "基于任务的能力评估、自主任务时间范围研究和框架综合（如"前沿AI安全政策的共同要素"）",
+        "硬件认证的可验证推理",
+        "仅闭源红队测试"
+      ],
+      "correct": 1,
+      "explanation": "METR特色：以严格的基于任务的评估测量自主AI能力，并综合多个实验室的安全政策来找出共同标准。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么多组织合著对于安全声明很重要？",
+      "options": [
+        "它增加了引用次数",
+        "它加速了发表",
+        "EU AI Act强制要求",
+        "评估自己模型的实验室存在结构性利益冲突；外部评估者（Redwood、Apollo、METR、Eleos、UK AISI）可以发现并验证实验室可能少报的失效模式"
+      ],
+      "correct": 3,
+      "explanation": "独立验证的必要性：自我评估有明显的利益冲突——外部机构的独立评估是AI安全声明可信度的重要来源。"
+    },
+    {
+      "stage": "post",
+      "question": "Eleos AI Research对生态系统的主要贡献是什么？",
+      "options": [
+        "AI控制基准测试",
+        "水印标准",
+        "加州训练数据法律起草",
+        "部署前模型福利评估（第19课），包括Claude Opus 4系统卡中的外部福利评估"
+      ],
+      "correct": 3,
+      "explanation": "Eleos的独特定位：专注于模型福利评估——这是AI安全生态系统中最新且最具争议的研究方向。"
+    }
+  ]
+}

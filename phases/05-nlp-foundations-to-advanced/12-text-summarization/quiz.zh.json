@@ -1,0 +1,60 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "抽取式和生成式摘要之间的关键行为差异是什么？",
+      "options": ["抽取式使用TF-IDF；生成式使用Word2Vec", "抽取式从源中逐字返回句子；生成式生成新文本并可能产生幻觉", "抽取式仅用于多语言", "抽取式比生成式慢"],
+      "correct": 1,
+      "explanation": "抽取式逐字提取句子；生成式重写并有幻觉风险。"
+    },
+    {
+      "stage": "pre",
+      "question": "ROUGE衡量什么？",
+      "options": ["嵌入相似度", "系统摘要和参考摘要之间的n元组和最长公共子序列重叠", "阅读时间", "标记级困惑度"],
+      "correct": 1,
+      "explanation": "ROUGE-1/2/L测量与参考的一元组、二元组和LCS重叠。"
+    },
+    {
+      "stage": "check",
+      "question": "TextRank如何在抽取式摘要中对句子打分？",
+      "options": ["按原始词数", "与参考摘要比较", "通过在边为句子相似度权重的图上运行PageRank风格的迭代", "嵌入到问题的余弦距离"],
+      "correct": 2,
+      "explanation": "TextRank在句子相似度图上使用PageRank；高度连接的句子得分最高。"
+    },
+    {
+      "stage": "check",
+      "question": "为什么在计算ROUGE时启用词干提取？",
+      "options": ["不启用词干提取，'running'和'run'算作不同标记，ROUGE低估了真实重叠", "加速ROUGE", "词干提取归一化大小写", "rouge-score包需要词干提取"],
+      "correct": 0,
+      "explanation": "词干提取合并词形变化，使ROUGE认可语义等价的形式。"
+    },
+    {
+      "stage": "check",
+      "question": "2026年哪个指标专门通过NLI蕴含检测摘要幻觉？",
+      "options": ["BLEU", "ROUGE-L", "忠实度检查（例如FactCC或RAGAS faithfulness），使用源和摘要声明之间的NLI", "chrF"],
+      "correct": 2,
+      "explanation": "基于NLI的忠实度评分标记摘要中未被源蕴含的声明。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么抽取式摘要对合规相关内容更受青睐？",
+      "options": ["输出从源中逐字提取，消除了生成式幻觉类", "它更快", "抽取式支持更长的输出", "ROUGE分数更高"],
+      "correct": 0,
+      "explanation": "逐字提取不能发明内容，在事实准确性受监管的地方这很重要。"
+    },
+    {
+      "stage": "post",
+      "question": "以下哪种是需要监控的生成式幻觉类型？",
+      "options": ["标点漂移", "停用词删除", "长句子", "实体交换（例如'John Smith'渲染为'John Brown'）、数字漂移、极性翻转或事实发明"],
+      "correct": 3,
+      "explanation": "实体交换、数字漂移、极性翻转和发明事实是典型的生成式失败模式。"
+    },
+    {
+      "stage": "post",
+      "question": "什么时候你会选择Pegasus检查点而不是BART-large-CNN？",
+      "options": ["当评估BLEU时", "当输入很短时", "当你需要抽取式输出时", "对于Pegasus的差距句子预训练目标更匹配的领域，如科学摘要"],
+      "correct": 3,
+      "explanation": "Pegasus的差距句子目标擅长长篇领域摘要（例如pubmed）。"
+    }
+  ]
+}

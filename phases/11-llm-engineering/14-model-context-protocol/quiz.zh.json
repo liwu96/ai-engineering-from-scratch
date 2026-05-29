@@ -1,0 +1,64 @@
+{
+  "questions": [
+    {
+      "stage": "post",
+      "question": "MCP服务器公开的三个原语是什么？",
+      "options": [
+        "函数、类型、类",
+        "工具、资源、提示",
+        "端点、Webhook、队列",
+        "代理、技能、工作流"
+      ],
+      "correct": 1,
+      "explanation": ""
+    },
+    {
+      "stage": "post",
+      "question": "MCP使用什么线格式？",
+      "options": [
+        "HTTP上的GraphQL",
+        "带protobuf的gRPC",
+        "JSON-RPC 2.0",
+        "带OpenAPI的REST"
+      ],
+      "correct": 2,
+      "explanation": ""
+    },
+    {
+      "stage": "post",
+      "question": "哪个元数据字段表示工具会修改状态并应该需要人工批准？",
+      "options": [
+        "readonly: false",
+        "mutating: true",
+        "destructiveHint: true",
+        "requiresAuth: true"
+      ],
+      "correct": 2,
+      "explanation": ""
+    },
+    {
+      "stage": "post",
+      "question": "2025-06-18的传输协议取代了早期仅SSE的远程传输，它是什么？",
+      "options": [
+        "WebTransport",
+        "Streamable HTTP",
+        "仅WebSocket",
+        "gRPC双向流"
+      ],
+      "correct": 1,
+      "explanation": ""
+    },
+    {
+      "stage": "post",
+      "question": "工具何时应该拆分到其自己的MCP服务器而不是保持内联？",
+      "options": [
+        "当它每天被调用少于10次时",
+        "当它从两个或更多主机调用且是只读/可缓存的时",
+        "当它返回超过1KB的数据时",
+        "从不；MCP只适用于本地开发"
+      ],
+      "correct": 1,
+      "explanation": ""
+    }
+  ]
+}

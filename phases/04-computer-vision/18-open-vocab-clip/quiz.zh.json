@@ -1,0 +1,39 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "CLIP的对比损失是对称的（图像到文本+文本到图像）。为什么两个方向都需要？",
+      "options": ["数值稳定性", "你希望两种查询在推理时都有效：文本到图像检索和图像到文本检索。只训练一个方向会使另一个方向的精度显著下降", "因为损失必须求和为零", "PyTorch需要对称性"],
+      "correct": 1,
+      "explanation": "嵌入空间需要跨模态对称，因为下游任务在两个方向上查询。零样本分类是文本到图像（给定文本提示对图像分类）。检索可以双向进行。只用i2t或只用t2i训练会使另一个方向较弱。"
+    },
+    {
+      "stage": "pre",
+      "question": "CLIP的零样本分类是如何工作的？",
+      "options": ["运行在ImageNet上训练的分类器头", "为每个候选类编码'a photo of a dog'这样的提示，编码测试图像，并取图像嵌入与所有类文本嵌入的余弦相似度的argmax", "在类上微调图像编码器", "搜索标注样本数据库"],
+      "correct": 1,
+      "explanation": "零样本意味着没有任务特定训练：模型的表示已经让你将图像与任意文本描述进行比较。为每个类写一个提示，编码所有提示和测试图像，余弦相似度，取argmax。唯一的"技巧"是提示工程——每个类使用多个模板并平均其嵌入，在ImageNet上提升1-3个top-1点。"
+    },
+    {
+      "stage": "post",
+      "question": "SigLIP用每对的sigmoid损失替换了CLIP的softmax。这有什么好处？",
+      "options": ["更快的GPU内核", "sigmoid损失是逐对的，所以它不依赖批次作为归一化分母。SigLIP在CLIP的softmax损失缺乏负样本的较小批次大小下也能很好地训练", "更低的内存使用", "仅在COCO上有更好的精度"],
+      "correct": 1,
+      "explanation": "CLIP的对称交叉熵是整个批次的softmax，所以有效负样本=批次大小-1。小批次使它缺乏负样本。SigLIP是逐对的：每个（图像，标题）对有一个二元决定（匹配或不匹配）。没有批次级归一化，所以SigLIP在批次128时有效，而CLIP需要8192。在相同规模下SigLIP与CLIP相当或更好。"
+    },
+    {
+      "stage": "post",
+      "question": "一位从业者报告使用CLIP ViT-B/32在CIFAR-10上零样本top-1精度为88%，使用每个类80个提示模板时为90%。为什么模板平均有帮助？",
+      "options": ["它使数据集加倍", "不同模板激活文本编码器学习分布的不同方面；平均在类的合理自然语言描述流形上平滑了类嵌入，产生更鲁棒的质心", "它减少了logit_scale的方差", "80是CLIP的魔法数字"],
+      "correct": 1,
+      "explanation": "每个模板是不同的自然语言线索。'a photo of a dog'强调一个方面；'a blurry photo of a dog'强调另一个；'a sketch of a dog'又是另一个。对文本嵌入取平均给出了"狗"这个概念的更平滑表示，对单个提示的特殊性不那么敏感。OpenAI CLIP论文发布了在ImageNet零样本上提升约2个点的80个模板。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么现代VLM（LLaVA、Qwen-VL、InternVL）使用CLIP系列视觉编码器而不是有监督的ImageNet ResNet？",
+      "options": ["CLIP编码器更快", "CLIP特征与自然语言对齐，所以LLM可以用更少的适应来推理它们；有监督的ImageNet特征从未针对标题训练，需要大量投影层来桥接到文本", "ResNet看不到颜色", "这是许可要求"],
+      "correct": 1,
+      "explanation": "VLM将视觉编码器与语言模型连接并训练小型投影。CLIP风格的编码器是针对文本训练的，所以它们的输出已经存在于LLM只需几个线性适应层就可以使用的空间中。有监督的ImageNet编码器没有自然语言结构的概念，需要更大的桥接MLP才能与LLM一起工作。这就是为什么每个SOTA VLM都使用CLIP系列视觉塔。"
+    }
+  ]
+}

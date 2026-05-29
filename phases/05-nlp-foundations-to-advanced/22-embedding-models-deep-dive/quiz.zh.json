@@ -1,0 +1,60 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "什么是密集嵌入？",
+      "options": ["文档上的图", "每个词汇标记的稀疏权重", "标记级对齐矩阵", "每个文本一个固定大小向量，余弦相似度按语义接近度排名段落"],
+      "correct": 3,
+      "explanation": "密集嵌入每个文本给出一个向量（通常384-3072维）；余弦排名相似度。"
+    },
+    {
+      "stage": "pre",
+      "question": "Matryoshka表示学习能实现什么？",
+      "options": ["多语言训练", "更快的softmax", "将训练好的嵌入截断到前N维并获得仍然有用的更小嵌入", "交叉编码器重评分"],
+      "correct": 2,
+      "explanation": "Matryoshka训练使向量的前N维独立有用，实现廉价截断。"
+    },
+    {
+      "stage": "check",
+      "question": "多向量（ColBERT）嵌入如何对查询-文档对评分？",
+      "options": ["平均池化标记向量的余弦", "交叉熵", "推土机距离", "MaxSim：对每个查询标记找到最相似的文档标记，然后对最大值求和"],
+      "correct": 3,
+      "explanation": "ColBERT风格的晚期交互使用跨逐标记向量的MaxSim。"
+    },
+    {
+      "stage": "check",
+      "question": "BGE-M3同时输出什么？",
+      "options": ["仅稀疏向量", "仅密集向量", "在单次推理中从一个模型输出密集、稀疏和多向量（colbert）表示", "仅colbert向量"],
+      "correct": 2,
+      "explanation": "BGE-M3从一个模型发射三种检索模式，对融合混合评分有用。"
+    },
+    {
+      "stage": "check",
+      "question": "为什么在余弦相似度之前必须重新归一化Matryoshka截断的向量？",
+      "options": ["截断破坏训练", "截断改变向量范数；不重新归一化，点积不再等于余弦", "余弦忽略归一化", "仅FAISS需要"],
+      "correct": 1,
+      "explanation": "截断后重新归一化恢复单位范数，使点积再次等于余弦。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么BGE模型通常需要查询侧前缀字符串？",
+      "options": ["压缩查询", "FAISS需要", "BGE使用明确的查询提示训练；省略它会损失3-5个点的召回率", "前缀改变分词器行为"],
+      "correct": 2,
+      "explanation": "BGE模型期望查询上有'Represent this sentence for searching...'前缀。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么MTEB对于选择嵌入模型是必要但不充分的？",
+      "options": ["MTEB只覆盖英语", "MTEB忽略延迟", "排行榜排名是跨许多任务的平均；你的特定领域可能不同，所以始终在你的数据上进行基准测试", "MTEB奖励更大的模型"],
+      "correct": 2,
+      "explanation": "MTEB跨任务平均；特定领域评估可以翻转排名。"
+    },
+    {
+      "stage": "post",
+      "question": "什么时候应该在密集嵌入旁边添加SPLADE稀疏检索？",
+      "options": ["只要编码器是多语言的", "只要使用Matryoshka", "当查询是关键词密集型或包含密集嵌入可能模糊的标识符/代码时", "仅在小型语料库上"],
+      "correct": 2,
+      "explanation": "SPLADE捕获密集模型可能遗漏的词汇/关键词匹配；通过RRF与密集融合。"
+    }
+  ]
+}

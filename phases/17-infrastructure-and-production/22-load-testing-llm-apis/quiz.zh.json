@@ -1,0 +1,76 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "基于Locust的LLM负载测试中的GIL陷阱是什么？",
+      "options": [
+        "Locust只能在Windows上运行",
+        "Locust不支持HTTP",
+        "客户端侧tokenization在Python GIL下运行并在请求生成后排队，导致报告的令牌间延迟虚高",
+        "Locust需要CUDA"
+      ],
+      "correct": 2,
+      "explanation": "Python GIL使tokenization和请求生成串行化，导致客户端侧测量的延迟包含了不代表服务器真实性能的开销。"
+    },
+    {
+      "stage": "check",
+      "question": "什么是提示均匀性陷阱？",
+      "options": [
+        "均匀提示总是使服务器变慢",
+        "从真实分布中采样会低估长提示",
+        "均匀提示需要流式传输",
+        "循环相同提示使前缀缓存看起来像完整并发解码，虚报吞吐量"
+      ],
+      "correct": 3,
+      "explanation": "重复相同提示会人为提高缓存命中率；在生产中每个请求都是独特的，需要使用多样化提示测试。"
+    },
+    {
+      "stage": "check",
+      "question": "课程推荐哪四种负载模式？",
+      "options": [
+        "以1 RPS持续10天",
+        "手动点击测试",
+        "稳态、坡升、峰值、浸泡",
+        "仅突发"
+      ],
+      "correct": 2,
+      "explanation": "四种模式：稳态（基准）、坡升（发现瓶颈）、峰值（测试弹性）、浸泡（发现长期问题）。"
+    },
+    {
+      "stage": "check",
+      "question": "课程如何推荐构建真实的提示分布？",
+      "options": [
+        "使用均值和标准差从真实分布中采样（例如LLMPerf的--mean-input-tokens / --stddev-input-tokens）或重放真实流量",
+        "每请求随机字符",
+        "手写5个提示并打乱",
+        "始终使用相同提示以最大化缓存命中"
+      ],
+      "correct": 0,
+      "explanation": "真实提示分布通过统计参数建模（均值/标准差）或重放生产日志来模拟，更准确反映真实负载。"
+    },
+    {
+      "stage": "post",
+      "question": "哪种2026工具组合最适合CI/CD SLA门控和Kubernetes原生分布式运行？",
+      "options": [
+        "k6 v2026.1.0加k6 Operator 1.0 GA（TestRun / PrivateLoadZone CRD）",
+        "仅guidellm",
+        "仅Vegeta",
+        "原版Locust 2.43.3"
+      ],
+      "correct": 0,
+      "explanation": "k6 + k6 Operator提供声明式的Kubernetes原生负载测试，支持GitOps集成和CI/CD流水线。"
+    },
+    {
+      "stage": "post",
+      "question": "浸泡（soak）负载模式能发现哪种失败模式？",
+      "options": [
+        "内存泄漏、连接池漂移和数小时后的可观测性溢出",
+        "冷启动尾延迟",
+        "Tokenizer GIL竞争",
+        "缓存驱逐风暴"
+      ],
+      "correct": 0,
+      "explanation": "浸泡测试运行数小时，发现只在长时间运行后出现的问题：内存泄漏、连接池耗尽、日志缓冲区溢出。"
+    }
+  ]
+}

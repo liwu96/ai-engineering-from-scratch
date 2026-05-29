@@ -1,0 +1,76 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "在没有任何缓解措施的全新节点上，70B模型的冷启动通常需要多长时间？",
+      "options": [
+        "超过1小时",
+        "30-60秒",
+        "3-8分钟",
+        "10秒以内"
+      ],
+      "correct": 2,
+      "explanation": "70B模型冷启动包括节点配置、镜像拉取和权重加载，通常需要3-8分钟。"
+    },
+    {
+      "stage": "check",
+      "question": "课程推荐哪个AWS功能来预置容器镜像以消除镜像拉取步骤？",
+      "options": [
+        "从EC2NodeClass引用的Bottlerocket双卷架构",
+        "ECS任务定义",
+        "Spot fleet放置",
+        "仅EBS卷快照"
+      ],
+      "correct": 0,
+      "explanation": "Bottlerocket的双卷架构支持预置容器镜像到数据卷，节点启动时无需重新拉取。"
+    },
+    {
+      "stage": "check",
+      "question": "哪个Modal功能通过直接将加载后状态反序列化到HBM来提供接近"几秒内热GPU启动"的体验？",
+      "options": [
+        "分层NVMe到DRAM加载",
+        "在线迁移",
+        "GPU内存快照（检查点）",
+        "Run:ai Model Streamer"
+      ],
+      "correct": 2,
+      "explanation": "Modal的GPU内存快照保存模型加载完成后的HBM状态，恢复时直接跳过权重加载步骤。"
+    },
+    {
+      "stage": "check",
+      "question": "为什么在线迁移传输输入令牌而非KV缓存？",
+      "options": [
+        "在线迁移受GDPR要求",
+        "输入令牌有更大的熵",
+        "KV缓存已加密无法移动",
+        "在目标节点重新计算KV比通过网络传输GB级KV缓存更便宜"
+      ],
+      "correct": 3,
+      "explanation": "KV缓存可能是GB级别；通过网络传输的带宽成本和延迟通常超过目标节点重新计算的成本。"
+    },
+    {
+      "stage": "post",
+      "question": "哪个无服务器层通过保持至少一个副本活跃来换取可预测的就绪性？",
+      "options": [
+        "min_workers >= 1的热池",
+        "分层加载",
+        "Bottlerocket预置",
+        "在线迁移"
+      ],
+      "correct": 0,
+      "explanation": "热池（最小工作者数>=1）消除冷启动，代价是始终支付至少一个实例的成本。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么课程说冷启动缓解必须跨层叠加而非选择单一工具？",
+      "options": [
+        "没有任何单一层能消除每个步骤（节点配置、镜像拉取、权重加载、引擎初始化）；叠加各层压缩每个步骤",
+        "这是监管要求",
+        "Modal拥有整个栈",
+        "所有五层都打包在vLLM中"
+      ],
+      "correct": 0,
+      "explanation": "冷启动的每个阶段有不同的工具：节点配置用Karpenter、镜像用Bottlerocket、权重用快照等。"
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "根据课程，使移动LLM推理比数据中心更慢的核心约束是什么？",
+      "options": [
+        "Wi-Fi延迟",
+        "计算吞吐量",
+        "内存带宽（移动DRAM约50-90 GB/s vs HBM3约2-3 TB/s）",
+        "存储容量"
+      ],
+      "correct": 2,
+      "explanation": "LLM推理是内存带宽密集型的；移动DRAM带宽比数据中心HBM低约30-60倍是主要瓶颈。"
+    },
+    {
+      "stage": "check",
+      "question": "Apple神经引擎为什么能避免CPU-NPU拷贝开销？",
+      "options": [
+        "使用PCIe 5.0",
+        "Core ML禁用KV缓存",
+        "拷贝前将权重转码为FP4",
+        "Apple Silicon采用统一内存——CPU和ANE共享同一内存池"
+      ],
+      "correct": 3,
+      "explanation": "Apple Silicon的统一内存架构消除了CPU和神经引擎之间的数据拷贝开销。"
+    },
+    {
+      "stage": "check",
+      "question": "课程对浏览器中WebGPU + WebLLM推荐哪种量化格式？",
+      "options": [
+        "NVFP4",
+        "FP8",
+        "通过mlc_llm convert_weight编译的Q4 MLC（q4f16_1）",
+        "GGUF Q4_K_M"
+      ],
+      "correct": 2,
+      "explanation": "q4f16_1是通过MLC-LLM编译优化的WebGPU格式，在浏览器环境中兼容性和性能最好。"
+    },
+    {
+      "stage": "check",
+      "question": "课程报告2026年WebGPU移动端覆盖率大约是多少？",
+      "options": [
+        "所有浏览器100%",
+        "仅iOS Safari",
+        "低于10%",
+        "约70-75%，Firefox Android仍在追赶"
+      ],
+      "correct": 3,
+      "explanation": "2026年WebGPU移动端覆盖率约70-75%（Chrome Android已支持），Firefox Android仍在完善中。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么在普通手机上保持128K上下文是不切实际的？",
+      "options": [
+        "Tokenizer在8K以上会失败",
+        "模型权重加上32K令牌的KV缓存加OS开销很容易超过8GB内存预算",
+        "WebGPU将上下文限制在4K",
+        "iOS禁止长上下文"
+      ],
+      "correct": 1,
+      "explanation": "KV缓存随上下文长度线性增长；即使只用32K上下文，加上模型权重和OS开销就会耗尽手机内存。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么语音被强调为边缘推理的杀手级应用？",
+      "options": [
+        "语音代理对延迟敏感（首个令牌<500ms），本地推理完全消除网络延迟",
+        "语音模型不需要KV缓存",
+        "语音模型总是只需50MB",
+        "语音只在WebAssembly中运行"
+      ],
+      "correct": 0,
+      "explanation": "语音交互要求极低延迟（<500ms首个令牌）；本地推理比云端推理延迟低100-200ms，体验差异显著。"
+    }
+  ]
+}

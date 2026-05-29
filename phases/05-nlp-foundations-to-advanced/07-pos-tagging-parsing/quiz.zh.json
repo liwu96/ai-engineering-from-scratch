@@ -1,0 +1,60 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "词性标注的目标是什么？",
+      "options": ["检测情感", "翻译句子", "提取命名实体", "为每个标记分配语法类别（名词、动词等）"],
+      "correct": 3,
+      "explanation": "词性标注为每个标记标注其词性。"
+    },
+    {
+      "stage": "pre",
+      "question": "哪个标注集是跨语言工作的默认选择？",
+      "options": ["Penn Treebank", "Stanford Dependencies", "Universal Dependencies", "CoNLL-2003"],
+      "correct": 2,
+      "explanation": "Universal Dependencies提供了一个更粗糙的、语言无关的17标签集。"
+    },
+    {
+      "stage": "check",
+      "question": "二元组HMM词性标注器建模什么？",
+      "options": ["仅P(标签)", "依存句法分析", "嵌入相似度", "P(标签|前一个标签)转换加上P(词|标签)发射，用维特比解码"],
+      "correct": 3,
+      "explanation": "二元组HMM使用标签转换和词发射；维特比找到最高概率序列。"
+    },
+    {
+      "stage": "check",
+      "question": "维特比算法为HMM标注器计算什么？",
+      "options": ["通过标签格的动态规划找到单个最高概率标签序列", "转换矩阵", "每个标签的边际概率", "仅前向概率"],
+      "correct": 0,
+      "explanation": "维特比用O(n * |T|^2)的动态规划找到argmax序列。"
+    },
+    {
+      "stage": "check",
+      "question": "依存句法分析产生什么？",
+      "options": ["每个词有一个中心词和标记语法关系的树", "平面BIO序列", "NP/VP/PP标签的成分树", "共指链"],
+      "correct": 0,
+      "explanation": "依存句法分析给出逐词的（中心词，关系）边；成分句法分析给出嵌套短语结构。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么PTB词性标注的准确率上限在97-98%左右？",
+      "options": ["模型在任何任务上都不能超过98%", "Universal Dependencies上限为98%", "人工标注者只有约97%的时间意见一致，所以高于~98%的模型可能过拟合测试数据", "硬件限制"],
+      "correct": 2,
+      "explanation": "标注者不一致限制了可实现的准确率；非常高的数字通常表明过拟合。"
+    },
+    {
+      "stage": "post",
+      "question": "2026年LLM管道中词性标注为何仍然重要？",
+      "options": ["LLM没有它无法运行", "词形还原、基于方面的情感、查询分解、结构化输出验证和跨语言迁移都仍然消费词性或依存句法分析", "分词所需", "替代Transformer"],
+      "correct": 1,
+      "explanation": "词性和依存句法分析为许多结构化下游任务提供输入，即使LLM生成散文。"
+    },
+    {
+      "stage": "post",
+      "question": "在大多数生产词性/句法分析任务中应该使用哪个库？",
+      "options": ["scikit-learn", "NumPy", "spaCy（或用于顶级准确率或更广泛语言覆盖的stanza/trankit）", "自行实现解析器"],
+      "correct": 2,
+      "explanation": "spaCy提供快速生产级词性+依存解析器；stanza/trankit涵盖更广泛的语言。"
+    }
+  ]
+}

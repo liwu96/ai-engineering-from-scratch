@@ -1,0 +1,88 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "SWE-bench检查哪两类测试？",
+      "options": [
+        "单元测试和集成测试",
+        "FAIL_TO_PASS和PASS_TO_PASS",
+        "安全测试和性能测试",
+        "前端测试和后端测试"
+      ],
+      "correct": 1,
+      "explanation": "SWE-bench检查FAIL_TO_PASS（修复后失败变通过）和PASS_TO_PASS（不破坏现有通过测试）。"
+    },
+    {
+      "stage": "pre",
+      "question": "SWE-bench Verified是什么？",
+      "options": [
+        "Google的500任务人工策划子集",
+        "OpenAI的500任务人工策划子集",
+        "Anthropic的全部2294任务集",
+        "Meta的自动验证基准"
+      ],
+      "correct": 1,
+      "explanation": "SWE-bench Verified是OpenAI策划的500任务子集，由人工注释者过滤掉不可解任务。"
+    },
+    {
+      "stage": "check",
+      "question": "SWE-bench+发现了什么问题？",
+      "options": [
+        "32.67%泄露解决方案文本，31.08%测试覆盖弱",
+        "50%任务不可解",
+        "所有分数高估了10%",
+        "基准不支持Python 3.10+"
+      ],
+      "correct": 0,
+      "explanation": "SWE-bench+揭示了数据污染问题：32.67%的任务泄露解决方案文本，31.08%测试覆盖不足。"
+    },
+    {
+      "stage": "check",
+      "question": "GAIA的人类-AI难度差异是什么？",
+      "options": [
+        "对人类容易（约92%），对AI困难（GPT-4约15%）",
+        "对两者都容易",
+        "对两者都困难",
+        "对AI容易，对人类困难"
+      ],
+      "correct": 1,
+      "explanation": "GAIA设计为人类轻松解决（约92%成功率），但对AI系统极具挑战性（GPT-4约15%）。"
+    },
+    {
+      "stage": "check",
+      "question": "以下哪项不是AgentBench的类别？",
+      "options": [
+        "操作系统",
+        "数据库",
+        "网络",
+        "梯度"
+      ],
+      "correct": 3,
+      "explanation": "AgentBench涵盖操作系统、数据库、网络、游戏等类别；梯度不是评估类别。"
+    },
+    {
+      "stage": "post",
+      "question": "错误的基准报告方式是什么？",
+      "options": [
+        "报告Verified和未验证分数",
+        "不带Verified或污染背景的单一汇总数字",
+        "分别报告不同任务类型",
+        "比较多个基准"
+      ],
+      "correct": 1,
+      "explanation": "仅报告单一汇总分数而不提供Verified子集或污染分析会误导读者。"
+    },
+    {
+      "stage": "post",
+      "question": "基准不衡量什么？",
+      "options": [
+        "代码修复准确性",
+        "任务完成率",
+        "真实世界成本、对抗安全和特定领域性能",
+        "多步推理"
+      ],
+      "correct": 0,
+      "explanation": "标准基准不衡量：真实部署成本、对抗鲁棒性和您自己领域的性能。"
+    }
+  ]
+}

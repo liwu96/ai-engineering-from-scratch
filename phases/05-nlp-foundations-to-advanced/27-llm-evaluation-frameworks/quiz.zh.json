@@ -1,0 +1,60 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "为什么精确匹配和标记F1对于评估现代LLM输出不够？",
+      "options": ["它们太慢", "它们不可微", "它们需要GPU", "它们错过语义等价；'June 29th, 2007'与'June 29, 2007'尽管正确但EM得分为0"],
+      "correct": 3,
+      "explanation": "精确匹配/F1无法识别人类会标记为正确的释义或格式差异。"
+    },
+    {
+      "stage": "pre",
+      "question": "RAGAS忠实度指标衡量什么？",
+      "options": ["检索召回率", "答案中的每个声明是否被检索上下文蕴含，通过NLI", "延迟", "每秒标记数"],
+      "correct": 1,
+      "explanation": "忠实度使用NLI蕴含对照检索上下文检查每个答案声明。"
+    },
+    {
+      "stage": "check",
+      "question": "为什么在信任分数之前需要评判模型与人类标签的校准？",
+      "options": ["GDPR需要", "如果评判与人类标签之间的Spearman相关性太低（例如低于0.7），分数是噪声而不是信号", "校准加速评判", "校准是分词问题"],
+      "correct": 1,
+      "explanation": "没有校准，你无法判断评判分数是否反映质量或模型偏差。"
+    },
+    {
+      "stage": "check",
+      "question": "LLM-as-judge设置中的自我评估偏差是什么？",
+      "options": ["使用同一LLM家族生成和评判会使分数比独立评判高10-20%", "更低延迟", "评判在缓存输出上运行更快", "评判忽略系统提示"],
+      "correct": 0,
+      "explanation": "同家族生成器+评判偏向上行；使用不同模型家族进行评判。"
+    },
+    {
+      "stage": "check",
+      "question": "G-Eval相对于朴素'评分0-1'提示具体添加了什么？",
+      "options": ["更大上下文", "更低成本", "多语言评分", "带有命名评估步骤的明确思维链评分标准，产生更稳定的分数"],
+      "correct": 3,
+      "explanation": "G-Eval的结构化评估步骤比自由格式'评价它'提示产生更可靠的分数。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么只报告聚合平均分数是危险的？",
+      "options": ["聚合太大", "聚合忽略评判", "聚合需要GPU", "0.85的平均值可以隐藏5%的灾难性失败；始终检查底部分位数"],
+      "correct": 3,
+      "explanation": "均值隐藏尾部失败；显示底部10%以捕获高严重性问题。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么在CI中固定评判模型+版本？",
+      "options": ["Anthropic需要", "更低成本", "分词器漂移", "升级评判会改变每个指标；没有冻结的评判，纵向比较就会中断"],
+      "correct": 3,
+      "explanation": "评判升级会静默地改变指标基线；固定版本保留跨运行可比性。"
+    },
+    {
+      "stage": "post",
+      "question": "DeepEval相对于RAGAS处于什么位置？",
+      "options": ["DeepEval是LLM的pytest（CI门控、G-Eval、幻觉指标）；RAGAS专门用于无参考RAG监控", "DeepEval仅托管", "DeepEval是分词器", "完全替代RAGAS"],
+      "correct": 0,
+      "explanation": "DeepEval锚定CI/CD回归测试；RAGAS处理无参考RAG监控。"
+    }
+  ]
+}

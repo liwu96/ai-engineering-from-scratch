@@ -1,0 +1,88 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "AutoGen Actor模型中唯一合法的交互方式是什么？",
+      "options": [
+        "共享内存访问",
+        "通过收件箱的异步消息",
+        "直接函数调用",
+        "HTTP REST请求"
+      ],
+      "correct": 1,
+      "explanation": "Actor模型中代理只能通过异步消息传递交互，不允许共享状态。"
+    },
+    {
+      "stage": "pre",
+      "question": "AutoGen的三个API层是什么？",
+      "options": [
+        "Core、AgentChat、Extensions",
+        "Base、Advanced、Expert",
+        "Low、Mid、High",
+        "Sync、Async、Stream"
+      ],
+      "correct": 0,
+      "explanation": "AutoGen有三层：Core（Actor基础）、AgentChat（对话代理）、Extensions（集成）。"
+    },
+    {
+      "stage": "check",
+      "question": "Actor模型如何实现故障隔离？",
+      "options": [
+        "代理B的失败不会崩溃代理A",
+        "所有代理共享一个错误处理器",
+        "失败自动重试",
+        "失败被记录到共享日志"
+      ],
+      "correct": 0,
+      "explanation": "由于代理通过消息通信而非共享状态，一个代理的失败不会传播到其他代理。"
+    },
+    {
+      "stage": "check",
+      "question": "哪种拓扑使用固定轮转顺序？",
+      "options": [
+        "SelectorGroupChat",
+        "RoundRobinGroupChat",
+        "BroadcastGroupChat",
+        "HierarchicalGroupChat"
+      ],
+      "correct": 1,
+      "explanation": "RoundRobinGroupChat按固定顺序轮转代理发言权。"
+    },
+    {
+      "stage": "check",
+      "question": "Magentic-One是什么？",
+      "options": [
+        "AutoGen的付费版本",
+        "用于网页浏览、代码和文件处理的参考多代理团队",
+        "AutoGen的继任者",
+        "用于训练代理的数据集"
+      ],
+      "correct": 1,
+      "explanation": "Magentic-One是AutoGen的参考多代理团队实现，专注于网页浏览、代码执行和文件处理。"
+    },
+    {
+      "stage": "post",
+      "question": "AutoGen在2026年的状态是什么？",
+      "options": [
+        "积极开发新功能",
+        "稳定维护模式，Microsoft Agent Framework是前进路径",
+        "已被弃用",
+        "合并到LangChain"
+      ],
+      "correct": 1,
+      "explanation": "AutoGen处于稳定维护模式；Microsoft Agent Framework是新项目的推荐前进路径。"
+    },
+    {
+      "stage": "post",
+      "question": "AutoGen如何支持可观测性？",
+      "options": [
+        "仅控制台日志",
+        "带gen_ai.*属性的OpenTelemetry spans",
+        "专有监控仪表板",
+        "CSV导出"
+      ],
+      "correct": 1,
+      "explanation": "AutoGen通过带gen_ai.*属性的OpenTelemetry spans支持标准可观测性。"
+    }
+  ]
+}

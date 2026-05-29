@@ -1,0 +1,76 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "课程称哪种量化格式是CPU和边缘服务的生产默认选择？",
+      "options": [
+        "FP8",
+        "GGUF Q4_K_M / Q5_K_M",
+        "AWQ INT4",
+        "NVFP4"
+      ],
+      "correct": 1,
+      "explanation": "GGUF K-quants（Q4_K_M/Q5_K_M）是CPU和边缘设备（llama.cpp生态）的生产标准格式。"
+    },
+    {
+      "stage": "check",
+      "question": "在vLLM中需要multi-LoRA时，课程对数据中心GPU服务的首选格式是什么？",
+      "options": [
+        "GGUF Q4_K_M",
+        "AWQ",
+        "使用Marlin内核的GPTQ",
+        "NVFP4"
+      ],
+      "correct": 2,
+      "explanation": "GPTQ与Marlin内核结合在vLLM中提供最好的multi-LoRA性能，Marlin内核专门优化了GPTQ解量化。"
+    },
+    {
+      "stage": "check",
+      "question": "AWQ的\"模型现在是4GB\"陷阱是什么？",
+      "options": [
+        "AWQ与vLLM不兼容",
+        "AWQ需要INT8 KV缓存",
+        "AWQ实际上不缩小权重",
+        "AWQ只缩小权重；KV缓存和激活是独立的，在生产批次大小下可能增加30-50 GB"
+      ],
+      "correct": 3,
+      "explanation": "量化只压缩权重；生产中KV缓存（输入×层×维度）和激活会随批次大小增长，总内存不会减少那么多。"
+    },
+    {
+      "stage": "check",
+      "question": "为什么在通用网络文本上校准AWQ会损害领域模型？",
+      "options": [
+        "它禁用Marlin内核",
+        "算法对哪些权重需要保护做出错误决策，降低领域准确率（例如HumanEval上几个Pass@1分）",
+        "只在AMD GPU上有效",
+        "它增加模型大小"
+      ],
+      "correct": 1,
+      "explanation": "AWQ校准数据决定哪些权重被保护；领域模型（代码、医疗等）需要在领域数据上校准。"
+    },
+    {
+      "stage": "post",
+      "question": "对于质量不可妥协的推理密集型工作负载，课程默认推荐哪种精度？",
+      "options": [
+        "GPTQ INT4",
+        "INT2 GGUF",
+        "NVFP4权重",
+        "FP8权重"
+      ],
+      "correct": 3,
+      "explanation": "FP8权重在保持接近FP16精度的同时减少50%内存，是质量优先时的最佳权衡。"
+    },
+    {
+      "stage": "post",
+      "question": "课程指出NVFP4在2026年初的哪个局限性？",
+      "options": [
+        "尚不支持LoRA",
+        "不支持H100",
+        "只在CPU上运行",
+        "无法与FP8 KV缓存结合"
+      ],
+      "correct": 0,
+      "explanation": "2026年初NVFP4尚不支持LoRA适配器，限制了需要多LoRA的场景。"
+    }
+  ]
+}

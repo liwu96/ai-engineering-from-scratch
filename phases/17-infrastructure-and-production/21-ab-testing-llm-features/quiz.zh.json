@@ -1,0 +1,76 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "课程中评估和A/B测试的精确区别是什么？",
+      "options": [
+        "评估回答\"模型能做这个任务吗？\"（在标注集上）；A/B测试回答\"用户在乎吗？\"（通过实时随机流量）",
+        "只需要A/B测试",
+        "评估面向用户；A/B测试是离线的",
+        "它们可以互换"
+      ],
+      "correct": 0,
+      "explanation": "评估验证模型能力；A/B测试验证功能改进是否真正影响用户行为和产品指标。"
+    },
+    {
+      "stage": "check",
+      "question": "CUPED对实验有什么作用？",
+      "options": [
+        "禁用多重比较校正",
+        "完全替代序列测试",
+        "在比较实验后期前去除实验前期方差，通常将方差减少30-70%并提升有效样本量",
+        "通过招募更多用户增加样本量"
+      ],
+      "correct": 2,
+      "explanation": "CUPED（控制实验的预实验期方差）通过利用历史数据减少噪声，提高实验统计功效。"
+    },
+    {
+      "stage": "check",
+      "question": "为什么运行多个A/B测试时需要多重比较校正（Bonferroni或BH）？",
+      "options": [
+        "GDPR要求",
+        "只有序列测试需要",
+        "在95%置信度下运行20个测试会产生一个偶然的假阳性；校正控制家族错误率或假发现率",
+        "加速实验"
+      ],
+      "correct": 2,
+      "explanation": "多重比较问题：测试越多，假阳性越多；Bonferroni（保守）或BH（适度）校正控制整体错误率。"
+    },
+    {
+      "stage": "check",
+      "question": "SRM（样本比例不匹配）检测什么？",
+      "options": [
+        "Tokenizer性能慢",
+        "分配哈希错误导致实际分流偏离预期（例如目标50/50但实际47/53）",
+        "实验平台内存泄漏",
+        "PII泄露"
+      ],
+      "correct": 1,
+      "explanation": "SRM是实验污染的早期信号：如果控制/实验组实际样本比例不符合设计，结果不可信。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么LLM不确定性需要增加样本量缓冲？",
+      "options": [
+        "它违反IID假设；有效样本量下降，所以将所需大小乘以约1.3-1.5倍作为安全裕量",
+        "与功效计算无关",
+        "不确定性减少所需样本",
+        "只在离线时重要"
+      ],
+      "correct": 0,
+      "explanation": "LLM的随机性违反了A/B测试的独立同分布假设，需要更大样本量来保持统计功效。"
+    },
+    {
+      "stage": "post",
+      "question": "课程如何对比Statsig和GrowthBook？",
+      "options": [
+        "功能集相同",
+        "Statsig仅支持仓库原生",
+        "GrowthBook是闭源",
+        "Statsig是全栈SaaS（2025年9月被OpenAI以11亿美元收购）；GrowthBook是开源MIT，仓库原生，支持贝叶斯/频率主义/序列引擎和CUPED/SRM/BH"
+      ],
+      "correct": 3,
+      "explanation": "Statsig（OpenAI收购）提供全托管SaaS；GrowthBook是开源替代，支持自托管和多种统计方法。"
+    }
+  ]
+}

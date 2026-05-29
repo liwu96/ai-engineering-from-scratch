@@ -1,0 +1,76 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "LMCache在vLLM部署中主要解决什么问题？",
+      "options": [
+        "HBM中的KV缓存压力导致相同前缀被抢占和重新预填充",
+        "Tokenizer GIL竞争",
+        "网络出口过滤",
+        "冷启动镜像拉取"
+      ],
+      "correct": 0,
+      "explanation": "LMCache将KV缓存卸载到CPU DRAM或NVMe，减少HBM压力，避免因内存不足导致的重新预填充。"
+    },
+    {
+      "stage": "check",
+      "question": "vLLM哪个API引入了可插拔KV缓存后端？",
+      "options": [
+        "前缀缓存标志",
+        "PagedAttention v2",
+        "vLLM v0.9.0中的Connector API",
+        "ChunkedPrefill API"
+      ],
+      "correct": 2,
+      "explanation": "vLLM v0.9.0引入的Connector API允许插入外部KV缓存后端（如LMCache）。"
+    },
+    {
+      "stage": "check",
+      "question": "vLLM 0.11.0（2026年1月）在KV卸载路径上增加了什么？",
+      "options": [
+        "异步卸载路径，使引擎在正常情况下不会因卸载而阻塞",
+        "仅同步卸载",
+        "强制FP8 KV缓存",
+        "移除LMCache支持"
+      ],
+      "correct": 0,
+      "explanation": "异步卸载路径使KV缓存卸载在后台进行，不阻塞主推理循环，降低尾延迟影响。"
+    },
+    {
+      "stage": "check",
+      "question": "何时应选择LMCache而非原生CPU卸载？",
+      "options": [
+        "当多个引擎跨租户、LoRA变体或重复RAG上下文共享前缀时，跨引擎复用合算",
+        "当您想完全禁用KV缓存时",
+        "当单个引擎有HBM压力且无前缀共享时",
+        "当您仅在CPU上运行时"
+      ],
+      "correct": 0,
+      "explanation": "LMCache的价值在于跨多个引擎实例共享KV缓存；单引擎场景原生CPU卸载通常已足够。"
+    },
+    {
+      "stage": "post",
+      "question": "当KV占用量远低于HBM时，LMCache效益会怎样？",
+      "options": [
+        "LMCache自动禁用",
+        "仍然使吞吐量翻倍",
+        "配置与基线相近，约3-5%的额外开销，无实际收益",
+        "引擎崩溃"
+      ],
+      "correct": 2,
+      "explanation": "LMCache只在HBM不足导致缓存驱逐时才有意义；如果HBM充足，它只增加开销没有收益。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么LMCache与解耦服务（第17课）组合有效？",
+      "options": [
+        "因为LMCache替代NIXL",
+        "从预填充传输到解码的KV落入LMCache；后续查询可从LMCache拉取并跳过预填充，所以感知缓存路由器可以选择本地或LMCache共享缓存匹配的引擎",
+        "因为LMCache在与引擎相同的GPU上运行",
+        "它们互斥"
+      ],
+      "correct": 1,
+      "explanation": "LMCache使KV缓存在解耦架构中持久化并跨引擎共享，与感知缓存路由协同提升缓存命中率。"
+    }
+  ]
+}

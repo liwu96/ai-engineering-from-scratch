@@ -1,0 +1,88 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "Letta的三个内存层级是什么？",
+      "options": [
+        "缓存、KV、归档",
+        "核心、回忆、归档",
+        "RAM、交换、磁盘",
+        "工作、情节、语义"
+      ],
+      "correct": 1,
+      "explanation": "Letta使用核心（始终可见）、回忆（对话历史）和归档（外部）层级。"
+    },
+    {
+      "stage": "pre",
+      "question": "睡眠时计算针对哪个生产问题？",
+      "options": [
+        "在关键路径上进行内存合并的尾延迟",
+        "数学问题上的更高准确性",
+        "较低的嵌入成本",
+        "更快的JSON解析"
+      ],
+      "correct": 0,
+      "explanation": "睡眠时将修剪/摘要/协调移出面向用户的路径，使主要响应保持快速。"
+    },
+    {
+      "stage": "check",
+      "question": "以下哪项不是Letta中的内存块字段？",
+      "options": [
+        "label",
+        "value",
+        "limit",
+        "embedding_model_version"
+      ],
+      "correct": 3,
+      "explanation": "块携带id、label、value、limit、description；嵌入模型版本不是块模式的一部分。"
+    },
+    {
+      "stage": "check",
+      "question": "为什么睡眠时代理可以运行比主代理更强大的模型？",
+      "options": [
+        "它收到私有API密钥",
+        "它不在关键路径上，因此不受延迟约束",
+        "它豁免于速率限制",
+        "内存操作花费一半令牌"
+      ],
+      "correct": 1,
+      "explanation": "因为它不阻塞用户响应，睡眠时代理可以更慢、更昂贵。"
+    },
+    {
+      "stage": "check",
+      "question": "Human和Persona块概括为什么？",
+      "options": [
+        "向量嵌入",
+        "任意用户定义的带类型的可编辑块（任务、项目、安全…）",
+        "JSON-RPC通道",
+        "操作系统进程"
+      ],
+      "correct": 1,
+      "explanation": "Letta将两个MemGPT块概括为任何带有id、label、value、limit、description的用户定义块。"
+    },
+    {
+      "stage": "post",
+      "question": "在这个模式中，什么是静默漂移？",
+      "options": [
+        "主代理从不知道睡眠时代理在其下面重写了块；通过版本控制和可见差异修复",
+        "缓慢的磁盘写入",
+        "嵌入模型升级",
+        "速率限制抖动"
+      ],
+      "correct": 0,
+      "explanation": "版本控制块并在追踪中显示差异使睡眠时重写对主循环可见。"
+    },
+    {
+      "stage": "post",
+      "question": "Letta V1中什么替换了内联`Thought:`令牌和send_message/heartbeat模式？",
+      "options": [
+        "在单独通道上发出并通过轮次传递的本机推理",
+        "专用于思考的第二个LLM",
+        "更大的系统提示",
+        "手动用户输入的思考"
+      ],
+      "correct": 0,
+      "explanation": "Letta V1（letta_v1_agent）使用提供商级本机推理，而不是提示形状的思考。"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "BLEU衡量什么？",
+      "options": ["语言识别准确率", "假设和参考之间的n元组精度（通常1-4），带有简洁惩罚", "字符级F分数", "嵌入余弦相似度"],
+      "correct": 1,
+      "explanation": "BLEU是针对参考的1-4元组精度的几何平均值，加上简洁惩罚。"
+    },
+    {
+      "stage": "pre",
+      "question": "为什么使用sacrebleu而不是自己计算BLEU？",
+      "options": ["它更准确", "它在GPU上运行", "它归一化分词，使分数在论文和运行之间可比", "它支持流式处理"],
+      "correct": 2,
+      "explanation": "sacrebleu冻结分词，消除了不可比BLEU数字的常见来源。"
+    },
+    {
+      "stage": "check",
+      "question": "哪个特定于NLLB的设置在解码期间控制目标语言？",
+      "options": ["length_penalty", "forced_bos_token_id设置为目标语言代码的标记id", "num_beams", "src_lang"],
+      "correct": 1,
+      "explanation": "NLLB通过forced_bos_token_id强制第一个解码标记为目标语言代码。"
+    },
+    {
+      "stage": "check",
+      "question": "在有标注数据存在时，2026年生产MT质量的默认指标家族是什么？",
+      "options": ["仅BLEU", "标记编辑距离", "基于人类判断训练的学习指标，如COMET（以及BERTScore/BLEURT）", "延迟"],
+      "correct": 2,
+      "explanation": "像COMET这样的学习指标与人类判断的相关性比BLEU/chrF更强。"
+    },
+    {
+      "stage": "check",
+      "question": "chrF什么时候往往比BLEU更有信息量？",
+      "options": ["对于形态丰富的语言，字符级匹配可以捕获BLEU错过的词形变化", "使用束搜索时", "在非常短的句子上", "只要存在参考"],
+      "correct": 0,
+      "explanation": "字符F分数捕获词级BLEU低估的部分形态匹配。"
+    },
+    {
+      "stage": "post",
+      "question": "多语言MT中的偏目标生成是什么？",
+      "options": ["丢弃命名实体的输出", "遗漏标点的输出", "模型解码到错误的目标语言（例如NLLB在请求法语时输出西班牙语）", "太短的输出"],
+      "correct": 2,
+      "explanation": "偏目标生成在稀有语言对中很常见；翻译后的语言ID检查可以发现它。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么在几千个高质量领域对上微调通常胜过更大的嘈杂网络数据？",
+      "options": ["更大的数据会溢出GPU内存", "更小的数据集训练更快", "使用网络数据在法律上是非法的", "质量和领域匹配主导了数量；嘈杂的并行数据引入了漂移和幻觉"],
+      "correct": 3,
+      "explanation": "干净的领域对齐对是最大的生产杠杆；嘈杂数据会降低适应效果。"
+    },
+    {
+      "stage": "post",
+      "question": "2026年LLM（例如GPT-4）什么时候可能胜过专业MT模型？",
+      "options": ["最高吞吐量批量翻译", "延迟关键的浏览器翻译", "惯用内容、长上下文、通过提示进行风格适应或需要语气控制的内容", "有数百万并行句子的小语言对"],
+      "correct": 2,
+      "explanation": "LLM在惯用、长上下文或风格控制翻译上胜出；专业MT在吞吐量和延迟上胜出。"
+    }
+  ]
+}

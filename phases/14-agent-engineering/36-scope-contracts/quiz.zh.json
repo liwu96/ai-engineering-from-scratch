@@ -1,0 +1,88 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "为什么范围蔓延难以检测？",
+      "options": [
+        "工具太慢",
+        "每次接触都有合理理由；合起来形成不同的变更",
+        "代理不记录其操作",
+        "范围规则太模糊"
+      ],
+      "correct": 1,
+      "explanation": "范围蔓延的危险性在于每个单独的修改都看起来合理；只有聚合视图才能揭示越界模式。"
+    },
+    {
+      "stage": "pre",
+      "question": "合约的一半是什么？",
+      "options": [
+        "allowed_files（正空间）",
+        "forbidden_files（负空间）",
+        "time_budget（时间）",
+        "tool_list（工具）"
+      ],
+      "correct": 1,
+      "explanation": "范围合约的关键一半是forbidden_files（负空间）：明确定义代理绝不能触碰的内容。"
+    },
+    {
+      "stage": "check",
+      "question": "Globs与原始路径相比有什么优势？",
+      "options": [
+        "Globs更快",
+        "Globs在会话间重构后仍然有效",
+        "Globs更易于理解",
+        "Globs支持正则表达式"
+      ],
+      "correct": 1,
+      "explanation": "Globs在代码重构（文件移动、重命名）后仍然正确匹配；硬编码路径在重构后失效。"
+    },
+    {
+      "stage": "check",
+      "question": "违规预算如何工作？",
+      "options": [
+        "允许无限违规",
+        "在预算内允许次要范围偏差作为警告",
+        "任何违规都立即失败",
+        "违规自动修复"
+      ],
+      "correct": 1,
+      "explanation": "违规预算：为次要范围偏差分配积分，允许少量警告级违规，超出预算时才升级为block。"
+    },
+    {
+      "stage": "check",
+      "question": "Specsmaxxing实践者看到了什么结果？",
+      "options": [
+        "速度提高了2倍",
+        "三周内兔子洞率从52%降至21%",
+        "成本降低了50%",
+        "错误率降低了90%"
+      ],
+      "correct": 1,
+      "explanation": "采用严格范围合约的实践者报告：代理偏离范围的"兔子洞"率在三周内从52%降至21%。"
+    },
+    {
+      "stage": "post",
+      "question": "多合约合并如何工作（最小权限）？",
+      "options": [
+        "联合所有合约",
+        "取allowed_files的交集；联合forbidden_files；取最小time_budget",
+        "使用最宽松的合约",
+        "使用最严格的合约"
+      ],
+      "correct": 1,
+      "explanation": "最小权限合并：取允许文件的交集（最窄）、禁止文件的并集（最广）、最小时间预算（最短）。"
+    },
+    {
+      "stage": "post",
+      "question": "范围的三个维度是什么？",
+      "options": [
+        "速度、成本、质量",
+        "时间和网络预算加文件globs",
+        "输入、处理、输出",
+        "安全、合规、性能"
+      ],
+      "correct": 0,
+      "explanation": "范围合约覆盖三个维度：文件globs（什么文件）、时间预算（多长时间）、网络预算（外部调用）。"
+    }
+  ]
+}

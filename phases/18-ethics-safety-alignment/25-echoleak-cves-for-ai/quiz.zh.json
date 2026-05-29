@@ -1,0 +1,76 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "以下哪项最好地描述了EchoLeak（CVE-2025-32711）？",
+      "options": [
+        "通过长上下文轮次填充的越狱",
+        "对PyPI的供应链攻击",
+        "NPU中的硬件漏洞",
+        "Microsoft 365 Copilot中的零点击AI命令注入漏洞（CVE-2025-32711，CVSS 9.3），导致未经授权的网络信息泄露，通过CSP允许的/可信Microsoft域进行数据外泄"
+      ],
+      "correct": 3,
+      "explanation": "EchoLeak：间接提示注入→数据外泄的完整攻击链，利用受信任域绕过CSP，导致MFA代码等敏感信息泄露。"
+    },
+    {
+      "stage": "check",
+      "question": "是什么让EchoLeak成为"零点击"漏洞？",
+      "options": [
+        "受害者无需打开电子邮件；Copilot在常规查询期间将其作为RAG上下文检索，注入的指令自动执行",
+        "它需要用户点击Teams聊天中的链接",
+        "它在操作系统内核中运行",
+        "它需要三次点击但不需要输入"
+      ],
+      "correct": 0,
+      "explanation": "零点击原理：攻击者发送含恶意指令的电子邮件→Copilot自动检索为RAG上下文→指令执行，无需用户任何交互。"
+    },
+    {
+      "stage": "check",
+      "question": "Aim Labs将EchoLeak定义为"LLM范围违规"。必须独立控制哪三个边界？",
+      "options": [
+        "检索、范围、输出",
+        "网络、磁盘、内存",
+        "输入、模型、GPU",
+        "提示、响应、日志"
+      ],
+      "correct": 0,
+      "explanation": "三边界控制：检索（什么内容进入上下文）、范围（LLM能做什么操作）、输出（什么数据能离开系统）——任何一个失控都可能导致漏洞。"
+    },
+    {
+      "stage": "check",
+      "question": "Microsoft/GitHub如何修复CamoLeak（CVSS 9.6，GitHub Copilot Chat）？",
+      "options": [
+        "添加了XPIA提示注入过滤器",
+        "完全禁用了Copilot Chat中的图像渲染（代价：可用性），因为替代攻击面无法被限制",
+        "将模型切换到Llama Guard",
+        "增加了上下文大小"
+      ],
+      "correct": 1,
+      "explanation": "激进的修复：当攻击面无法被充分控制时，Microsof选择完全禁用功能——安全性与功能性的极端权衡。"
+    },
+    {
+      "stage": "post",
+      "question": "EchoLeak披露揭示了严重性评估中的什么模式？",
+      "options": [
+        "供应商最初高估了CVSS评分",
+        "供应商最初将EchoLeak评为低级（信息披露）；Aim Labs的MFA代码外泄概念验证将评级提升到9.3——防御者必须推动对AI特定漏洞进行全面PoC",
+        "所有AI CVE都自动评为10.0",
+        "严重性评级仅由OWASP决定"
+      ],
+      "correct": 1,
+      "explanation": "评估教训：AI漏洞的真实影响往往需要PoC才能显现——初始的"信息披露"评级掩盖了MFA代码外泄的真实严重性。"
+    },
+    {
+      "stage": "post",
+      "question": "截至2024/2025年，NIST和OWASP如何对提示注入进行排名？",
+      "options": [
+        "NIST AI SPD 2024将提示注入定义为生成式AI的主要信息安全风险；OWASP 2025将其列为LLM01（顶级应用层威胁）",
+        "NIST：范围之外；OWASP：未列出",
+        "NIST：次要；OWASP：列表末尾",
+        "两者都称其为二级风险"
+      ],
+      "correct": 0,
+      "explanation": "行业共识：NIST和OWASP都将提示注入列为AI应用的最高优先级安全威胁，反映了真实攻击案例的积累。"
+    }
+  ]
+}

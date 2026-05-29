@@ -1,0 +1,88 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "Claude客户端SDK与Agent SDK的区别是什么？",
+      "options": [
+        "原始Messages API与带工具/MCP/钩子/子代理的预构建循环",
+        "客户端SDK更快，Agent SDK更慢",
+        "客户端SDK免费，Agent SDK付费",
+        "客户端SDK用Python，Agent SDK用TypeScript"
+      ],
+      "correct": 0,
+      "explanation": "客户端SDK是原始Messages API；Agent SDK提供带工具、MCP、生命周期钩子和子代理的完整代理循环。"
+    },
+    {
+      "stage": "pre",
+      "question": "子代理的两个目的是什么？",
+      "options": [
+        "并行化和上下文隔离",
+        "速度和成本降低",
+        "安全和合规",
+        "调试和监控"
+      ],
+      "correct": 0,
+      "explanation": "子代理用于并行化独立工作，以及将上下文隔离到独立沙箱中。"
+    },
+    {
+      "stage": "check",
+      "question": "以下哪项不是会话存储方法？",
+      "options": [
+        "get_messages",
+        "set_messages",
+        "filter_messages",
+        "compile_prompt"
+      ],
+      "correct": 3,
+      "explanation": "会话存储方法包括get_messages、set_messages、filter_messages；compile_prompt不是方法。"
+    },
+    {
+      "stage": "check",
+      "question": "以下哪项不是生命周期钩子？",
+      "options": [
+        "PreToolCall",
+        "PostToolCall",
+        "OnMessage",
+        "PreEmbedding"
+      ],
+      "correct": 3,
+      "explanation": "生命周期钩子包括PreToolCall、PostToolCall、OnMessage等；PreEmbedding不是钩子。"
+    },
+    {
+      "stage": "check",
+      "question": "追踪上下文如何传播到子代理？",
+      "options": [
+        "通过环境变量",
+        "通过W3C追踪上下文头传入CLI子进程",
+        "通过共享数据库",
+        "通过HTTP cookies"
+      ],
+      "correct": 1,
+      "explanation": "追踪上下文通过W3C标准追踪上下文头传播，使子代理spans正确嵌套在父span下。"
+    },
+    {
+      "stage": "post",
+      "question": "什么是子代理过度生成？",
+      "options": [
+        "为100个小任务生成100个子代理",
+        "子代理使用过多内存",
+        "子代理超过速率限制",
+        "子代理产生太多输出"
+      ],
+      "correct": 0,
+      "explanation": "为每个微小任务都生成子代理会产生不必要的开销；子代理应用于真正独立或需要隔离的工作。"
+    },
+    {
+      "stage": "post",
+      "question": "Managed Agents的权衡是什么？",
+      "options": [
+        "以控制换取托管基础设施",
+        "以速度换取可靠性",
+        "以成本换取功能",
+        "以安全换取性能"
+      ],
+      "correct": 0,
+      "explanation": "使用Managed Agents意味着放弃部分控制权，换取Anthropic管理的基础设施和运行时。"
+    }
+  ]
+}

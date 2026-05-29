@@ -1,0 +1,88 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "MemGPT建立在什么操作系统类比上？",
+      "options": [
+        "进程和线程",
+        "虚拟内存：主上下文作为RAM，外部存储作为磁盘，内存工具作为换入换出",
+        "网络套接字",
+        "文件描述符"
+      ],
+      "correct": 1,
+      "explanation": "MemGPT将提示映射到RAM，外部存储映射到磁盘，内存工具映射到页错误式传输。"
+    },
+    {
+      "stage": "pre",
+      "question": "为什么更大的上下文窗口不能完全解决记忆问题？",
+      "options": [
+        "提供商将其限制在4k令牌",
+        "即使128k窗口，溢出、注意力稀释和缺乏跨会话持久性仍然存在问题",
+        "长上下文无需任何成本",
+        "模型拒绝长输入"
+      ],
+      "correct": 1,
+      "explanation": "Mem0测量了128k窗口基线仍然遗漏4k代理加上外部记忆能捕获的事实；溢出、稀释和持久性仍然存在。"
+    },
+    {
+      "stage": "check",
+      "question": "以下哪项不是MemGPT的标准内存工具？",
+      "options": [
+        "core_memory_append",
+        "archival_memory_search",
+        "conversation_search",
+        "gradient_memory_update"
+      ],
+      "correct": 3,
+      "explanation": "没有梯度内存工具；表面是核心/归档/对话操作。"
+    },
+    {
+      "stage": "check",
+      "question": "MemGPT中的中断模式做什么？",
+      "options": [
+        "它在任何错误时停止整个代理运行",
+        "在对话中途代理调用内存工具，运行时执行它，结果拼接到下一轮",
+        "它完全绕过上下文窗口",
+        "它触发模型重新训练"
+      ],
+      "correct": 1,
+      "explanation": "内存即中断：调用内存工具，运行时获取，结果作为下一轮的新观察返回（类似Unix read()）。"
+    },
+    {
+      "stage": "check",
+      "question": "MemGPT在2024年演变成了哪个生产系统？",
+      "options": [
+        "Mem0",
+        "Letta",
+        "Zep",
+        "Pinecone"
+      ],
+      "correct": 1,
+      "explanation": "MemGPT于2024年9月成为Letta；研究仓库cpacker/MemGPT仍然存在作为起源。"
+    },
+    {
+      "stage": "post",
+      "question": "在这个背景下，什么是记忆中毒？",
+      "options": [
+        "损坏向量索引的错误",
+        "攻击者的内容被存储为记忆笔记，在未来的回忆时被重新摄入",
+        "在RAM可用时从磁盘读取",
+        "嵌入模型版本漂移"
+      ],
+      "correct": 1,
+      "explanation": "外部记忆是检索到的文本；如果攻击者可访问的内容落入记忆笔记，代理会在下一会话重新摄入它。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么课程说生产记忆系统是MemGPT的变体？",
+      "options": [
+        "它们使用相同的向量数据库",
+        "Letta、Mem0、Assistants线程和Claude Agent SDK都运行双层（或更多层）分页内存模式；差异是操作形状",
+        "MemGPT拥有商标",
+        "它们共享权重"
+      ],
+      "correct": 1,
+      "explanation": "按操作形状选择，而不是模式；所有系统共享MemGPT换入/换出框架。"
+    }
+  ]
+}

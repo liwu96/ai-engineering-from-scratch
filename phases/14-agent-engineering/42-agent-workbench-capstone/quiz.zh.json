@@ -1,0 +1,88 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "工作台打包产生什么？",
+      "options": [
+        "单个配置文件",
+        "带7个表面加bin/install.sh的版本化即插即用目录（agent-workbench-pack/）",
+        "Docker镜像",
+        "npm包"
+      ],
+      "correct": 1,
+      "explanation": "工作台打包生成agent-workbench-pack/：一个包含所有7个工作台表面文件和安装脚本的版本化目录。"
+    },
+    {
+      "stage": "pre",
+      "question": "以下哪项不在包布局中？",
+      "options": [
+        "AGENTS.md",
+        "agent_state.json",
+        "scope_contract.json",
+        "vendor_proprietary_weights"
+      ],
+      "correct": 3,
+      "explanation": "包包含工作台文件（指令、状态、范围等）；供应商专有权重是外部依赖，不包含在包中。"
+    },
+    {
+      "stage": "check",
+      "question": "VERSION文件如何版本化？",
+      "options": [
+        "日期版本",
+        "major用于schema/脚本变更；minor用于新增；patch用于仅文档变更",
+        "仅major版本",
+        "自动递增"
+      ],
+      "correct": 1,
+      "explanation": "语义化版本：major（破坏性变更如schema/脚本）、minor（新增功能）、patch（仅文档/注释变更）。"
+    },
+    {
+      "stage": "check",
+      "question": "跨工具分发如何工作？",
+      "options": [
+        "每个工具有独立副本",
+        "一个源文件用符号链接到CLAUDE.md、.cursor/rules/等",
+        "工具通过API共享",
+        "使用环境变量"
+      ],
+      "correct": 1,
+      "explanation": "单一源文件（AGENTS.md）通过符号链接分发到各编码工具的配置位置，确保单一真实来源。"
+    },
+    {
+      "stage": "check",
+      "question": "卸载器的限制是什么？",
+      "options": [
+        "需要管理员权限",
+        "在非平凡状态时拒绝；永不删除用户状态/任务板/输出",
+        "仅在Linux上运行",
+        "需要网络连接"
+      ],
+      "correct": 1,
+      "explanation": "卸载器是保守的：如果检测到重要状态（未完成任务、输出文件），拒绝操作并要求人工确认。"
+    },
+    {
+      "stage": "post",
+      "question": "什么应该留在包外？",
+      "options": [
+        "通用指令",
+        "项目特定任务、供应商SDK调用、团队入职文档",
+        "验证脚本",
+        "范围合约"
+      ],
+      "correct": 1,
+      "explanation": "包应包含通用工作台基础设施；项目特定内容（特定任务、特定供应商代码、团队文档）应在项目层维护。"
+    },
+    {
+      "stage": "post",
+      "question": "包如何分发？",
+      "options": [
+        "直接克隆仓库",
+        "SkillKit风格分发（skillkit install agent-workbench-pack）",
+        "npm install",
+        "pip install"
+      ],
+      "correct": 1,
+      "explanation": "工作台包通过SkillKit风格的安装命令分发，使跨项目安装标准化且可重复。"
+    }
+  ]
+}

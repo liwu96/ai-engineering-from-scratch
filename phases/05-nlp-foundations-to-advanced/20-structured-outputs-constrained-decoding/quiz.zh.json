@@ -1,0 +1,60 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "为什么仅提示'返回JSON'对于生产来说不够？",
+      "options": ["JSON太冗长", "提示太长", "前沿模型大多数时候遵守但并非总是；少量格式错误的输出会破坏下游解析器", "提示无法描述模式"],
+      "correct": 2,
+      "explanation": "仅提示结构在前沿模型上约80%的时间有效；生产需要更硬的保证。"
+    },
+    {
+      "stage": "pre",
+      "question": "约束解码在每个生成步骤修改什么？",
+      "options": ["KV缓存", "分词器", "训练损失", "logit向量，掩码会使目标语法无效的标记，使只有有效的续写可以被采样"],
+      "correct": 3,
+      "explanation": "logit处理器将无效标记设置为-inf，使softmax无法采样它们。"
+    },
+    {
+      "stage": "check",
+      "question": "为什么约束解码可能比自由生成更快？",
+      "options": ["模型更小", "强制脚手架标记（例如'{\"name\": \"'）可以直接发射而无需采样，有效标记搜索空间缩小", "它完全避免softmax", "它跳过反向传播"],
+      "correct": 1,
+      "explanation": "确定的标记跳过采样，减少的有效标记集缩小了解码成本。"
+    },
+    {
+      "stage": "check",
+      "question": "哪种模式设计选择防止模型过早承诺？",
+      "options": ["首先放'answer'", "使用更短的键", "在答案/决策字段之前放置推理字段，使模型在承诺之前先思考", "使用snake_case"],
+      "correct": 2,
+      "explanation": "字段顺序是逻辑：首先放推理让模型在锁定答案之前先思考。"
+    },
+    {
+      "stage": "check",
+      "question": "基于FSM的约束解码工具（如Outlines）的局限性是什么？",
+      "options": ["它们不是确定性的", "它们将你锁定到OpenAI", "递归模式必须被展平；真正的递归结构需要基于CFG的引擎，如XGrammar", "它们只支持枚举"],
+      "correct": 2,
+      "explanation": "FSM无法表示无界递归；CFG引擎处理它。"
+    },
+    {
+      "stage": "post",
+      "question": "为什么Instructor被描述为不修改logit？",
+      "options": ["Instructor将模式格式化到提示中并解析/重试输出；logit掩码在服务器端发生或根本不发生", "它使用梯度更新", "Anthropic需要", "它编辑提示"],
+      "correct": 0,
+      "explanation": "Instructor使用提供商侧结构化输出加上客户端验证和重试，而不是logit掩码。"
+    },
+    {
+      "stage": "post",
+      "question": "严格的正则表达式如date='YYYY-MM-DD'会引入什么问题？",
+      "options": ["它需要CFG支持", "它去除了未知值的任何退出路径，使模型捏造日期而不是返回null/哨兵", "它破坏JSON解析", "正则表达式很慢"],
+      "correct": 1,
+      "explanation": "过于严格的语法迫使模型发明值；始终允许未知情况使用null/哨兵。"
+    },
+    {
+      "stage": "post",
+      "question": "什么时候应该使用vLLM引导解码而不是供应商结构化输出API？",
+      "options": ["总是供应商", "仅用于微型模式", "仅用于字节级BPE", "控制模型的自托管推理，希望获得logit级保证而不需要重试"],
+      "correct": 3,
+      "explanation": "vLLM引导解码适用于具有logit级约束的自托管服务；供应商API将你锁定到他们的技术栈。"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "Reflexion在标准强化学习中替换了什么？",
+      "options": [
+        "用常数奖励替换奖励塑造",
+        "用存储在试验之间的自然语言反思替换梯度更新",
+        "用随机搜索替换策略网络",
+        "用参数记忆替换情节记忆"
+      ],
+      "correct": 1,
+      "explanation": "Reflexion使用情节记忆中的自然语言反思而不是权重更新。"
+    },
+    {
+      "stage": "pre",
+      "question": "定义Reflexion系统的三个组件是什么？",
+      "options": [
+        "规划者、工人、求解者",
+        "参与者、评估者、自我反思者",
+        "生成者、批评者、优化者",
+        "选择者、扩展者、反向传播者"
+      ],
+      "correct": 1,
+      "explanation": "Reflexion将代理分为运行轨迹的参与者、对其评分的评估者和编写教训的自我反思者。"
+    },
+    {
+      "stage": "check",
+      "question": "哪种评估者类型使用外部二元信号，如单元测试或已知正确答案？",
+      "options": [
+        "启发式",
+        "标量",
+        "自我评估",
+        "基于投票"
+      ],
+      "correct": 1,
+      "explanation": "标量评估者读取来自真实情况的通过/失败信号（ALFWorld成功、HumanEval测试）。"
+    },
+    {
+      "stage": "check",
+      "question": "为什么自我评估比标量反馈是较弱的信号？",
+      "options": [
+        "计算速度更慢",
+        "自我评判的模型没有外部基础，因此可以对自己的答案盖章通过",
+        "它总是需要更大的模型",
+        "它无法在工具上运行"
+      ],
+      "correct": 1,
+      "explanation": "自我评估缺乏外部检查，因此自信的幻觉得到高分；将其与工具接地验证配对。"
+    },
+    {
+      "stage": "check",
+      "question": "课程列出的Reflexion不起作用的情况是哪个？",
+      "options": [
+        "可以通过测试评分的代码生成",
+        "网络中断等外部瞬时故障",
+        "ALFWorld导航任务",
+        "HotpotQA多跳问题"
+      ],
+      "correct": 1,
+      "explanation": "对瞬时外部中断进行反思会产生对未来运行没有帮助的反思。"
+    },
+    {
+      "stage": "post",
+      "question": "Reflexion模式中的记忆腐烂是什么？",
+      "options": [
+        "进程重启时丢失反思",
+        "情节缓冲区充满过时或错误的反思，减慢或偏置未来试验",
+        "反思被提供商加密",
+        "反思提示超过上下文窗口"
+      ],
+      "correct": 1,
+      "explanation": "积累的陈旧或错误反思会降低行为；通过压缩或TTL来缓解。"
+    },
+    {
+      "stage": "post",
+      "question": "哪个生产模式与Reflexion最匹配？",
+      "options": [
+        "Cursor的apply-edits流程",
+        "Claude Code的CLAUDE.md学习内容在未来会话中预先添加",
+        "OpenAI的批量API",
+        "Anthropic的提示缓存"
+      ],
+      "correct": 1,
+      "explanation": "CLAUDE.md学习内容、pro-workflow的learn-rule和Letta的睡眠时计算都将情节反思缓冲区外部化。"
+    }
+  ]
+}

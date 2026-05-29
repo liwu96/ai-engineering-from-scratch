@@ -1,0 +1,88 @@
+{
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "Langfuse的许可证是什么？",
+      "options": [
+        "Apache 2.0",
+        "MIT（2025年6月开源后）",
+        "GPL v3",
+        "商业专有"
+      ],
+      "correct": 1,
+      "explanation": "Langfuse在2025年6月宣布开源后采用MIT许可证。"
+    },
+    {
+      "stage": "pre",
+      "question": "Phoenix在哪个领域最强？",
+      "options": [
+        "提示管理",
+        "深度代理专用评估、追踪聚类、异常检测",
+        "成本优化",
+        "模型微调"
+      ],
+      "correct": 1,
+      "explanation": "Phoenix（Arize）在代理专用评估、追踪聚类和异常检测方面表现最强。"
+    },
+    {
+      "stage": "check",
+      "question": "哪个平台集成了自动优化、护栏和幻觉检测？",
+      "options": [
+        "Langfuse",
+        "Phoenix",
+        "Opik",
+        "Weights & Biases"
+      ],
+      "correct": 2,
+      "explanation": "Opik（Comet）将自动提示优化、护栏和幻觉检测集成在同一平台。"
+    },
+    {
+      "stage": "check",
+      "question": "哪个平台提供一体化加提示管理？",
+      "options": [
+        "Langfuse",
+        "Phoenix",
+        "Opik",
+        "LangSmith"
+      ],
+      "correct": 0,
+      "explanation": "Langfuse提供完整的一体化平台，包含追踪、评估和提示管理。"
+    },
+    {
+      "stage": "check",
+      "question": "如何对待供应商基准数据？",
+      "options": [
+        "完全信任",
+        "作为方向参考；在自己的语料库上测量",
+        "完全忽略",
+        "仅用于营销比较"
+      ],
+      "correct": 1,
+      "explanation": "供应商基准是在精选数据集上测量的；应视为方向性参考，并在自己的数据上验证。"
+    },
+    {
+      "stage": "post",
+      "question": "只有追踪没有评估会导致什么？",
+      "options": [
+        "追踪太多导致成本增加",
+        "昂贵的日志，回归不可见",
+        "系统变慢",
+        "API密钥过期"
+      ],
+      "correct": 1,
+      "explanation": "没有评估的追踪只是昂贵的日志；没有评估就无法检测质量回归。"
+    },
+    {
+      "stage": "post",
+      "question": "自建LLM评判器需要注意什么？",
+      "options": [
+        "成本太高",
+        "CRITIC偏见适用；需要外部基准",
+        "延迟太高",
+        "不支持批处理"
+      ],
+      "correct": 1,
+      "explanation": "自建LLM评判器存在CRITIC偏见（过于宽容）；需要外部基准数据集来校准判断。"
+    }
+  ]
+}
