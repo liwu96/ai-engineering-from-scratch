@@ -409,6 +409,29 @@ function build() {
   console.log('🔍 Discovering outputs + Phase 14 missions...');
   const artifacts = discoverArtifacts();
 
+  // Inject real filesystem directory slugs so Chinese names don't break URL generation.
+  const phasesDir = path.join(REPO_ROOT, 'phases');
+  const phaseSlugMap = {};
+  const lessonSlugMap = {}; // { phaseId: { lessonIdx: dirName } }
+  for (const dir of fs.readdirSync(phasesDir).sort()) {
+    const pm = dir.match(/^(\d+)-(.+)$/);
+    if (!pm) continue;
+    const phaseId = parseInt(pm[1], 10);
+    phaseSlugMap[phaseId] = dir;
+    const lessonDirs = [];
+    for (const ldir of fs.readdirSync(path.join(phasesDir, dir)).sort()) {
+      if (/^\d{2}-/.test(ldir)) lessonDirs.push(ldir);
+    }
+    lessonSlugMap[phaseId] = lessonDirs;
+  }
+  for (const phase of phases) {
+    if (phaseSlugMap[phase.id]) phase.slug = phaseSlugMap[phase.id];
+    const lDirs = lessonSlugMap[phase.id] || [];
+    phase.lessons.forEach((lesson, idx) => {
+      if (!lesson.url && lDirs[idx]) lesson.slug = lDirs[idx];
+    });
+  }
+
   console.log('📚 Extracting lesson summaries + keywords from docs/en.md...');
   let summarized = 0, withKeywords = 0;
   for (const phase of phases) {

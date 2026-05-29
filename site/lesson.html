@@ -1737,6 +1737,7 @@
       fetchLesson(lessonPath);
 
       function extractPhaseSlug(phase, index) {
+        if (phase.slug) return phase.slug;
         if (phase.url) {
           var m = phase.url.match(/phases\/([^/]+)/);
           if (m) return m[1];
@@ -1749,6 +1750,7 @@
       }
 
       function extractLessonSlug(lesson, index) {
+        if (lesson.slug) return lesson.slug;
         if (lesson.url) {
           var m = lesson.url.match(/phases\/[^/]+\/([^/]+)/);
           if (m) return m[1].replace(/\/$/, '');
